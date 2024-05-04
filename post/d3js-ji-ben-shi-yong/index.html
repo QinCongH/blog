@@ -1,0 +1,835 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>【d3Js】基本使用 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="【d3Js】基本使用 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="学习文档
+https://www.cnblogs.com/zhinian-/p/12575441.html
+1. HelloWorld
+1-1， 没有子节点时插入标签
+select选择标签，selectAll选择标签下的子集，append插..." />
+  <meta name="keywords" content="es6" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            【d3Js】基本使用
+          </h2>
+          <div class="post-info">
+            <span>
+              2024-03-05
+            </span>
+            <span>
+              14 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/YEr5SsLJh/" class="post-tag">
+              # es6
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <p><a href="https://doc.yonyoucloud.com/doc/wiki/project/d3wiki/index.html">学习文档</a></p>
+<p><a href="https://www.cnblogs.com/zhinian-/p/12575441.html">https://www.cnblogs.com/zhinian-/p/12575441.html</a></p>
+<h1 id="1-helloworld">1. HelloWorld</h1>
+<h2 id="1-1-没有子节点时插入标签">1-1， 没有子节点时插入标签</h2>
+<p>select选择标签，selectAll选择标签下的子集，append插入节点，text插入文本</p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+onMounted(() =&gt; {
+    select(&quot;.main&quot;).append(&quot;p&quot;).text(&quot;hello world&quot;);
+});
+defineProps&lt;{ msg: string }&gt;();
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<h2 id="1-2-有子节点时插入标签">1-2. 有子节点时插入标签</h2>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+onMounted(() =&gt; {
+  select(&quot;.main&quot;).selectAll(&quot;p&quot;).text(&quot;hello world&quot;);
+});
+defineProps&lt;{ msg: string }&gt;();
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<pre><code>d3.select()：是选择所有指定元素的第一个
+d3.selectAll()：是选择指定元素的全部
+</code></pre>
+<h1 id="2-绑定数据">2. 绑定数据</h1>
+<h2 id="2-1-datum">2-1. datum</h2>
+<p>将数据重复绑定到节点。<br>
+先选中节点，在使用<code>datum</code>绑定到api节点</p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+/**
+ * 2. 绑定数据
+ */
+// 2-1. datum 将数据重复绑定到节点
+let str = `hello world`;
+onMounted(() =&gt; {
+  select(&quot;.main&quot;)
+    .selectAll(&quot;p&quot;)
+    .datum(str)
+    .text((d, i) =&gt; {
+      return `第${i}个元素,${d}`;
+    });
+});
+defineProps&lt;{ msg: string }&gt;();
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h2 id="2-2-data">2-2. data</h2>
+<p>将数据集合分别绑定到节点</p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+/**
+ * 2. 绑定数据
+ */
+// 2-2.data 将数据集合分别绑定到节点
+const data = [1, 2, 3, 4];
+onMounted(() =&gt; {
+  select(&quot;.main&quot;)
+    .selectAll(&quot;p&quot;)
+    .data(data)
+    .text((d, i) =&gt; {
+      return `第${i}个元素,${d}`;
+    });
+});
+defineProps&lt;{ msg: string }&gt;();
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<p>text方法循环遍历：</p>
+<pre><code>// d代表值，i代表索引
+text((d, i) =&gt; {
+      return `第${i}个元素,${d}`;
+    });
+</code></pre>
+<h1 id="3-插入元素">3. 插入元素</h1>
+<p>append向后插入元素<br>
+insert向前插入元素</p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+/**
+ * 3. 插入元素
+ */
+// 3-1. append
+onMounted(() =&gt; {
+  select(&quot;.main&quot;).append(&quot;span&quot;).text(&quot;往后插入元素&quot;);
+});
+// 3-2.insert
+onMounted(() =&gt; {
+  select(&quot;.main&quot;).insert(&quot;span&quot;).text(&quot;往前插入元素&quot;);
+});
+defineProps&lt;{ msg: string }&gt;();
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h1 id="4-删除节点">4. 删除节点</h1>
+<p>remove()</p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+/**
+ * 4. 删除元素
+ */
+function del() {
+  select(&quot;.isme&quot;).remove();
+}
+defineProps&lt;{ msg: string }&gt;();
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;
+    &lt;button @click=&quot;del&quot;&gt;删除p节点1&lt;/button&gt;
+    &lt;p class=&quot;isme&quot;&gt;1&lt;/p&gt;
+    &lt;p&gt;3&lt;/p&gt;
+    &lt;p&gt;4&lt;/p&gt;
+    &lt;p&gt;5&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<h1 id="5-元素与数据数量对应的标记回调">5. 元素与数据数量对应的标记回调</h1>
+<h2 id="5-1-默认情况">5-1. 默认情况</h2>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+
+/**
+ * @desc 元素与数据数量对应的标记回调
+ */
+// 1. 默认情况 绑定数据数量=对应数量
+onMounted(() =&gt; {
+  let data = [1, 2, 3, 4];
+  selectAll(&quot;p&quot;)
+    .data(data)
+    .text((d, i) =&gt; {
+      return `第${i}个元素,${d}`;
+    })
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;
+    &lt;p class=&quot;isme&quot;&gt;1&lt;/p&gt;
+    &lt;p&gt;3&lt;/p&gt;
+    &lt;p&gt;4&lt;/p&gt;
+    &lt;p&gt;5&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h2 id="5-2-enter-绑定数据数量对应数量">5-2.  enter 绑定数据数量&gt;对应数量</h2>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+
+/**
+ * @desc 元素与数据数量对应的标记回调
+ */
+// 1. 默认情况 绑定数据数量=对应数量
+onMounted(() =&gt; {
+  let data = [1, 2, 3, 4, 5];
+  select(&quot;.main&quot;)
+    .selectAll(&quot;p&quot;)
+    .data(data)
+    .text((d, i) =&gt; {
+      return `第${i}个元素,${d}`;
+    })
+    .enter()
+    // 处理多余数据
+    .append(&quot;p&quot;)
+    .text((d, i) =&gt; {
+      console.info(d);
+      return d;
+    });
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;
+    &lt;p class=&quot;isme&quot;&gt;1&lt;/p&gt;
+    &lt;p&gt;3&lt;/p&gt;
+    &lt;p&gt;4&lt;/p&gt;
+    &lt;p&gt;5&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h2 id="5-3-exit-当对应的元素过多时-绑定数据数量-对应元素">5-3. exit() 当对应的元素过多时 （ 绑定数据数量 &lt; 对应元素 ）</h2>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from &quot;vue&quot;;
+import { select, selectAll } from &quot;d3&quot;;
+
+/**
+ * @desc 元素与数据数量对应的标记回调
+ */
+// 3. exit 绑定数据数量 &lt; 对应元素
+onMounted(() =&gt; {
+  let data = [1, 2, 3];
+  select(&quot;.main&quot;)
+    .selectAll(&quot;p&quot;)
+    .data(data)
+    .text((d, i) =&gt; {
+      return `第${i}个元素,${d}`;
+    })
+    .exit()
+    // 处理多余元素
+    .remove();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;main&quot;&gt;
+    &lt;p class=&quot;isme&quot;&gt;1&lt;/p&gt;
+    &lt;p&gt;3&lt;/p&gt;
+    &lt;p&gt;4&lt;/p&gt;
+    &lt;p&gt;5&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h1 id="6-画图">6. 画图</h1>
+<p>先了解一下svg标签组成<br>
+直角坐标系原点在网页窗口左上角，水平向右是x轴正轴，垂直向下是y轴正轴。<br>
+<img src="https://pic4.zhimg.com/v2-2a434e92abfed75eec8adaea80387e0f_r.jpg" alt="" loading="lazy"></p>
+<h2 id="6-1-矩形rect">6-1. 矩形（rect）</h2>
+<pre><code>onMounted(() =&gt; {
+  const svg = select(&quot;svg&quot;);
+  svg
+    // 设置画布宽高
+    .attr(&quot;width&quot;, 500)
+    .attr(&quot;height&quot;, 500)
+    // 设置矩形
+    .append(&quot;rect&quot;)
+    .attr(&quot;width&quot;, 100)
+    .attr(&quot;height&quot;, 100)
+    // 位置
+    .attr(&quot;x&quot;, 0)
+    .attr(&quot;y&quot;, 0)
+    .attr(&quot;fill&quot;, &quot;blue&quot;);
+});
+</code></pre>
+<h2 id="6-2-画一个圆circle">6-2. 画一个圆(circle)</h2>
+<pre><code>onMounted(() =&gt; {
+  const data = [1, 2, 3];
+  select(&quot;.main&quot;)
+    .selectAll(&quot;svg&quot;)
+    .attr(&quot;width&quot;, 500)
+    .attr(&quot;height&quot;, 500)
+    .append(&quot;circle&quot;)
+    .attr(&quot;cx&quot;, 100)
+    .attr(&quot;cy&quot;, 100)
+    .attr(&quot;r&quot;, 50)
+    .attr(&quot;fill&quot;, &quot;red&quot;)
+    .text(&quot;nihaa&quot;)
+    .color(&quot;red&quot;);
+});
+</code></pre>
+<h2 id="6-3-画一个三角形-polygon">6-3. 画一个三角形 (polygon)</h2>
+<pre><code>onMounted(() =&gt; {
+  // 创建 SVG 元素
+  var svg = select(&quot;.main&quot;)
+    .selectAll(&quot;svg&quot;)
+    .attr(&quot;width&quot;, 200)
+    .attr(&quot;height&quot;, 200);
+
+  // 定义三角形a,b,c三个顶点的坐标
+  var points = &quot;20,20 20,100 120,100&quot;;
+  // 绘制三角形 使用polygon多边形
+  svg
+    .append(&quot;polygon&quot;)
+    .attr(&quot;points&quot;, points)
+    .style(&quot;fill&quot;, &quot;yellow&quot;)
+    .style(&quot;stroke&quot;, &quot;red&quot;);
+});
+</code></pre>
+<h2 id="6-4-画一个线line">6-4. 画一个线(line)</h2>
+<pre><code>onMounted(() =&gt; {
+  select(&quot;.main&quot;)
+    .selectAll(&quot;svg&quot;)
+    .attr(&quot;width&quot;, 200)
+    .attr(&quot;height&quot;, 200)
+    // 直线
+    .append(&quot;line&quot;)
+    .attr(&quot;x1&quot;, 50)
+    .attr(&quot;y1&quot;, 50)
+    .attr(&quot;x2&quot;, 120)
+    .attr(&quot;y2&quot;, 120)
+    .attr(&quot;stroke&quot;, &quot;red&quot;)
+    .attr(&quot;stroke-width&quot;, 1);
+});
+</code></pre>
+<h1 id="6-拖拽">6. 拖拽</h1>
+<pre><code>  /**
+     * @desc 元素实现拖拽  = 适合单个元素拖拽
+     */
+    elementDrag({
+        element,
+        key,
+        onDragStart,
+        onDragEnd,
+        onDrag
+    }) {
+        let currentSvg = null;
+        if (element) {
+            currentSvg = element
+        } else {
+            currentSvg = d3.select(`[key=${key}]`)
+        }
+        const dragBehavior = d3.drag()
+            .on(&quot;start&quot;, function (event) {
+                const x = event.x;
+                const y = event.y;
+                currentSvg.attr(&quot;x&quot;, x);
+                currentSvg.attr(&quot;y&quot;, y);
+
+                onDragStart(event)
+                // console.log(&quot;拖拽开始&quot;, event);
+            })
+            .on(&quot;drag&quot;, (event) =&gt; {
+                // 根据拖拽的行为更新矩形的位置
+                onDrag(event)
+                let x = event.x;
+                let y = event.y;
+                console.info(event.x, event.y)
+                // currentSvg.attr(&quot;x&quot;, x);
+                // currentSvg.attr(&quot;y&quot;, y);
+                // 限制矩形不超出SVG画布边界
+                const svgWidth = Number(this.svg.attr('width'));
+                const svgHeight = Number(this.svg.attr('height'));
+                const ractWidth = Number(currentSvg.attr('height'));
+                const ractHeight = Number(currentSvg.attr('height'));
+                x = Math.min(Math.max(x, 0), svgWidth - ractWidth);
+                y = Math.min(Math.max(y, 0), svgHeight - ractHeight);
+                currentSvg.attr(&quot;x&quot;, x);
+                currentSvg.attr(&quot;y&quot;, y);
+                currentSvg.transition()
+                    .duration(500)
+            })
+            .on(&quot;end&quot;, function (event) {
+                onDragEnd(event)
+                console.log(&quot;拖拽结束&quot;, event);
+                currentSvg.attr(&quot;x&quot;, event.x);
+                currentSvg.attr(&quot;y&quot;, event.y);
+            })
+        // 应用拖拽行为到矩形
+        currentSvg.call(dragBehavior);
+    }
+    /**
+     * @desc 获取拖拽实例 用于多个拖拽时处罚
+     * 
+     */ 
+    getDragBehavior({
+        onDragStart,
+        onDragEnd,
+        onDrag
+    }) {
+        const that=this;
+        return d3.drag()
+            .on(&quot;start&quot;, function (event, d) {
+                onDragStart(event)
+                d3.select(this).raise().classed(&quot;active&quot;, true);
+            })
+            .on(&quot;drag&quot;, function (event, d) {
+                // 计算新位置
+                d.x = parseFloat(d.x) + event.dx;
+                d.y = parseFloat(d.y) + event.dy;
+                console.info('MyD3.svg',that.svg)
+                // 限制矩形不超出SVG画布边界
+                const svgWidth = Number(that.svg.attr('width'));
+                const svgHeight = Number(that.svg.attr('height'));
+                const ractWidth = d.width;
+                const ractHeight = d.height;
+                d.x = Math.min(Math.max(d.x, 0), svgWidth - ractWidth);
+                d.y = Math.min(Math.max(d.y , 0), svgHeight - ractHeight);
+                // 更新位置
+                d3.select(this)
+                    .attr(&quot;x&quot;, d.x)
+                    .attr(&quot;y&quot;, d.y);
+                onDrag(event)
+            })
+            .on(&quot;end&quot;, function (event, d) {
+                onDragEnd(event)
+                d3.select(this).classed(&quot;active&quot;, false);
+            })
+    }
+</code></pre>
+<h1 id="7-力导向图">7. 力导向图</h1>
+<p><code>d3.forceSimulation</code>是D3.js中用于创建和控制力导向图的函数。它通过模拟物理力的作用（如引力、斥力等）来对节点进行布局。这里是一些基本的参数和概念介绍：</p>
+<h2 id="创建力模拟">创建力模拟</h2>
+<p>当你创建一个力模拟时，可以传递一个节点数组给<code>d3.forceSimulation(nodes)</code>，其中<code>nodes</code>是包含节点数据的数组。每个节点至少包含节点的唯一标识符。</p>
+<pre><code class="language-javascript">var simulation = d3.forceSimulation(nodes);
+</code></pre>
+<h2 id="力">力</h2>
+<p>力模拟中的“力”用于定义节点如何相互作用。D3提供了多种内置力的类型，每种力都有其特定的参数和作用。</p>
+<ul>
+<li><strong>d3.forceLink(links)</strong>：根据链接数组创建链接力，用于连接节点。可以设置链接的距离和强度。</li>
+<li><strong>d3.forceManyBody()</strong>：创建多体力，用于模拟节点之间的引力或斥力。</li>
+<li><strong>d3.forceCenter(x, y)</strong>：创建一个力，将节点向指定的中心点(x, y)吸引。</li>
+<li><strong>d3.forceCollide([radius])</strong>：创建一个碰撞力，防止节点重叠，可以指定碰撞半径。</li>
+</ul>
+<h3 id="力的参数">力的参数</h3>
+<p>每种力都有其特定的参数，可以通过链式调用的方式设置。例如，为链接力设置距离：</p>
+<pre><code class="language-javascript">simulation.force(&quot;link&quot;, d3.forceLink(links).distance(50));
+</code></pre>
+<h2 id="节点和链接的数据结构">节点和链接的数据结构</h2>
+<ul>
+<li><strong>节点</strong>（nodes）：通常是一个对象数组，每个对象代表图中的一个节点。节点对象可以包含任意属性，但是力模拟会添加一些特定的属性，如<code>x</code>、<code>y</code>（节点的当前位置）、<code>vx</code>、<code>vy</code>（节点的当前速度）等。</li>
+<li><strong>链接</strong>（links）：表示节点之间的连接，通常也是一个对象数组。每个对象代表一个链接，至少包含<code>source</code>和<code>target</code>属性，这些属性指向节点数组中的节点或节点的索引。</li>
+</ul>
+<h2 id="更新和控制模拟">更新和控制模拟</h2>
+<p>力模拟提供了控制其行为的方法，如<code>simulation.alpha(target)</code>用于设置模拟的冷却参数，<code>simulation.restart()</code>用于重启模拟等。</p>
+<h2 id="事件监听">事件监听</h2>
+<p>可以监听力模拟的事件，如<code>tick</code>事件，在每个模拟步骤时执行特定的操作，通常用于更新节点和链接的位置。</p>
+<pre><code class="language-javascript">simulation.on(&quot;tick&quot;, function() {
+    // 更新节点和链接的位置
+});
+</code></pre>
+<p>通过组合不同的力和调整它们的参数，你可以创建复杂且动态的力导向图表现。</p>
+<h1 id="8-d3js的一些技巧">8. d3Js的一些技巧</h1>
+<h2 id="1-力导向图元素定位技巧">1. 力导向图元素定位技巧</h2>
+<ol>
+<li>监听拖拽</li>
+<li>监听力方法</li>
+<li>创建时的更新位置</li>
+</ol>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-helloworld">1. HelloWorld</a>
+<ul>
+<li><a href="#1-1-%E6%B2%A1%E6%9C%89%E5%AD%90%E8%8A%82%E7%82%B9%E6%97%B6%E6%8F%92%E5%85%A5%E6%A0%87%E7%AD%BE">1-1， 没有子节点时插入标签</a></li>
+<li><a href="#1-2-%E6%9C%89%E5%AD%90%E8%8A%82%E7%82%B9%E6%97%B6%E6%8F%92%E5%85%A5%E6%A0%87%E7%AD%BE">1-2. 有子节点时插入标签</a></li>
+</ul>
+</li>
+<li><a href="#2-%E7%BB%91%E5%AE%9A%E6%95%B0%E6%8D%AE">2. 绑定数据</a>
+<ul>
+<li><a href="#2-1-datum">2-1. datum</a></li>
+<li><a href="#2-2-data">2-2. data</a></li>
+</ul>
+</li>
+<li><a href="#3-%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0">3. 插入元素</a></li>
+<li><a href="#4-%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9">4. 删除节点</a></li>
+<li><a href="#5-%E5%85%83%E7%B4%A0%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%95%B0%E9%87%8F%E5%AF%B9%E5%BA%94%E7%9A%84%E6%A0%87%E8%AE%B0%E5%9B%9E%E8%B0%83">5. 元素与数据数量对应的标记回调</a>
+<ul>
+<li><a href="#5-1-%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5">5-1. 默认情况</a></li>
+<li><a href="#5-2-enter-%E7%BB%91%E5%AE%9A%E6%95%B0%E6%8D%AE%E6%95%B0%E9%87%8F%E5%AF%B9%E5%BA%94%E6%95%B0%E9%87%8F">5-2.  enter 绑定数据数量&gt;对应数量</a></li>
+<li><a href="#5-3-exit-%E5%BD%93%E5%AF%B9%E5%BA%94%E7%9A%84%E5%85%83%E7%B4%A0%E8%BF%87%E5%A4%9A%E6%97%B6-%E7%BB%91%E5%AE%9A%E6%95%B0%E6%8D%AE%E6%95%B0%E9%87%8F-%E5%AF%B9%E5%BA%94%E5%85%83%E7%B4%A0">5-3. exit() 当对应的元素过多时 （ 绑定数据数量 &lt; 对应元素 ）</a></li>
+</ul>
+</li>
+<li><a href="#6-%E7%94%BB%E5%9B%BE">6. 画图</a>
+<ul>
+<li><a href="#6-1-%E7%9F%A9%E5%BD%A2rect">6-1. 矩形（rect）</a></li>
+<li><a href="#6-2-%E7%94%BB%E4%B8%80%E4%B8%AA%E5%9C%86circle">6-2. 画一个圆(circle)</a></li>
+<li><a href="#6-3-%E7%94%BB%E4%B8%80%E4%B8%AA%E4%B8%89%E8%A7%92%E5%BD%A2-polygon">6-3. 画一个三角形 (polygon)</a></li>
+<li><a href="#6-4-%E7%94%BB%E4%B8%80%E4%B8%AA%E7%BA%BFline">6-4. 画一个线(line)</a></li>
+</ul>
+</li>
+<li><a href="#6-%E6%8B%96%E6%8B%BD">6. 拖拽</a></li>
+<li><a href="#7-%E5%8A%9B%E5%AF%BC%E5%90%91%E5%9B%BE">7. 力导向图</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%8A%9B%E6%A8%A1%E6%8B%9F">创建力模拟</a></li>
+<li><a href="#%E5%8A%9B">力</a>
+<ul>
+<li><a href="#%E5%8A%9B%E7%9A%84%E5%8F%82%E6%95%B0">力的参数</a></li>
+</ul>
+</li>
+<li><a href="#%E8%8A%82%E7%82%B9%E5%92%8C%E9%93%BE%E6%8E%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">节点和链接的数据结构</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0%E5%92%8C%E6%8E%A7%E5%88%B6%E6%A8%A1%E6%8B%9F">更新和控制模拟</a></li>
+<li><a href="#%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC">事件监听</a></li>
+</ul>
+</li>
+<li><a href="#8-d3js%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7">8. d3Js的一些技巧</a>
+<ul>
+<li><a href="#1-%E5%8A%9B%E5%AF%BC%E5%90%91%E5%9B%BE%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7">1. 力导向图元素定位技巧</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/nvm-de-shi-yong/">
+          <h3 class="post-title">
+            nvm的使用
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

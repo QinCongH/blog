@@ -1,0 +1,726 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>业务 - 实现即时通讯(websocket与socket） | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="业务 - 实现即时通讯(websocket与socket） | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="1.介绍
+
+如果要实现服务端主动给客户端发送消息，可以使用轮询的方法，axios隔一段时间请求一次接口，该方法效率低。解决这种问题的最好方法是使用websocket服务端主动给客户端发送消息 。
+
+2.技术向
+node,express-ws..." />
+  <meta name="keywords" content="nodeJs" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            业务 - 实现即时通讯(websocket与socket）
+          </h2>
+          <div class="post-info">
+            <span>
+              2024-01-09
+            </span>
+            <span>
+              11 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/E7wJE8AQv/" class="post-tag">
+              # nodeJs
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="1介绍">1.介绍</h1>
+<blockquote>
+<p>如果要实现服务端主动给客户端发送消息，可以使用轮询的方法，axios隔一段时间请求一次接口，该方法效率低。解决这种问题的最好方法是使用websocket服务端主动给客户端发送消息 。</p>
+</blockquote>
+<h1 id="2技术向">2.技术向</h1>
+<p><code>node</code>,<code>express-ws</code>,<code>express</code>，<code>socket.io</code></p>
+<h1 id="3express-ws实现一对一聊天思路">3.express-ws实现一对一聊天思路</h1>
+<h2 id="3-1下载依赖">3-1.下载依赖</h2>
+<blockquote>
+<p>创建项目文件，app.js入口文件,websocket.js文件;使用npm下载依赖</p>
+</blockquote>
+<pre><code>npm i express-ws
+</code></pre>
+<h2 id="3-2入口文件引入依赖">3-2.入口文件引入依赖</h2>
+<blockquote>
+<p>app.js</p>
+</blockquote>
+<pre><code>//入口文件
+const express = require('express')
+//引入express-ws
+const expressWs=require('express-ws')
+const websocket=require(&quot;./websocket/websocket&quot;)    //引入依赖文件
+const app = express()
+expressWs(app)  //实例化
+app.use('/ws',websocket)    //配置websocket,客户端连接时按照 &quot;/ws&quot;规则匹配路径
+app.use(express.static('public'))  //配置静态文件
+//创建视图文件链接数据库
+app.use(&quot;/index&quot;,express.static('public/index.html'))
+app.use(&quot;/page2&quot;,express.static('public/index-1.html'))
+app.listen(2001, () =&gt; {
+    console.log('localhost:2001')
+})
+</code></pre>
+<h2 id="3-3websocketjs建立连接">3-3.websocket.js建立连接</h2>
+<blockquote>
+<p>注意点：</p>
+<ol>
+<li>一个客户端对应一个 websocket连接</li>
+<li>创建数组存储客户端发送来的消息，一个websocket连接对应一个数组</li>
+<li>创建定时器监听websocket发送的消息实现广播发送</li>
+</ol>
+</blockquote>
+<pre><code>//引入模块
+const express = require(&quot;express&quot;)
+const expressWs = require(&quot;express-ws&quot;)
+const router = express.Router()
+expressWs(router)
+var arr1 = []
+var arr2 = []
+//websocket1
+router.ws(&quot;/test-1&quot;, ws =&gt; {
+    //send发数据
+    ws.send(&quot;---连接成功!---&quot;)
+    let interval
+    interval = setInterval(() =&gt; {
+        if (ws.readyState === ws.OPEN) {
+            if (arr2.length &gt; 0) {
+                let msg = arr2[0]
+                arr2.shift()
+                ws.send(msg)
+            }
+            // ws.send(Math.random().toFixed(2))
+        } else {
+            clearInterval(interval)
+        }
+    }, 1000)
+    //接受客户端发来的数据
+    ws.on(&quot;message&quot;, (msg) =&gt; {
+        arr1.push(msg)
+    })
+    // close 事件表示客户端断开连接时执行的回调函数
+    ws.on('close', (e) =&gt; {
+             if(interval){
+               clearInterval(interval)
+            }
+        console.log('close connection')
+    })
+})
+//websocket2
+router.ws(&quot;/test-2&quot;, ws =&gt; {
+    //send发数据
+    ws.send(&quot;---连接成功!---&quot;)
+    let interval
+    interval = setInterval(() =&gt; {
+        if (ws.readyState === ws.OPEN) {
+            if (arr1.length &gt; 0) {
+                let msg = arr1[0]
+                arr1.shift()
+                ws.send(msg)
+            }
+            // ws.send(Math.random().toFixed(2))
+        } else {
+            clearInterval(interval)
+        }
+    }, 1000)
+    //接受客户端发来的数据
+    ws.on(&quot;message&quot;, (msg) =&gt; {
+        //把数据返回给客户端
+        arr2.push(msg)
+        // ws.send(msg)
+    })
+    // close 事件表示客户端断开连接时执行的回调函数
+    ws.on('close', (e) =&gt; {
+      if(interval){
+         clearInterval(interval)
+            }
+
+        console.log('close connection')
+    })
+
+})
+module.exports = router
+</code></pre>
+<h2 id="3-4视图文件连接服务端">3-4.视图文件连接服务端</h2>
+<blockquote>
+<p>客户端连接时使用ws协议；&quot;/ws&quot;规则匹配路径。</p>
+</blockquote>
+<blockquote>
+<p>页面1.<code>index.html </code></p>
+</blockquote>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        --page1--
+        &lt;button class=&quot;btn&quot;&gt;
+            发送
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;script&gt;
+     const startSocket = () =&gt; {
+        // Create WebSocket connection.
+        const socket = new WebSocket('ws://localhost:2001/ws/test-1');
+        // // Connection opened    //建立连接
+        socket.addEventListener('open', function (event) {
+            console.log(`WebSocket 连接状态`, JSON.stringify(event))
+        });
+
+        // Listen for messages  //接收消息
+        socket.addEventListener('message', function (event) {
+            console.log('Message from server ', event.data);
+        });
+
+        socket.addEventListener('close', function (event) {
+            console.log('WebSocket连接已关闭')
+            startSocket()
+        });
+        //客户端发送消息
+        const btn = document.querySelector('.btn')
+        btn.onclick = () =&gt; {
+            socket.send('page1发送了一条消息！')
+        }
+    }
+    startSocket()
+&lt;/script&gt;
+
+&lt;/html&gt;
+</code></pre>
+<blockquote>
+<p>页面2.<code>index-1.html </code></p>
+</blockquote>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        page2
+        &lt;button class=&quot;btn&quot;&gt;
+            发送
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;script&gt;
+    const startSocket = () =&gt; {
+        // Create WebSocket connection.
+        const socket = new WebSocket('ws://localhost:2001/ws/test-2');
+        // // Connection opened    //建立连接
+        socket.addEventListener('open', function (event) {
+            console.log(`WebSocket 连接状态`, JSON.stringify(event))
+        });
+
+        // Listen for messages  //接收消息
+        socket.addEventListener('message', function (event) {
+            console.log('Message from server ', event.data);
+        });
+
+        socket.addEventListener('close', function (event) {
+            console.log('WebSocket连接已关闭')
+            startSocket()
+        });
+        //客户端发送消息
+        const btn = document.querySelector('.btn')
+        btn.onclick = () =&gt; {
+            socket.send('page2发送了一条消息！')
+        }
+    }
+    startSocket()
+&lt;/script&gt;
+
+&lt;/html&gt;
+</code></pre>
+<h2 id="3-5效果">3-5.效果</h2>
+<blockquote>
+<p>页面一发送消息页面二可以接收到消息<br>
+<img src="/api/public/image/files.0-1672303113216.png" alt="" loading="lazy"><br>
+<img src="/api/public/image/files.0-1672303180659.png" alt="" loading="lazy"></p>
+</blockquote>
+<h1 id="4socketio实现多人聊天">4.socket.io实现多人聊天</h1>
+<blockquote>
+<p>Socket.IO 是一个库，可以在客户端和服务器之间实现 低延迟, 双向 和 基于事件的 通信。建立在 WebSocket 协议之上，并提供额外的保证，例如回退到 HTTP 长轮询或自动重新连接。</p>
+</blockquote>
+<h2 id="4-1安装">4-1.安装</h2>
+<ul>
+<li>服务端<br>
+<code>npm install socket.io</code></li>
+<li>客户端<br>
+<code>   &lt;script src=&quot;https://cdn.socket.io/4.4.1/socket.io.min.js&quot;       integrity=&quot;sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H&quot; crossorigin=&quot;anonymous&quot;&gt;   &lt;/script&gt;</code></li>
+</ul>
+<h2 id="4-2服务端建立socket">4-2.服务端建立socket</h2>
+<blockquote>
+<ol>
+<li>socket监听当前http服务器，创建socket服务器 <code>const io = require('socket.io')(server);</code></li>
+<li><code>io.emit('事件名',值)</code> 服务器向所有客户端推送消息</li>
+<li><code>io.on('connection',function(socket){...})</code> 服务器监听当前连接成功的客户端</li>
+<li><code>socket.emit('事件名',值)</code> 服务器向客户端推送消息</li>
+<li><code>socket.on('事件名',function(res){...})</code> 服务器接收客户端发送的消息</li>
+</ol>
+</blockquote>
+<pre><code>//入口文件
+const express = require('express')
+const app = express()
+//配置静态文件
+app.use(express.static('public'))  
+app.use(&quot;/index-1&quot;,express.static('public/index-1.html'))
+app.use(&quot;/index-2&quot;,express.static('public/index-2.html'))
+//创建http服务器
+var server = require('http').createServer(app);
+//监听端口3000，如果被占用可以选择其他的端口
+server.listen(3001,function(){
+	console.log(&quot;3001端口已经被启动.....&quot;);
+})
+//创建socket服务器 io
+const io = require('socket.io')(server);
+var count=0;//统计正在连接的客户端人数
+//监听客户端连接，
+io.on('connection',function(socket){//sokcet表示当前连接成功的客户端
+	//监听客户端登录成功
+	socket.on('login',function(res){
+		//记录当前用户的匿名
+		socket.username = res;
+		console.log('名字:',socket.username)
+		//进入连接count++
+		count++;
+		//向所有客户端推送当前连接人数
+		io.emit('count',count)
+		//服务器向当前客户端推送消息，连接成功,
+		socket.emit('message',{name:socket.username,msg:'连接成功'+(new Date())});
+	})
+	//监听客户端的发送的消息
+	socket.on('send',function(res){
+		// console.log('客户端有发来消息');
+		//服务器向所有连接的客户端推向消息
+		io.emit('message',{name:socket.username,msg:res});
+	});
+	//监听客户端断开连接
+	socket.on('disconnect',function(){
+		//断开连接count--;
+		count--;
+		//向所有客户端发送当前连接人数
+		io.emit('count',count);
+	})
+})
+
+</code></pre>
+<h2 id="4-5封装socketjs文件">4-5.封装socket.js文件</h2>
+<h3 id="4-5-1添加socketjs文件">4-5-1.添加socket.js文件</h3>
+<pre><code>/*
+socketio.js封装文件
+*/
+const { Server } = require('socket.io');
+let socketio = {};
+//获取io
+//执行socket
+socketio.getSocketio = function (server) {
+  let io = new Server(server, { cors: true });
+  //编写代码
+  io.sockets.on('connection', function (socket) {
+    console.log('连接成功');
+    
+  });
+};
+ 
+module.exports = socketio;
+</code></pre>
+<h3 id="4-5-2引入封装">4-5-2.引入封装</h3>
+<blockquote>
+<p>首先:引入上面封装好的socket.js文件,在<code>const http = require('http')</code>后面加入<code>const io = require('…/socketio');</code>然后在<code>const server = http.createServer(app);</code>后面加入<code>io.getSocketio(server);</code><br>
+<img src="/api/public/image/files.0-1672512711193.png" alt="" loading="lazy"></p>
+</blockquote>
+<h2 id="4-5客户端连接socket">4-5.客户端连接socket</h2>
+<blockquote>
+<p>1.创建socket实例 <code>const socket = io.connect('http://localhost:3001');</code><br>
+2. <code>socket.emit('事件名',值)</code> 客户端向服务器推送消息<br>
+3. <code>socket.on('事件名',function(res){...})</code> 客户端接收服务器发送的消息</p>
+</blockquote>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;script src=&quot;https://cdn.socket.io/4.4.1/socket.io.min.js&quot;
+        integrity=&quot;sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H&quot; crossorigin=&quot;anonymous&quot;&gt;
+    &lt;/script&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;button class=&quot;btn&quot;&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;script&gt;
+    //模拟id
+    const generateId = () =&gt; { //获取随机id
+        const s = [];
+        const hexDigits = '0123456789abcdef';
+        for (let i = 0; i &lt; 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        // bits 12-15 of the time_hi_and_version field to 0010
+        s[14] = '4';
+        // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[19] = hexDigits.substr((s[19] &amp; 0x3) | 0x8, 1);
+        s[8] = s[13] = s[18] = s[23] = '-';
+        const uuid = s.join('');
+        return uuid;
+    }
+    let userid = generateId()
+
+    //连接socket
+    const socket = io.connect('http://localhost:3001');
+    //@1.接受服务端消息
+    socket.on('count', (res) =&gt; {
+        console.log('count', res)
+    })
+
+    //连接成功时触发
+    socket.on('connect', function () {
+        console.log('连接成功');
+    });
+
+    //连接断开时触发
+    socket.on('disconnect', function () {
+        console.log('连接断开');
+    });
+
+    //收到消息时触发
+    socket.on('message', (res) =&gt; {
+        console.log('message', res)
+    })
+
+    //@2.向服务端发送消息
+    //用户登陆
+    socket.emit('login', userid)
+    let btn = document.querySelector('.btn')
+    btn.innerText = `用户${userid}`
+    btn.onclick = () =&gt; {
+        socket.emit('send', `${userid}发送一条消息`)
+    }
+&lt;/script&gt;
+
+&lt;/html&gt;
+</code></pre>
+<h2 id="4-4效果">4-4.效果：</h2>
+<blockquote>
+<p>同一个服务器下客户端发送消息其他客户端可以收到消息<br>
+<img src="/api/public/image/files.0-1672303294618.png" alt="" loading="lazy"><br>
+<img src="/api/public/image/files.0-1672303315277.png" alt="" loading="lazy"></p>
+</blockquote>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1%E4%BB%8B%E7%BB%8D">1.介绍</a></li>
+<li><a href="#2%E6%8A%80%E6%9C%AF%E5%90%91">2.技术向</a></li>
+<li><a href="#3express-ws%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%AF%B9%E4%B8%80%E8%81%8A%E5%A4%A9%E6%80%9D%E8%B7%AF">3.express-ws实现一对一聊天思路</a>
+<ul>
+<li><a href="#3-1%E4%B8%8B%E8%BD%BD%E4%BE%9D%E8%B5%96">3-1.下载依赖</a></li>
+<li><a href="#3-2%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96">3-2.入口文件引入依赖</a></li>
+<li><a href="#3-3websocketjs%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5">3-3.websocket.js建立连接</a></li>
+<li><a href="#3-4%E8%A7%86%E5%9B%BE%E6%96%87%E4%BB%B6%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E7%AB%AF">3-4.视图文件连接服务端</a></li>
+<li><a href="#3-5%E6%95%88%E6%9E%9C">3-5.效果</a></li>
+</ul>
+</li>
+<li><a href="#4socketio%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%BA%BA%E8%81%8A%E5%A4%A9">4.socket.io实现多人聊天</a>
+<ul>
+<li><a href="#4-1%E5%AE%89%E8%A3%85">4-1.安装</a></li>
+<li><a href="#4-2%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BB%BA%E7%AB%8Bsocket">4-2.服务端建立socket</a></li>
+<li><a href="#4-5%E5%B0%81%E8%A3%85socketjs%E6%96%87%E4%BB%B6">4-5.封装socket.js文件</a>
+<ul>
+<li><a href="#4-5-1%E6%B7%BB%E5%8A%A0socketjs%E6%96%87%E4%BB%B6">4-5-1.添加socket.js文件</a></li>
+<li><a href="#4-5-2%E5%BC%95%E5%85%A5%E5%B0%81%E8%A3%85">4-5-2.引入封装</a></li>
+</ul>
+</li>
+<li><a href="#4-5%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5socket">4-5.客户端连接socket</a></li>
+<li><a href="#4-4%E6%95%88%E6%9E%9C">4-4.效果：</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/feng-zhuang-fang-fa-json-mo-ni-shu-ju-shi-xian-json-wen-jian-de-zeng-shan-gai-cha/">
+          <h3 class="post-title">
+            封装方法 - json模拟数据，实现json文件的增删改查
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

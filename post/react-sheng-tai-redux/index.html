@@ -1,0 +1,662 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>react生态 - redux | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="react生态 - redux | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="1. 理解
+redux作用
+管理state
+使用redux过程
+使用state(普通对象)来创建数据，使用Action对象来描述更新state数据发送的过程，最终reducer接收 state 和 action，并返回新的 state 函数..." />
+  <meta name="keywords" content="React" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            react生态 - redux
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-26
+            </span>
+            <span>
+              8 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/TL1T7hUz1/" class="post-tag">
+              # React
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="1-理解">1. 理解</h1>
+<h2 id="redux作用">redux作用</h2>
+<p>管理state</p>
+<h2 id="使用redux过程">使用redux过程</h2>
+<p>使用state(普通对象)来创建数据，使用Action对象来描述更新state数据发送的过程，最终reducer接收 state 和 action，并返回新的 state 函数。</p>
+<h2 id="redux三大基本原则">redux三大基本原则</h2>
+<ol>
+<li>单一数据源</li>
+<li>State 是只读的</li>
+<li>使用纯函数来执行修改</li>
+</ol>
+<h1 id="2-一些术语">2. 一些术语</h1>
+<h2 id="state">State</h2>
+<p>驱动应用的真实数据源头, 当多个组件需要共享和使用相同 state时，可能会变得很复杂，所以使用集中式的全局状态来管理</p>
+<h2 id="单向数据流one-way-data-flow">单向数据流（one-way data flow）</h2>
+<ul>
+<li>用 state 来描述应用程序在特定时间点的状况</li>
+<li>基于 state 来渲染出 View</li>
+<li>当发生某些事情时（例如用户单击按钮），state 会根据发生的事情进行更新，生成新的 state</li>
+<li>基于新的 state 重新渲染 View</li>
+</ul>
+<pre><code>  Actions-&gt;View-&gt;State-&gt;Actions
+</code></pre>
+<h2 id="action">Action</h2>
+<p>action 视为描述应用程序中发生了什么的事件.</p>
+<p>基本action语法:</p>
+<pre><code>const addTodoAction = {
+  type: 'todos/todoAdded',  //类型
+  payload: 'Buy milk'  //信息
+}
+</code></pre>
+<h2 id="action-creator">Action Creator</h2>
+<p>创建并返回一个 action 对象的函数</p>
+<pre><code>const addTodo = text =&gt; {
+  return {
+    type: 'todos/todoAdded',
+    payload: text
+  }
+}
+</code></pre>
+<h2 id="reducer">Reducer</h2>
+<p>reducer 是一个函数，接收当前的 state 和一个 action 对象。</p>
+<p><code>(state, action) =&gt; newState</code></p>
+<p>规则：</p>
+<ul>
+<li>仅使用 state 和 action 参数计算新的状态值</li>
+<li>禁止直接修改 state。必须通过复制现有的 state 并对复制的值进行更改的方式。</li>
+</ul>
+<p>例子</p>
+<pre><code>const initialState = { value: 0 }
+
+function counterReducer(state = initialState, action) {
+  // 检查 reducer 是否关心这个 action
+  if (action.type === 'counter/increment') {
+    // 如果是，复制 `state`
+    return {
+      ...state,
+      // 使用新值更新 state 副本
+      value: state.value + 1
+    }
+  }
+  // 返回原来的 state 不变
+  return state
+}
+</code></pre>
+<h2 id="store">Store</h2>
+<p>Redux 应用的 state 存在于一个名为 store 的对象中。</p>
+<p>store 是通过传入一个 reducer 来创建的,并且有一个名为 getState 的方法，它返回当前状态值：</p>
+<pre><code>import { configureStore } from '@reduxjs/toolkit'
+
+const store = configureStore({ reducer: counterReducer })
+
+console.log(store.getState())
+// {value: 0}
+</code></pre>
+<h2 id="dispatch">Dispatch</h2>
+<p>Redux store 有一个方法叫 dispatch,作用是触发一个事件。</p>
+<p>更新 state 的唯一方法是调用 store.dispatch() 并传入一个 action 对象:</p>
+<pre><code>store.dispatch({ type: 'counter/increment' })
+
+console.log(store.getState())
+</code></pre>
+<p>或者是调用 action creator 来调用 action:</p>
+<pre><code>const increment = () =&gt; {
+  return {
+    type: 'counter/increment'
+  }
+}
+
+store.dispatch(increment())
+
+console.log(store.getState())
+</code></pre>
+<h2 id="selector">Selector</h2>
+<blockquote>
+<p>Selector 函数可以从 store 状态树中提取指定的片段。随着应用变得越来越大，会遇到应用程序的不同部分需要读取相同的数据，selector 可以避免重复这样的读取逻辑：</p>
+</blockquote>
+<pre><code>const selectCounterValue = state =&gt; state.value
+const currentValue = selectCounterValue(store.getState())
+console.log(currentValue)
+// 2
+</code></pre>
+<h2 id="redux数据流">Redux数据流</h2>
+<ul>
+<li>初始启动：
+<ul>
+<li>使用最顶层的 root reducer 函数创建 Redux store</li>
+<li>store 调用一次 root reducer，并将返回值保存为它的初始 state</li>
+<li>当视图 首次渲染时，视图组件访问 Redux store 的当前 state，并使用该数据来决定要呈现的内容。同时监听 store 的更新，以便他们可以知道 state 是否已更改。</li>
+</ul>
+</li>
+<li>更新环节：
+<ul>
+<li>应用程序中发生了某些事情，例如用户单击按钮</li>
+<li>dispatch 一个 action 到 Redux store，例如 dispatch({type: 'counter/increment'})</li>
+<li>store 用之前的 state 和当前的 action 再次运行 reducer 函数，并将返回值保存为新的 state</li>
+<li>store 通知所有订阅过的视图，通知它们 store 发生更新</li>
+<li>每个订阅过 store 数据的视图 组件都会检查它们需要的 state 部分是否被更新。</li>
+<li>发现数据被更新的每个组件都强制使用新数据重新渲染，紧接着更新网页<br>
+<img src="https://cn.redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif" alt="" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+<h1 id="3-基本使用">3. 基本使用</h1>
+<h2 id="1-安装">1. 安装</h2>
+<pre><code># NPM
+
+npm install @reduxjs/toolkit
+npm install redux
+
+# Yarn
+
+yarn add @reduxjs/toolkit
+yarn add redux
+
+// 配套工具
+npm install react-redux  
+npm install --save-dev redux-devtools
+
+</code></pre>
+<blockquote>
+<p>官方推荐的创建 React Redux 新应用的方式</p>
+</blockquote>
+<pre><code># Redux + Plain JS template
+npx create-react-app my-app --template redux
+# Redux + TypeScript template
+npx create-react-app my-app --template redux-typescript
+</code></pre>
+<h2 id="2-在最顶层root配置-redux-store">2. 在最顶层root配置 Redux store</h2>
+<ol>
+<li>在src目录创建<code>app/store.js</code>文件</li>
+</ol>
+<pre><code>import { configureStore } from &quot;@reduxjs/toolkit&quot;;
+export default configureStore({
+  reducer: {
+    //这里注册创建的slice
+  }
+});
+</code></pre>
+<ol start="2">
+<li>在入口文件使用react-redux的Provider注入store</li>
+</ol>
+<p><code>入口文件index.js</code></p>
+<pre><code>...
+//引入依赖项
+import store from './app/store';  //自定义store
+import { Provider } from 'react-redux';
+...
+createRoot(document.getElementById(&quot;root&quot;)).render(
+  &lt;StrictMode&gt;
+     &lt;Provider store={store}&gt;  //在此处注入store
+      {/* 指定UI 的根布局 */}
+      &lt;RouterProvider router={router} /&gt;
+    &lt;/Provider&gt;
+  &lt;/StrictMode&gt;
+);
+...
+</code></pre>
+<h2 id="3-初始化state">3. 初始化state</h2>
+<p>1.在src目录下创建<code>features/counter/counterSlice.js</code> 文件（counter为state模块名）</p>
+<p>2.创建slice</p>
+<p>&quot;slice&quot; 是应用中单个功能的 Redux reducer 逻辑和 action 的集合。</p>
+<p><code>counterSlice.js</code></p>
+<pre><code>import { createSlice } from '@reduxjs/toolkit'
+
+export const counterSlice = createSlice({
+  name: 'counter',
+  initialState: {
+    value: 0
+  },
+  reducers: {
+    increment: state =&gt; {
+      // Redux Toolkit 允许我们在 reducers 写 &quot;可变&quot; 逻辑。
+      // 并不是真正的改变 state 因为它使用了 immer 库
+      // 当 immer 检测到 &quot;draft state&quot; 改变时，会基于这些改变去创建一个新的
+      // 不可变的 state
+      state.value += 1
+    },
+    decrement: state =&gt; {
+      state.value -= 1
+    },
+    incrementByAmount: (state, action) =&gt; {
+      state.value += action.payload
+    }
+  }
+})
+
+export const { increment, decrement, incrementByAmount } = counterSlice.actions
+
+export default counterSlice.reducer
+</code></pre>
+<ol start="3">
+<li>在<code>app/store.js </code>中注册创建的slice</li>
+</ol>
+<pre><code>import { configureStore } from '@reduxjs/toolkit'
+import counterReducer from '../features/counter/counterSlice'
+
+export default configureStore({
+  reducer: {
+    counter: counterReducer
+  }
+})
+</code></pre>
+<h2 id="4-使用state">4. 使用state</h2>
+<blockquote>
+<p>使用useSelector获取更新后的state值</p>
+</blockquote>
+<ul>
+<li>在slice中返回创建selector函数</li>
+</ul>
+<pre><code>export const selectAllPosts = state =&gt; state.posts
+export const selectPostById = (state, postId) =&gt;
+  state.posts.find(post =&gt; post.id === postId)
+</code></pre>
+<ul>
+<li>使用useSelector Hook来获取state值</li>
+</ul>
+<pre><code>//引入useSelector
+// omit imports
+import { selectAllPosts } from './postsSlice'
+export const PostsList = () =&gt; {
+  const posts = useSelector(selectAllPosts)
+  // omit component contents
+}
+</code></pre>
+<pre><code>// omit imports
+import { selectPostById } from './postsSlice'
+
+export const SinglePostPage = ({ match }) =&gt; {
+  const { postId } = match.params
+
+  const post = useSelector(state =&gt; selectPostById(state, postId))
+  // omit component logic
+}
+</code></pre>
+<h2 id="5-调用dispatch">5. 调用dispatch</h2>
+<ul>
+<li>slice中准备一个reducers方法</li>
+</ul>
+<pre><code>export const counterSlice = createSlice({
+  name: 'counter',
+  initialState: {
+    value: 0,
+  },
+  reducers: {
+    decrement: (state) =&gt; {
+      state.value -= 1
+    },
+    incrementByAmount: (state, action) =&gt; {  // 使用action.payload接收dispatch传来的值
+      state.value += action.payload
+    },
+  },
+})
+</code></pre>
+<ul>
+<li>调用reducers</li>
+</ul>
+<pre><code>//引入
+import { useDispatch } from 'react-redux';
+import {
+  decrement,
+  incrementByAmount,
+} from './counterSlice';
+....
+{dispatch(decrement())}
+...
+{dispatch(incrementByAmount(Number(incrementAmount) || 0))}
+....
+
+</code></pre>
+<h1 id="在组件外的文件中调用dispatch修改state值">在组件外的文件中调用dispatch修改state值</h1>
+<p>在封装axios时，想封装一个全局的loading，需要通过state全局状态管理。<br>
+在组件外的文件可以直接引入封装好的全局state，通过state来调用dispatch</p>
+<pre><code>import store from '@/store';
+// 调用，setLoading是自定义的reducer方法
+store.dispatch(setLoading(true))
+</code></pre>
+<p>axios封装全局loading的demo</p>
+<pre><code>import axios, { AxiosInstance } from 'axios';
+import baseURL from './baseUrl';
+import { setLoading } from '@/features/setting/settingSlice';
+import store from '@/store';
+const service: AxiosInstance = axios.create({
+    baseURL: baseURL,
+    timeout: 50000,
+    headers: { 'Content-Type': 'application/json' },
+});
+service.interceptors.request.use(config =&gt; {
+    store.dispatch(setLoading(true))
+    return config
+}, error =&gt; {
+    store.dispatch(setLoading(false))
+    console.log('请求错误')
+    return Promise.reject(error);
+});
+
+service.interceptors.response.use(response =&gt; {
+    store.dispatch(setLoading(false))
+    return response;
+}, error =&gt; {
+    let message = &quot;&quot;;
+    store.dispatch(setLoading(false))
+    return Promise.reject(message);
+});
+export default service;
+</code></pre>
+<h1 id="学习文档">学习文档</h1>
+<p>https://cn.redux.js.org/tutorials/essentials/part-1-overview-concepts<br>
+https://www.redux.org.cn/</p>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E7%90%86%E8%A7%A3">1. 理解</a>
+<ul>
+<li><a href="#redux%E4%BD%9C%E7%94%A8">redux作用</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8redux%E8%BF%87%E7%A8%8B">使用redux过程</a></li>
+<li><a href="#redux%E4%B8%89%E5%A4%A7%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99">redux三大基本原则</a></li>
+</ul>
+</li>
+<li><a href="#2-%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD">2. 一些术语</a>
+<ul>
+<li><a href="#state">State</a></li>
+<li><a href="#%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E6%B5%81one-way-data-flow">单向数据流（one-way data flow）</a></li>
+<li><a href="#action">Action</a></li>
+<li><a href="#action-creator">Action Creator</a></li>
+<li><a href="#reducer">Reducer</a></li>
+<li><a href="#store">Store</a></li>
+<li><a href="#dispatch">Dispatch</a></li>
+<li><a href="#selector">Selector</a></li>
+<li><a href="#redux%E6%95%B0%E6%8D%AE%E6%B5%81">Redux数据流</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">3. 基本使用</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85">1. 安装</a></li>
+<li><a href="#2-%E5%9C%A8%E6%9C%80%E9%A1%B6%E5%B1%82root%E9%85%8D%E7%BD%AE-redux-store">2. 在最顶层root配置 Redux store</a></li>
+<li><a href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96state">3. 初始化state</a></li>
+<li><a href="#4-%E4%BD%BF%E7%94%A8state">4. 使用state</a></li>
+<li><a href="#5-%E8%B0%83%E7%94%A8dispatch">5. 调用dispatch</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E5%A4%96%E7%9A%84%E6%96%87%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8dispatch%E4%BF%AE%E6%94%B9state%E5%80%BC">在组件外的文件中调用dispatch修改state值</a></li>
+<li><a href="#%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3">学习文档</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/react-sheng-tai-shi-yong-react-router/">
+          <h3 class="post-title">
+            react生态 - react-router
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

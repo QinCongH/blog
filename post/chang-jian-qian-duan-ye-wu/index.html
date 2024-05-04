@@ -1,0 +1,1062 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>常见前端业务 - 基于插件 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="常见前端业务 - 基于插件 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="1. 轮播图插件 - Swiper
+swiper
+在Vue2中使用的一个demo
+1.npm下载安装swiper，现在swiper默认支持vue3，所以我们使用低版本
+npm install swiper@5.4.5
+
+2.在需要用到的组件..." />
+  <meta name="keywords" content="vue,es6,nodeJs" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            常见前端业务 - 基于插件
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-25
+            </span>
+            <span>
+              18 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/hKztIRrYz/" class="post-tag">
+              # vue
+            </a>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/YEr5SsLJh/" class="post-tag">
+              # es6
+            </a>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/E7wJE8AQv/" class="post-tag">
+              # nodeJs
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="1-轮播图插件-swiper">1. 轮播图插件 - Swiper</h1>
+<p><a href="https://swiper.com.cn/usage/index.html">swiper</a></p>
+<h2 id="在vue2中使用的一个demo">在Vue2中使用的一个demo</h2>
+<h3 id="1npm下载安装swiper现在swiper默认支持vue3所以我们使用低版本">1.npm下载安装swiper，现在swiper默认支持vue3，所以我们使用低版本</h3>
+<pre><code>npm install swiper@5.4.5
+</code></pre>
+<h3 id="2在需要用到的组件引入swiper">2.在需要用到的组件引入swiper</h3>
+<pre><code>import Swiper from &quot;swiper&quot;
+</code></pre>
+<h3 id="3在组件style中引入swiper插件的css在node_modules找到swiper包里边的css文件引入">3.在组件style中引入swiper插件的css（在node_modules找到Swiper包里边的css文件引入）</h3>
+<pre><code>@import &quot;../../../node_modules/swiper/swiper-bundle.css&quot;;
+//低版本引入css
+@import &quot;../../../node_modules/swiper/css/swiper.css&quot;;
+</code></pre>
+<h3 id="4在methods方法里面初始化swiper插件">4.在methods方法里面初始化swiper插件。</h3>
+<pre><code>&lt;div class=&quot;swiper-container&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+        &lt;div class=&quot;swiper-slide&quot;&gt;slider1&lt;/div&gt;
+        &lt;div class=&quot;swiper-slide&quot;&gt;slider2&lt;/div&gt;
+        &lt;div class=&quot;swiper-slide&quot;&gt;slider3&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+...
+methods：{
+    init () {
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: true,//可选选项，自动滑动
+        })
+    }
+}
+....
+mounted(){
+  this.init()    //防止swiper初始化不展示，在数据加载成功后(mounted中)调用
+}
+
+</code></pre>
+<h2 id="问题">问题</h2>
+<h3 id="分页器不显示">分页器不显示</h3>
+<p>https://blog.csdn.net/weixin_42118522/article/details/107586363</p>
+<h1 id="2-音乐播放器-vue3-aplayeraplyer">2. 音乐播放器 - vue3-aplayer，aplyer</h1>
+<p>使用vue3实现音乐播放器的demo</p>
+<h2 id="1-下载">1. 下载</h2>
+<p><code>npm i vue3-aplayer</code></p>
+<h2 id="2-引入">2. 引入</h2>
+<pre><code>import Aplayer from &quot;vue3-aplayer&quot;;
+...
+  components: {
+    Aplayer,
+  },
+</code></pre>
+<h2 id="3-使用">3. 使用</h2>
+<pre><code>    &lt;aplayer
+      :autoplay=&quot;false&quot;
+      :music=&quot;{
+        title: '知足',
+        artist: '五月天',
+        src:
+          'http://freetyst.nf.migu.cn/public/product9th/product45/2022/06/0814/2013年05月07日滚石唱片内容准入327首/标清高清/MP3_128_16_Stero/63480207146145922.mp3',
+        pic: 'https://p2.music.126.net/_B1Fn_Z1WxHzqGLzLZDf-w==/109951163263882447.jpg',
+        lrc:
+          '[00:00.000] 作词 : 五月天 阿信\n[00:00.675] 作曲 : 五月天 阿信\n[00:01.350] 编曲 : 周恒毅/五月天\n[00:02.025] 制作人 : 五月天\n[00:02.700]\n[00:21.461]怎么去拥有 一道彩虹\n[00:27.518]怎么去拥抱 一夏天的风\n[00:33.441]天上的星星 笑地上的人\n[00:39.444]总是不能懂 不能觉得足够\n[00:44.899]\n[00:51.483]如果我爱上 你的笑容\n[00:57.461]要怎么收藏 要怎么拥有\n[01:03.514]如果你快乐 不是为我\n[01:09.390]会不会放手 其实才是拥有\n[01:14.335]当一阵风吹来 风筝飞上天空\n[01:20.653]为了你而祈祷 而祝福 而感动\n[01:26.355]终于你身影消失在 人海尽头\n[01:33.046]才发现 笑着哭 最痛\n[01:38.816]\n[01:42.504]那天你和我 那个山丘\n[01:48.429]那样的唱着 那一年的歌\n[01:54.409]那样的回忆 那么足够\n[02:00.418]足够我天天 都品尝着寂寞\n[02:05.873]\n[02:29.008]当一阵风吹来 风筝飞上天空\n[02:35.229]为了你而祈祷 而祝福 而感动\n[02:40.506]终于你身影消失在 人海尽头\n[02:47.002]才发现 笑着哭 最痛\n[02:52.140]当一阵风吹来 风筝飞上天空\n[02:58.514]为了你而祈祷 而祝福 而感动\n[03:03.925]终于你身影消失在 人海尽头\n[03:10.379]才发现 笑着哭 最痛\n[03:15.229]哦……\n[03:20.122]如果我爱上 你的笑容\n[03:26.054]要怎么收藏 要怎么拥有\n[03:31.770]如果你快乐 再不是为我\n[03:37.491]会不会放手 其实才是拥有\n[03:42.940]\n[03:43.414]知足的快乐\n[03:45.810]叫我忍受心痛\n[03:49.285]知足的快乐\n[03:51.948]叫我忍受心痛\n[03:56.434]\n[03:57.992] 配唱制作人 : 马毓芬\n[03:59.550] 协力 : 陈建良\n[04:01.108] 吉他 : 石头\n[04:02.666] 木吉他 : 怪兽\n[04:04.224] 钢琴 : 周恒毅\n[04:05.782] 弦乐 : 周恒毅\n[04:07.340] 和声编写 : 阿信+玛莎\n[04:08.898] 和声 : 阿信\n[04:10.456] 录音 : Conrad Hijazi+五月天@五月天录音室\n[04:12.014] 混音 : 林正忠@白金录音室\n[04:13.572] 录音助理 : 黄士杰+张崇杰\n[04:15.130] OP : 认真工作室\n[04:16.688] SP : Rock Music Publishing Co.,Ltd.\n',
+        theme: 'pic',
+      }&quot;
+      :list=&quot;list&quot;
+      float
+      showLrc
+      fixed
+      :mini=&quot;isMini&quot;
+      @play=&quot;onPlay&quot;
+      @pause=&quot;onPause&quot;
+    &gt;
+    &lt;/aplayer&gt;
+</code></pre>
+<p>文档链接<br>
+https://github.com/SevenOutman/vue-aplayer/blob/develop/docs/README.zh-CN.md<br>
+https://aplayer.netlify.app/docs/guide/events.html#%E5%8E%9F%E7%94%9F-media-%E4%BA%8B%E4%BB%B6</p>
+<h2 id="4注意点">4.注意点</h2>
+<blockquote>
+<p>音乐播放器要在切换路由时不进行销毁，此时可以在<code>app.vue</code>下进行全局使用</p>
+</blockquote>
+<p><code>app.vue</code></p>
+<pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;router-view&gt; &lt;/router-view&gt;
+        &lt;!--hide-audio进行隐藏播放器--&gt;
+    &lt;div :class=&quot;isHideAudio?'hide-audio':''&quot;&gt;
+      &lt;!--section-audio封装的组件--&gt;
+       &lt;section-audio&gt;&lt;/section-audio&gt;  
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h1 id="3-web3连接钱包app-wagmi">3. web3连接钱包App - wagmi</h1>
+<p>使用vue3+wagmi实现的demo:</p>
+<h2 id="1-安装依赖">1. 安装依赖</h2>
+<p><code>package.json</code></p>
+<pre><code>	&quot;dependencies&quot;: {
+		&quot;bignumber.js&quot;: &quot;9.0.2&quot;,
+		&quot;@wagmi/core&quot;: &quot;0.9.5&quot;,
+		&quot;@walletconnect/types&quot;: &quot;2.4.3&quot;,
+		&quot;@web3modal/ethereum&quot;: &quot;2.1.1&quot;,
+		&quot;@web3modal/html&quot;: &quot;2.1.1&quot;,
+		&quot;eth-json-rpc-filters&quot;: &quot;5.1.0&quot;,
+		&quot;eth-json-rpc-middleware&quot;: &quot;9.0.1&quot;,
+		&quot;ethers&quot;: &quot;5.6.0&quot;  //当前签名使用5.6.0
+	}
+</code></pre>
+<p><code>cdn</code></p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js&quot;&gt;&lt;/script&gt;
+
+window.evmChains
+</code></pre>
+<h2 id="2-连接钱包">2. 连接钱包</h2>
+<pre><code>  import {
+    configureChains,
+    createClient,
+    getProvider,
+    connect,
+    watchAccount,
+    disconnect
+  } from '@wagmi/core'
+  import {
+    goerli,
+    mainnet
+  } from '@wagmi/core/chains'
+  import {
+    EthereumClient,
+    modalConnectors,
+    walletConnectProvider
+  } from '@web3modal/ethereum'
+  import {
+    Web3Modal
+  } from '@web3modal/html' //
+  import {
+    InjectedConnector
+  } from '@wagmi/core/connectors/injected'
+  var web3Modal = null;
+  export default {
+    methods: {
+      initWeb3Modal() {
+        // -----------------------webmodal2初始化
+        // 1. Define constants
+        const projectId = '8e6b5ffdcbc9794bf9f4a1952578365b'
+        const chains = [mainnet, goerli]
+
+        // 2. Configure wagmi client
+        const {
+          provider
+        } = configureChains(chains, [walletConnectProvider({
+          projectId
+        })])
+        const wagmiClient = createClient({
+          autoConnect: true,
+          connectors: modalConnectors({
+            appName: 'WOW EARN',
+            chains
+          }),
+          provider
+        })
+        // 3. Create ethereum and modal clients
+        ethereumClient = new EthereumClient(wagmiClient, chains)
+        window.web3Modal = web3Modal = new Web3Modal({
+          projectId
+        }, ethereumClient)
+        console.log('window.web3Modal', window.web3Modal, wagmiClient, ethereumClient)
+        //监听弹窗的打开和关闭
+        web3Modal.subscribeModal((newState) =&gt;
+          console.log(newState.open)
+        );
+        //监听是否连接成功
+        watchAccount(
+          async (account) =&gt; {
+            //connecting 窗口打开，连接中. | connected  连接成功 | disconnected 断开连接
+            if (account.isConnected &amp;&amp; account.status == &quot;connected&quot;) {//断开连接的操作
+              console.log('连接成功', account.status)
+              console.log(account)
+              //拿到数据
+              let chainId = await account.connector.getChainId()
+              let chainData = window.evmChains.getChain(chainId);
+              commit('setSelectedAccount', account.address)
+              commit('setChain', chainData)
+              commit('setConnected', true)
+
+            }
+            if (account.isDisconnected &amp;&amp; account.status == &quot;disconnected&quot;) {//连接成功的操作
+              console.log('断开连接', account.status)
+              console.log(account)
+              dispatch('disconnect')
+              Vue.prototype.$stompClient ? .disconnect() //断开websocket链接
+              uni.reLaunch({
+                url: '/pages/index/index'
+              })
+            }
+          }
+        )
+      },
+      openweb3Modal() {
+        web3Modal.openModal()
+      }
+    }
+  }
+&lt;/script&gt;
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="/api/public/image/files.0-1676604104227.png" alt="" loading="lazy"></figure>
+<h2 id="3-签名信息">3. 签名信息</h2>
+<blockquote>
+<p>通过签名校验身份登陆</p>
+</blockquote>
+<pre><code> import {
+    disconnect,
+    fetchSigner,
+    signTypedData
+  } from '@wagmi/core'
+  export default {
+    methods: {
+      async createSignature(account, chainId) {  //地址chainId
+        return new Promise(async (resolve, reject) =&gt; {
+          try {
+            const domain = {
+              &quot;name&quot;: &quot;Robot Login&quot;,
+              &quot;version&quot;: &quot;1&quot;,
+              &quot;chainId&quot;: chainId,
+              &quot;verifyingContract&quot;: &quot;0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC&quot;
+            }
+            const types = {
+              &quot;EIP712Domain&quot;: [{
+                  &quot;name&quot;: &quot;name&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                {
+                  &quot;name&quot;: &quot;version&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                {
+                  &quot;name&quot;: &quot;chainId&quot;,
+                  &quot;type&quot;: &quot;uint256&quot;
+                },
+                {
+                  &quot;name&quot;: &quot;verifyingContract&quot;,
+                  &quot;type&quot;: &quot;address&quot;
+                }
+              ],
+              &quot;LoginInfo&quot;: [{
+                  &quot;name&quot;: &quot;uri&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                {
+                  &quot;name&quot;: &quot;nonce&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                {
+                  &quot;name&quot;: &quot;timeStamp&quot;,
+                  &quot;type&quot;: &quot;uint256&quot;
+                },
+                {
+                  &quot;name&quot;: &quot;address&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              ]
+            }
+            const value = {
+              &quot;uri&quot;: &quot;/auth/loginByAddress&quot;, //路径
+              &quot;nonce&quot;: uuidv4(), //uuid
+              &quot;timeStamp&quot;: Date.now(),
+              &quot;address&quot;: account
+            }
+            const signature = await signTypedData({
+              domain,
+              types,
+              value,
+            })
+            console.log(signature)
+            resolve({
+              signature: signature,
+            })
+          } catch (err) {
+            await disconnect()  //断开连接
+            reject(err)
+            // if (err.code == 'ACTION_REJECTED') { // user rejected signing拒绝签名
+            this.$showError(err.message)
+            // }
+          }
+
+        })
+      },
+    },
+  }
+</code></pre>
+<h2 id="4-充值">4. 充值</h2>
+<pre><code>&lt;script&gt;
+  import {
+    getContract,
+    fetchBalance,
+    getProvider,
+    fetchSigner
+  } from '@wagmi/core'
+  import ERC20TokenABI from '@/common/ERC20.json'
+  export default {
+    methods: {
+      async sendCoin() {
+
+        let p
+        if (!this.depositAmount || isNaN(p = parseFloat(this.depositAmount))) { //depositAmount：用户输入的充值数量
+          return
+        }
+        return new Promise(async (resolve, reject) =&gt; {
+          try {
+            var from = this.info.walletAddress;//钱包地址
+            var to = this.address;//充值地址，通过接口获取
+            var contractAddress = contractAddrs[`${this.coinName}-${this.currency}`];//合约地址
+            const signer = await fetchSigner()//签名者
+            console.log(signer)
+            const contract = getContract({//合约实例
+              address: contractAddress,
+              abi: erc20ABI,
+              signerOrProvider: signer
+            })
+            let res = await contract.balanceOf(from)//当前余额
+            console.log(res.toNumber(), contract)
+            if (res.toNumber() &gt; p * 1000000) {
+              contract.transfer(to, p * 1000000, {//调用方法充值
+                // gasLimit: gas,
+                // // 偷懒，直接是用 2gwei
+                // gasPrice: ethers.utils.parseUnits(&quot;2&quot;, &quot;gwei&quot;),
+              }).then(function (tx) {
+                console.log(tx);
+                resolve()
+              }).catch((err) =&gt; {
+                console.error(err)
+                reject(err)
+              })
+            } else {
+              reject(new Error(this.$t('depositPage.errorBalance')))
+            }
+          } catch (e) {
+            console.error(e)
+            reject(e)
+          }
+        })
+      }
+    },
+  }
+&lt;/script&gt;
+</code></pre>
+<h2 id="官方文档">官方文档</h2>
+<p>https://wagmi.sh/core/actions/signTypedData<br>
+https://docs.ethers.org/v5/<br>
+https://web3modal.com/</p>
+<h1 id="4-连接websocket-sockjs-clientstompjs">4. 连接webSocket  -  sockjs-client,stompjs</h1>
+<p>使用vue2实现的demo。</p>
+<h2 id="1-安装">1. 安装</h2>
+<p><code>npm i sockjs-client stompjs</code></p>
+<h2 id="2-使用">2. 使用</h2>
+<p><code>main.js</code></p>
+<pre><code>...
+//引入依赖
+import SockJS from  'sockjs-client';
+import  Stomp from 'stompjs';
+Vue.prototype.$connectSocket = () =&gt; {
+	var socket = new SockJS('https://testws.wowearn.com/wow-ws');
+	var stompClient = Stomp.over(socket);  //连接客户端
+	Vue.prototype.$stompClient = stompClient
+	stompClient.connect({}, function (frame) {  //连接
+		// 订阅消息
+		stompClient.subscribe('/topic/wow/push-one/'+ uni.getStorageSync('userInfo').id, function (greeting) {
+			console.log('greeting.command',greeting)
+		});
+		// 新闻消息
+		stompClient.subscribe('/topic/wow/message/push-all', function (greeting) {
+			if(greeting.command == 'MESSAGE' &amp;&amp; JSON.parse(greeting.body).langKey == uni.getStorageSync('locale')){
+				// 显示未读红点
+				store.commit(&quot;user/setMessageStatus&quot;, true)
+				// uni.showTabBarRedDot({ //显示红点
+				//   index: 2 //tabbar下标
+				// })
+			}
+		});
+	});
+}
+</code></pre>
+<h1 id="5-二维码扫码功能-html5-qrcode">5.  二维码扫码功能 - html5-qrcode</h1>
+<p>使用vue2+html5-qrcode实现的demo</p>
+<h2 id="1-简单了解">1. 简单了解</h2>
+<blockquote>
+<p>使用这个轻量级库可以轻松/快速地将二维码、条形码和其他常见的代码扫描功能集成到您的web应用程序中。</p>
+</blockquote>
+<p>就是实现h5浏览器扫码。</p>
+<h2 id="2-安装">2. 安装</h2>
+<p><code>npm i html5-qrcode</code><br>
+or<br>
+<code>&lt;script src=&quot;https://unpkg.com/html5-qrcode&quot; type=&quot;text/javascript&quot;&gt;</code></p>
+<p>引入：</p>
+<pre><code>// To use Html5QrcodeScanner (more info below)
+import {Html5QrcodeScanner} from &quot;html5-qrcode&quot;
+
+// To use Html5Qrcode (more info below)
+import {Html5Qrcode} from &quot;html5-qrcode&quot;
+</code></pre>
+<p><a href="https://www.npmjs.com/package/html5-qrcode">官网地址</a></p>
+<h2 id="3-思路">3. 思路</h2>
+<blockquote>
+<p>拿到cameraId，开启扫码，通过回调拿到扫码内容后关掉扫码弹窗。</p>
+</blockquote>
+<ol>
+<li>授权cameraId<br>
+使用Html5Qrcode的getCameras()方法生成一个cameraId，这个id用于标识扫码的窗口。</li>
+<li>创建qrcode实例</li>
+<li>使用实例中的start方法打开摄像头实现扫码。</li>
+</ol>
+<h2 id="4-代码">4. 代码</h2>
+<ul>
+<li>封装成组件使用</li>
+</ul>
+<p><code>h5-qrcode.vue</code>文件</p>
+<pre><code>&lt;template&gt;
+	&lt;view class=&quot;h5-qrcode&quot;&gt;
+		&lt;view v-if=&quot;showModal&quot; id=&quot;h5-qrcode&quot;&gt;
+		&lt;/view&gt;
+		&lt;view @click=&quot;getCameras&quot; :class=&quot;&quot;&gt;
+			&lt;slot&gt;
+			&lt;/slot&gt;
+		&lt;/view&gt;
+	&lt;/view&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+	import {
+		Html5Qrcode
+	} from 'html5-qrcode';
+
+	export default {
+		name: &quot;h5-qrcode&quot;,
+		data() {
+			return {
+				cameraId: '',
+				html5QrCode: null,
+				showModal: false
+			}
+		},
+		methods: {
+			async getCameras() {
+				this.showModal = true
+				try {
+					let devices = await Html5Qrcode.getCameras()
+					if (devices &amp;&amp; devices.length) {
+						if (devices.length &gt; 1) {
+							this.cameraId = devices[1].id;
+						} else {
+							this.cameraId = devices[0].id;
+						}
+						this.start();
+						this.showModal = false
+					}
+				} catch (e) {
+					uni.showToast({
+						icon: 'none',
+						title: e
+					})
+				}
+			},
+			start() {
+				this.html5QrCode = new Html5Qrcode(&quot;h5-qrcode&quot;);
+				this.html5QrCode
+					.start(
+						this.cameraId, // retreived in the previous step.
+						{
+							fps: 10, // sets the framerate to 10 frame per second
+							qrbox: 250
+							// 250 // sets only 250 X 250 region of viewfinder to
+							// scannable, rest shaded.
+						},
+						qrCodeMessage =&gt; {
+							// do something when code is read. For example:
+							if (qrCodeMessage) {
+								console.log('qrCodeMessage', qrCodeMessage)
+								this.$emit('getQrCodeMessage', qrCodeMessage)
+								this.stop();
+								this.showModal = false
+							}
+						},
+						errorMessage =&gt; {
+							// parse error, ideally ignore it. For example:
+							// console.log(`QR Code no longer in front of camera.`);
+						}
+					)
+					.catch(err =&gt; {
+						uni.showToast({
+							icon: 'none',
+							title: err
+						})
+					});
+			},
+			stop() {
+				this.html5QrCode
+					.stop()
+					.then(ignore =&gt; {
+						// QR Code scanning is stopped.
+						console.log('QR Code scanning stopped.');
+					})
+					.catch(err =&gt; {
+						// Stop failed, handle it.
+						console.log('Unable to stop scanning.');
+					});
+			},
+		}
+	}
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li>新建一个页面使用（建议新建一个页面）</li>
+</ul>
+<pre><code>&lt;template&gt;
+	&lt;container-layout isBack :topTitle=&quot;``&quot;&gt;
+		&lt;view class=&quot;qrcode&quot;&gt;
+			&lt;view id=&quot;h5-qrcode&quot; style=&quot;margin-top: 15%&quot;&gt;
+			&lt;/view&gt;
+		&lt;/view&gt;
+	&lt;/container-layout&gt;
+&lt;/template&gt;
+&lt;script&gt;
+	import {
+		Html5Qrcode
+	} from 'html5-qrcode';
+
+	export default {
+		name: &quot;h5-qrcode&quot;,
+		data() {
+			return {
+				cameraId: '',
+				html5QrCode: null,
+			}
+		},
+		onReady() {
+			this.getCameras()
+		},
+		methods: {
+			async getCameras() {
+				try {
+					let devices = await Html5Qrcode.getCameras()
+					if (devices &amp;&amp; devices.length) {
+						if (devices.length &gt; 1) {
+							this.cameraId = devices[1].id;
+						} else {
+							this.cameraId = devices[0].id;
+						}
+						this.start();
+					}
+				} catch (e) {
+					uni.showToast({
+						icon: 'none',
+						title: e
+					})
+				}
+			},
+			start() {
+				this.html5QrCode = new Html5Qrcode(&quot;h5-qrcode&quot;);
+				this.html5QrCode
+					.start(
+						this.cameraId, // retreived in the previous step.
+						{
+							fps: 10, // sets the framerate to 10 frame per second
+							qrbox: 250
+						},
+						qrCodeMessage =&gt; {
+							// do something when code is read. For example:
+							if (qrCodeMessage) {
+								console.log('qrCodeMessage', qrCodeMessage)
+								this.stop();
+								uni.$emit('getQrCodeMessage', qrCodeMessage)
+								uni.navigateBack()
+							}
+						},
+						errorMessage =&gt; {
+							// parse error, ideally ignore it. For example:
+							// console.log(`QR Code no longer in front of camera.`);
+						}
+					)
+					.catch(err =&gt; {
+						uni.showToast({
+							icon: 'none',
+							title: err
+						})
+					});
+			},
+			stop() {
+				this.html5QrCode
+					.stop()
+					.then(ignore =&gt; {
+						// QR Code scanning is stopped.
+						console.log('QR Code scanning stopped.');
+					})
+					.catch(err =&gt; {
+						// Stop failed, handle it.
+						console.log('Unable to stop scanning.');
+					});
+			},
+		}
+	}
+&lt;/script&gt;
+
+</code></pre>
+<h1 id="6-生成二维码-uqrcode">6. 生成二维码 - uQRCode</h1>
+<p>使用uniapp写的一个demo<br>
+前面已经写了如何打开相机扫描二维码的功能，现在来看看如何快速生成二维码。</p>
+<blockquote>
+<p>uQRCode基于Canvas API封装了一套方法，建议开发者使用canvas生成，一键调用，非常方便<br>
+<a href="https://uqrcode.cn/doc/guide/getting-started.html#%E5%BC%95%E5%85%A5">uQRCode官网示例</a></p>
+</blockquote>
+<p>##　使用npm安装</p>
+<pre><code># npm安装
+npm install uqrcodejs
+# 或者
+npm install @uqrcode/js
+</code></pre>
+<h2 id="使用">使用</h2>
+<pre><code>//html部分
+&lt;canvas id=&quot;qrcode&quot; width=&quot;200&quot; height=&quot;200&quot;&gt;&lt;/canvas&gt;
+...
+
+JS部分
+// 获取uQRCode实例
+mounted(){
+  var qr = new UQRCode();
+  // 设置二维码内容
+  qr.data = &quot;https://uqrcode.cn/doc&quot;;
+  // 设置二维码大小，必须与canvas设置的宽高一致
+  qr.size = 200;
+  // 调用制作二维码方法
+  qr.make();
+  // 获取canvas元素
+  var canvas = document.getElementById(&quot;qrcode&quot;);
+  // 获取canvas上下文
+  var canvasContext = canvas.getContext(&quot;2d&quot;);
+  // 设置uQRCode实例的canvas上下文
+  qr.canvasContext = canvasContext;
+  // 调用绘制方法将二维码图案绘制到canvas上
+  qr.drawCanvas();
+}
+</code></pre>
+<h1 id="7-国密加密-sm2">7.  国密加密 - SM2</h1>
+<p><a href="https://qin_hu.gitee.io/blog/post/jie-kou-qing-qiu-he-xiang-ying-shi-yong-sm2-jia-mi/">https://qin_hu.gitee.io/blog/post/jie-kou-qing-qiu-he-xiang-ying-shi-yong-sm2-jia-mi/</a></p>
+<h1 id="8-切换路由时取消未完成的异步请求-axiosvue-router">8. 切换路由时取消未完成的异步请求 - axios，vue-router</h1>
+<p>vue切换路由时关闭上一个页面的axios请求。使用vue实现的demo</p>
+<h2 id="问题-2">问题</h2>
+<blockquote>
+<p>当切换页面时，上一个页面的axios请求会影响页面加载的速度，降低了用户的体验感，因此需要在切换页面时关闭上一个页面的axios请求。</p>
+</blockquote>
+<h2 id="思路">思路</h2>
+<blockquote>
+<p>使用一个全局变量将当前所在页面的所有的请求都保存下来，当切换页面时取消所有的axios请求。</p>
+</blockquote>
+<h2 id="实现">实现</h2>
+<h3 id="1-request请求拦截器保存请求">1. request请求拦截器保存请求</h3>
+<pre><code>window.axiosPromiseArr = [] // axios中设置放置要取消的对象
+axios.interceptors.request.use(config =&gt; {
+  //发起请求时保存页面所有请求
+  config.cancelToken = new axios.CancelToken(cancel =&gt; {
+    window.axiosPromiseArr.push({ cancel })
+  });
+  return config
+});
+</code></pre>
+<h3 id="2-阻断response响应拦截器中将所有取消的请求">2. 阻断response响应拦截器中将所有取消的请求</h3>
+<pre><code>axios.interceptors.response.use(res=&gt;{
+  //事件处理
+  },error=&gt;{
+    if (axios.isCancel(error)) {
+      // 为了终结promise链 (实际请求不会走到.catch(rej=&gt;{}),这样就不会触发错误提示之类的)
+      return new Promise(() =&gt; {});     
+    }else{
+      return Promise.reject(error)
+    }
+});
+</code></pre>
+<h3 id="3-进入路由钩子拦截时候取消保存的axiospromisearr">3. 进入路由钩子拦截时候，取消保存的axiosPromiseArr</h3>
+<pre><code>router.beforeEach((to, from, next) =&gt; {
+  window._axiosPromiseArr.forEach((ele,index) =&gt; {
+    ele.cancel() // 路由跳转之前，终止上一个页面正在请求的内容
+    // 清空请求的参数
+    delete window._axiosPromiseArr[index]
+  });
+});
+</code></pre>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E8%BD%AE%E6%92%AD%E5%9B%BE%E6%8F%92%E4%BB%B6-swiper">1. 轮播图插件 - Swiper</a>
+<ul>
+<li><a href="#%E5%9C%A8vue2%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E4%B8%AAdemo">在Vue2中使用的一个demo</a>
+<ul>
+<li><a href="#1npm%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85swiper%E7%8E%B0%E5%9C%A8swiper%E9%BB%98%E8%AE%A4%E6%94%AF%E6%8C%81vue3%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E4%BD%BF%E7%94%A8%E4%BD%8E%E7%89%88%E6%9C%AC">1.npm下载安装swiper，现在swiper默认支持vue3，所以我们使用低版本</a></li>
+<li><a href="#2%E5%9C%A8%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E7%BB%84%E4%BB%B6%E5%BC%95%E5%85%A5swiper">2.在需要用到的组件引入swiper</a></li>
+<li><a href="#3%E5%9C%A8%E7%BB%84%E4%BB%B6style%E4%B8%AD%E5%BC%95%E5%85%A5swiper%E6%8F%92%E4%BB%B6%E7%9A%84css%E5%9C%A8node_modules%E6%89%BE%E5%88%B0swiper%E5%8C%85%E9%87%8C%E8%BE%B9%E7%9A%84css%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5">3.在组件style中引入swiper插件的css（在node_modules找到Swiper包里边的css文件引入）</a></li>
+<li><a href="#4%E5%9C%A8methods%E6%96%B9%E6%B3%95%E9%87%8C%E9%9D%A2%E5%88%9D%E5%A7%8B%E5%8C%96swiper%E6%8F%92%E4%BB%B6">4.在methods方法里面初始化swiper插件。</a></li>
+</ul>
+</li>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a>
+<ul>
+<li><a href="#%E5%88%86%E9%A1%B5%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA">分页器不显示</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8-vue3-aplayeraplyer">2. 音乐播放器 - vue3-aplayer，aplyer</a>
+<ul>
+<li><a href="#1-%E4%B8%8B%E8%BD%BD">1. 下载</a></li>
+<li><a href="#2-%E5%BC%95%E5%85%A5">2. 引入</a></li>
+<li><a href="#3-%E4%BD%BF%E7%94%A8">3. 使用</a></li>
+<li><a href="#4%E6%B3%A8%E6%84%8F%E7%82%B9">4.注意点</a></li>
+</ul>
+</li>
+<li><a href="#3-web3%E8%BF%9E%E6%8E%A5%E9%92%B1%E5%8C%85app-wagmi">3. web3连接钱包App - wagmi</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96">1. 安装依赖</a></li>
+<li><a href="#2-%E8%BF%9E%E6%8E%A5%E9%92%B1%E5%8C%85">2. 连接钱包</a></li>
+<li><a href="#3-%E7%AD%BE%E5%90%8D%E4%BF%A1%E6%81%AF">3. 签名信息</a></li>
+<li><a href="#4-%E5%85%85%E5%80%BC">4. 充值</a></li>
+<li><a href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">官方文档</a></li>
+</ul>
+</li>
+<li><a href="#4-%E8%BF%9E%E6%8E%A5websocket-sockjs-clientstompjs">4. 连接webSocket  -  sockjs-client,stompjs</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85">1. 安装</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8">2. 使用</a></li>
+</ul>
+</li>
+<li><a href="#5-%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%89%AB%E7%A0%81%E5%8A%9F%E8%83%BD-html5-qrcode">5.  二维码扫码功能 - html5-qrcode</a>
+<ul>
+<li><a href="#1-%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3">1. 简单了解</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85">2. 安装</a></li>
+<li><a href="#3-%E6%80%9D%E8%B7%AF">3. 思路</a></li>
+<li><a href="#4-%E4%BB%A3%E7%A0%81">4. 代码</a></li>
+</ul>
+</li>
+<li><a href="#6-%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81-uqrcode">6. 生成二维码 - uQRCode</a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用</a></li>
+</ul>
+</li>
+<li><a href="#7-%E5%9B%BD%E5%AF%86%E5%8A%A0%E5%AF%86-sm2">7.  国密加密 - SM2</a></li>
+<li><a href="#8-%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E6%97%B6%E5%8F%96%E6%B6%88%E6%9C%AA%E5%AE%8C%E6%88%90%E7%9A%84%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82-axiosvue-router">8. 切换路由时取消未完成的异步请求 - axios，vue-router</a>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98-2">问题</a></li>
+<li><a href="#%E6%80%9D%E8%B7%AF">思路</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0">实现</a>
+<ul>
+<li><a href="#1-request%E8%AF%B7%E6%B1%82%E6%8B%A6%E6%88%AA%E5%99%A8%E4%BF%9D%E5%AD%98%E8%AF%B7%E6%B1%82">1. request请求拦截器保存请求</a></li>
+<li><a href="#2-%E9%98%BB%E6%96%ADresponse%E5%93%8D%E5%BA%94%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%AD%E5%B0%86%E6%89%80%E6%9C%89%E5%8F%96%E6%B6%88%E7%9A%84%E8%AF%B7%E6%B1%82">2. 阻断response响应拦截器中将所有取消的请求</a></li>
+<li><a href="#3-%E8%BF%9B%E5%85%A5%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90%E6%8B%A6%E6%88%AA%E6%97%B6%E5%80%99%E5%8F%96%E6%B6%88%E4%BF%9D%E5%AD%98%E7%9A%84axiospromisearr">3. 进入路由钩子拦截时候，取消保存的axiosPromiseArr</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/zu-jian-zi-ding-yi-v-model-zhi-nan/">
+          <h3 class="post-title">
+            组件 - 自定义v-model指南
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

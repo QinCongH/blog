@@ -1,0 +1,2839 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>React入门 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="React入门 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="1. 认识React和搭建环境
+1. 搭建环境
+1-1. 使用cdn链接
+
+开发环境
+
+&lt;script crossorigin src=&quot;https://unpkg.com/react@16/umd/react.develo..." />
+  <meta name="keywords" content="React" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            React入门
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-26
+            </span>
+            <span>
+              49 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/TL1T7hUz1/" class="post-tag">
+              # React
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="1-认识react和搭建环境">1. 认识React和搭建环境</h1>
+<h2 id="1-搭建环境">1. 搭建环境</h2>
+<h3 id="1-1-使用cdn链接">1-1. 使用cdn链接</h3>
+<ul>
+<li>开发环境</li>
+</ul>
+<pre><code>&lt;script crossorigin src=&quot;https://unpkg.com/react@16/umd/react.development.js&quot;&gt;&lt;/script&gt;
+&lt;script crossorigin src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ul>
+<li>生产环境</li>
+</ul>
+<pre><code>&lt;script crossorigin src=&quot;https://unpkg.com/react@16/umd/react.production.min.js&quot;&gt;&lt;/script&gt;
+&lt;script crossorigin src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.production.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="1-2使用npm">1-2.使用npm</h3>
+<pre><code>//下载淘宝镜像
+$ npm install -g cnpm --registry=https://registry.npmmirror.com
+$ npm config set registry https://registry.npmmirror.com
+$ cnpm i react
+</code></pre>
+<p>https://www.npmjs.com/package/react</p>
+<h3 id="1-3使用create-react-app快速搭建环境">1-3.使用create-react-app快速搭建环境</h3>
+<blockquote>
+<p>本地安装 Node &gt;= 14 和 npm &gt;= 5.6</p>
+</blockquote>
+<pre><code>npx create-react-app my-app
+cd my-app
+npm start
+</code></pre>
+<h1 id="2-jsx简介">2. jsx简介</h1>
+<h2 id="1-简介">1. 简介</h2>
+<blockquote>
+<p>React 使用 JSX 来替代常规的 JavaScript。<br>
+JSX 是一个看起来很像 XML 的 JavaScript 语法扩展</p>
+</blockquote>
+<ul>
+<li>一种 JavaScript 的语法扩展</li>
+<li>React DOM 在渲染所有输入内容之前，默认会进行转义。可以有效地防止 XSS（cross-site-scripting, 跨站脚本）攻击。</li>
+<li>React 中使用 JSX 来描述用户界面</li>
+<li>JSX 是在 JavaScript 内部实现的</li>
+<li>React 当中的元素事实上是普通的对象，React DOM 可以确保 浏览器 DOM 的数据内容与 React 元素保持一致</li>
+<li>要将 React 元素渲染到根 DOM 节点中，我们通过把它们都传递给 <code>ReactDOM.render()</code>的方法来将其渲染到页面上</li>
+</ul>
+<h2 id="2-写一个hello-world">2. 写一个<code>hello world！</code></h2>
+<p><code>html</code></p>
+<pre><code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p><code>react</code></p>
+<pre><code>const word='world!'
+const element = &lt;h1&gt;hello, {word}&lt;/h1&gt;;  //{ }中存放表达式
+
+ReactDOM.render(
+  element,  //jsx
+  document.getElementById('root')  //元素
+);
+</code></pre>
+<h2 id="3jsx基本使用">3.jsx基本使用</h2>
+<h3 id="3-1-jsx中使用嵌入表达式">3-1. jsx中使用<code>{}</code>嵌入表达式</h3>
+<blockquote>
+<p>在大括号内可以放置任何有效的 JavaScript 表达式</p>
+</blockquote>
+<pre><code>const msg=&quot;你好&quot;
+ReactDOM.render(
+  // &lt;h1&gt;{msg}&lt;/h1&gt;,  //变量
+  //&lt;h1&gt;{getName(&quot;小明&quot;)}&lt;/h1&gt;, //函数 小明
+  //&lt;h1&gt;{1+1}&lt;/h1&gt;, /计算表达式  2
+  &lt;h1&gt;{typeof false}&lt;/h1&gt;,  //类型判断 boolean
+  document.getElementById('root')
+);
+</code></pre>
+<h3 id="3-2-jsx定义属性">3-2. jsx定义属性</h3>
+<ul>
+<li>基本使用</li>
+</ul>
+<p>例如一个src属性<br>
+<code>const element = &lt;img src=&quot;./a.png&quot;&gt;&lt;/img&gt;;</code><br>
+或者使用表达式<br>
+<code>const element = &lt;img src={user.avatarUrl}&gt;&lt;/img&gt;</code></p>
+<ul>
+<li>注意点</li>
+</ul>
+<ol>
+<li>嵌入 JavaScript 表达式时，不要在大括号外面加上引号;</li>
+<li>React DOM 使用 camelCase（小驼峰命名）来定义属性的名称;</li>
+<li>JSX 里的 class 变成了 className，而 tabindex 则变为 tabIndex</li>
+</ol>
+<h3 id="3-3-指定子元素">3-3. 指定子元素</h3>
+<ul>
+<li>没有子元素时</li>
+</ul>
+<pre><code>const element = &lt;img src={user.avatarUrl} /&gt;;
+</code></pre>
+<ul>
+<li>存在子元素时，使用<code>()</code></li>
+</ul>
+<pre><code>const element = (
+  &lt;div&gt;
+    &lt;h1&gt;Hello!&lt;/h1&gt;
+    &lt;h2&gt;Good to see you here.&lt;/h2&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+<h3 id="3-4-jsx表示对象">3-4. jsx表示对象</h3>
+<blockquote>
+<p>Babel 会把 JSX 转译成一个名为 React.createElement() 函数调用,最终转换为对象。</p>
+</blockquote>
+<p><code>jsx</code></p>
+<pre><code>const element = (
+  &lt;h1 className=&quot;greeting&quot;&gt;
+    Hello, world!
+  &lt;/h1&gt;
+);
+</code></pre>
+<p><code>React.createElement() 函数调用</code></p>
+<pre><code>const element = React.createElement(
+  'h1',  //标签名
+  {className: 'greeting'}, //属性
+  'Hello, world!'  //内容
+);
+</code></pre>
+<p><code>创建了一个这样的对象</code></p>
+<pre><code>// 注意：这是简化过的结构
+const element = {
+  type: 'h1',
+  props: {
+    className: 'greeting',
+    children: 'Hello, world!'
+  }
+};
+</code></pre>
+<p>这些对象被称为 “React 元素”。React 通过读取这些对象，然后使用它们来构建 DOM 以及保持随时更新。</p>
+<h1 id="3-元素渲染">3. 元素渲染</h1>
+<h2 id="将一个元素渲染为-dom">将一个元素渲染为 DOM</h2>
+<p>html中的根节点，该节点内的所有内容都将由 React DOM 管理<br>
+<code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</code><br>
+将一个 React 元素渲染到根 DOM 节点中，只需把它们一起传入 <code>ReactDOM.render()</code></p>
+<pre><code>const element = &lt;h1&gt;Hello, world&lt;/h1&gt;;
+ReactDOM.render(element, document.getElementById('root'));
+</code></pre>
+<h2 id="使用函数动态更新jsx中的值">使用函数动态更新jsx中的值</h2>
+<pre><code>function changeTime(){
+const element=(&lt;div className=&quot;b&quot;&gt;
+  &lt;p&gt;{new Date().toLocaleTimeString()}&lt;/p&gt;
+&lt;/div&gt;)
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+}
+setInterval(changeTime,1000)
+</code></pre>
+<blockquote>
+<p>这里虽然每秒都调用<code>React DOM</code>,但是实际更新只有dom改变的内容,<code>React DOM</code> 会将元素和它的子元素与它们之前的状态进行比较，并只会进行必要的更新来使 DOM 达到预期的状态。</p>
+</blockquote>
+<h1 id="4-组件和props">4. 组件和props</h1>
+<blockquote>
+<p>组件允许你将 UI 拆分为独立可复用的代码片段，并对每个片段进行独立构思。</p>
+</blockquote>
+<h2 id="1-函数组件和class组件">1. 函数组件和class组件</h2>
+<ul>
+<li>函数组件</li>
+</ul>
+<blockquote>
+<p>函数是一个有效的 React 组件，因为它接收唯一带有数据的 “props”（代表属性）对象与并返回一个 React 元素。</p>
+</blockquote>
+<pre><code>function HelloWorld(props){
+  const element=&lt;h1&gt;hello,{props.name}&lt;/h1&gt;
+  return element
+}
+
+ReactDOM.render(
+  &lt;HelloWorld name=&quot;world!&quot;&gt;&lt;/HelloWorld&gt;,
+  document.getElementById('root')
+);
+
+
+</code></pre>
+<ul>
+<li>class组件</li>
+</ul>
+<pre><code>class HelloWorld extends React.Component {
+  render() {
+    return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;
+  }
+}
+
+ReactDOM.render(
+  &lt;HelloWorld name=&quot;world&quot;&gt;&lt;/HelloWorld&gt;,
+  document.getElementById('root')
+);
+</code></pre>
+<blockquote>
+<p>React 元素可以是dom元素也可以是用户自定义的组件：</p>
+</blockquote>
+<blockquote>
+<p>组件名必须是以大写字母开头。</p>
+</blockquote>
+<h2 id="2-构建组件的基本流程">2. 构建组件的基本流程</h2>
+<ol>
+<li>我们调用 ReactDOM.render() 函数，并传入<code>&lt;HelloWorld name=&quot;world&quot;&gt;&lt;/HelloWorld&gt;</code> 作为参数。</li>
+<li>React 调用 HelloWorld 组件，并将 {name: 'world'} 作为 props 传入。</li>
+<li>HelloWorld 组件将 <code>&lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;</code> 元素作为返回值。</li>
+<li>React DOM 将 DOM 高效地更新为 <code>&lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;</code>。</li>
+</ol>
+<h2 id="3-组合组件">3. 组合组件</h2>
+<blockquote>
+<p>组件可以在其输出中引用其他组件</p>
+</blockquote>
+<pre><code>function HelloWorld(props){ //自定义helloworld组件  
+return &lt;h1&gt;hello,{props.name}&lt;/h1&gt;
+}
+function App() {  //自定义app组件
+  return (
+    &lt;div&gt;
+      &lt;HelloWorld name=&quot;Sara&quot; /&gt;
+      &lt;HelloWorld name=&quot;Cahal&quot; /&gt;
+      &lt;HelloWorld name=&quot;Edite&quot; /&gt;
+    &lt;/div&gt;
+  );
+}
+
+//渲染app组件
+ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));
+
+</code></pre>
+<h2 id="4-提取组件">4. 提取组件</h2>
+<blockquote>
+<p>将组件拆分为更小的组件。将可复用组件提取处来。</p>
+</blockquote>
+<ul>
+<li>写一个看文章结构的组件案例</li>
+</ul>
+<p><code>html</code></p>
+<pre><code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p><code>css</code></p>
+<pre><code>.article-content{
+  width:200px;
+  height:200px;
+  background:skyblue;
+}
+.line{
+  width:100%;
+  height:1px;
+  background:#fff;
+}
+</code></pre>
+<p><code>react</code></p>
+<pre><code>// 文章
+function Article(props){
+  const element=(
+    &lt;div className=&quot;article-content&quot;&gt;
+      &lt;div className=&quot;article-header&quot;&gt;
+        标题
+      &lt;/div&gt;
+      &lt;div className=&quot;line&quot;&gt;&lt;/div&gt;
+      &lt;div className=&quot;article-main&quot;&gt;
+        内容
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+  return element
+} 
+ReactDOM.render(
+  &lt;Article /&gt;,
+  document.getElementById(&quot;root&quot;)
+)
+</code></pre>
+<ul>
+<li>将className为line的标签提取出来作为一个组件</li>
+</ul>
+<pre><code>// 自定义line组件
+function Line(props){
+  const element=&lt;div className=&quot;line&quot;&gt;&lt;/div&gt;
+   return element
+}
+
+// 文章
+function Article(props){
+  const element=(
+    &lt;div className=&quot;article-content&quot;&gt;
+      &lt;div className=&quot;article-header&quot;&gt;
+        标题
+      &lt;/div&gt;
+       &lt;Line /&gt;  //使用line组件
+      &lt;div className=&quot;article-main&quot;&gt;
+        内容
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+  return element
+} 
+
+
+ReactDOM.render(
+  &lt;Article /&gt;,
+  document.getElementById(&quot;root&quot;)
+)
+</code></pre>
+<h2 id="5react的props的只读性">5.React的Props的只读性</h2>
+<blockquote>
+<p>组件无论是使用函数声明还是通过 class 声明，都决不能修改自身的 props<br>
+React 组件都必须像纯函数一样保护它们的 props 不被更改。</p>
+</blockquote>
+<p><a href="https://codepen.io/pen?&amp;editors=0010&amp;layout=left">测试</a></p>
+<h1 id="5-state与生命周期">5. state与生命周期</h1>
+<h2 id="1-了解state">1. 了解state</h2>
+<blockquote>
+<p>State 与 props 类似，但是 state 是私有的，并且完全受控于当前组件。<br>
+除了拥有并设置了它的组件，其他组件都无法访问。</p>
+</blockquote>
+<h2 id="2-将函数组件转换为class组件">2. 将函数组件转换为Class组件</h2>
+<h3 id="步骤">步骤：</h3>
+<ol>
+<li>创建一个同名的 ES6 class，并且继承于 React.Component。</li>
+<li>添加一个空的 render() 方法。</li>
+<li>将函数体移动到 render() 方法之中。</li>
+<li>在 render() 方法中使用 this.props 替换 props。</li>
+<li>删除剩余的空函数声明。</li>
+</ol>
+<p><code>函数Clock组件</code></p>
+<pre><code>function Clock(props) {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Hello, world!&lt;/h1&gt;
+      &lt;h2&gt;It is {props.date.toLocaleTimeString()}.&lt;/h2&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><code>Class组件写法</code></p>
+<pre><code>class Clock extends React.Component {
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;h2&gt;It is {this.props.date.toLocaleTimeString()}.&lt;/h2&gt;  //this访问props
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<h2 id="3-实现组件自我更新">3. 实现组件自我更新</h2>
+<h3 id="3-1-在函数组件中可以添加定时器时刻渲染组件达到自己更新的效果">3-1. 在函数组件中可以添加定时器，时刻渲染组件达到自己更新的效果</h3>
+<pre><code>function Clock(props){
+  return &lt;h1&gt;time:{props.time}&lt;/h1&gt;;
+}
+
+function tick(){
+let d=new Date()  
+ReactDOM.render(
+  &lt;Clock time={d.toLocaleTimeString()} /&gt;,
+  document.getElementById('root')
+)
+}
+setInterval(tick, 1000);
+</code></pre>
+<blockquote>
+<p>此时在组件外更新，每次组件更新时 render 方法都会被调用</p>
+</blockquote>
+<h3 id="3-2-向-class-组件中添加局部的-state添加生命周期函数实现组件内部渲染更新">3-2. 向 class 组件中添加局部的 state,添加生命周期函数实现组件内部渲染更新</h3>
+<blockquote>
+<p>步骤</p>
+</blockquote>
+<h4 id="1-添加一个-class-构造函数然后在该函数中为-thisstate-赋初值">1. 添加一个 class 构造函数，然后在该函数中为 <code>this.state</code> 赋初值：</h4>
+<pre><code>class Clock extends React.Component {
+  constructor(props) {
+    super(props);//Class 组件应该始终使用 props 参数来调用父类(继承类)的构造函数。
+    this.state = {date: new Date()};
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;h2&gt;It is {this.props.date.toLocaleTimeString()}.&lt;/h2&gt;  //this访问props
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<h4 id="2-把-render-方法中的-thispropsdate-替换成-thisstatedate">2. 把 <code>render()</code> 方法中的<code> this.props.date</code> 替换成<code> this.state.date</code> ：</h4>
+<pre><code>class Clock extends React.Component {
+  constructor(props) {
+    super(props);//Class 组件应该始终使用 props 参数来调用父类(继承类)的构造函数。
+    this.state = {date: new Date()};
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;h2&gt;It is {this.state.date.toLocaleTimeString()}.&lt;/h2&gt;  //this访问props
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<h4 id="3-直接使用clock组件">3. 直接使用Clock组件</h4>
+<pre><code>class Clock extends React.Component {
+  constructor(props) {
+    super(props);//Class 组件应该始终使用 props 参数来调用父类(继承类)的构造函数。
+    this.state = {date: new Date()};
+  }
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;h2&gt;It is {this.state.date.toLocaleTimeString()}.&lt;/h2&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+ReactDOM.render(
+  &lt;Clock /&gt;,
+  document.getElementById('root')
+);
+</code></pre>
+<h4 id="4-在class类中使用生命周期方法">4. 在class类中使用生命周期方法</h4>
+<ol>
+<li>挂载生命周期函数 <code>componentDidMount</code></li>
+</ol>
+<blockquote>
+<p>组件已经被渲染到 DOM 中后运行</p>
+</blockquote>
+<ol start="2">
+<li>卸载生命周期函数 <code>componentWillUnmount</code></li>
+</ol>
+<blockquote>
+<p>组件卸载时运行</p>
+</blockquote>
+<p>根据上面的生命周期,可以在<code>componentDidMount</code>中添加定时器,在<code>componentWillUnmount</code>移出定时器,达到组件内部更新的效果</p>
+<pre><code>class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+
+  componentDidMount() {  //挂载
+    this.timerID = setInterval(
+      () =&gt; this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {  //卸载
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({  //更新state
+      date: new Date()
+    });
+  }
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;h2&gt;It is {this.state.date.toLocaleTimeString()}.&lt;/h2&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;Clock /&gt;);
+</code></pre>
+<h2 id="4-state使用注意事项">4. state使用注意事项</h2>
+<h3 id="4-1-不要直接修改state而是使用setstate方法">4-1. 不要直接修改state,而是使用<code>setState()</code>方法</h3>
+<pre><code>this.state.date='Test Data'  //错误
+this.setState({date:&quot;Test Data&quot;})  //正确 
+</code></pre>
+<h3 id="4-2-state和props的更新是异步的不要依赖他们的值来更新下一个状态而是使用setstatestateprops">4-2. state和props的更新是异步的,不要依赖他们的值来更新下一个状态,而是使用<code>setState((state,props)=&gt;{...})</code></h3>
+<blockquote>
+<p><code>setState()</code>方法接收一个函数,该函数有<code>state</code>和<code>props</code>两个参数</p>
+</blockquote>
+<pre><code>//更新state中counter值
+this.setState((state, props) =&gt; ({
+  counter: state.counter + props.increment
+}));
+</code></pre>
+<h3 id="4-3-state的更新会被合并">4-3. state的更新会被合并</h3>
+<ul>
+<li>当state中包含<code>dataA</code>和<code>dataB</code>两个变量</li>
+</ul>
+<pre><code>constructor(props) {
+    super(props);
+    this.state = {
+      dataA: [],
+      dataB: []
+    };
+  }
+</code></pre>
+<ul>
+<li>可以使用<code>setState</code>单独更新一个变量</li>
+</ul>
+<pre><code>this.setState({
+        dataA: ['1']
+      });
+</code></pre>
+<p>此时是浅合并,state中的<code>dataA</code>已经被修改,<code>dataB</code>被保留</p>
+<ul>
+<li>可以直接更新所有变量</li>
+</ul>
+<pre><code>this.setState({
+        dataA: ['1'],
+        dataB:['2']
+      });
+</code></pre>
+<p>此时state中的<code>dataA</code>和<code>dataB</code>被替换</p>
+<h3 id="4-4-数据是向下流动的">4-4. 数据是向下流动的</h3>
+<blockquote>
+<p>假如有<code>A组件</code>和<code>B组件</code>,<code>A组件</code>是<code>B组件</code>的父组件,<code>A组件</code>可以选择把它的 state 作为 props 向下传递到它的子组件<code>B</code>中</p>
+</blockquote>
+<h2 id="5-生命周期函数">5. 生命周期函数</h2>
+<h3 id="5-1-挂载生命周期函数-componentdidmount">5-1. 挂载生命周期函数 <code>componentDidMount</code></h3>
+<blockquote>
+<p>组件已经被渲染到 DOM 中后运行</p>
+</blockquote>
+<h3 id="5-2-卸载生命周期函数-componentwillunmount">5-2. 卸载生命周期函数 <code>componentWillUnmount</code></h3>
+<blockquote>
+<p>组件卸载时运行</p>
+</blockquote>
+<h1 id="6-事件处理">6. 事件处理</h1>
+<h2 id="1-与传统html的写法不同">1. 与传统html的写法不同</h2>
+<ol>
+<li>React 事件的命名采用小驼峰式（camelCase），而不是纯小写。</li>
+<li>使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串。</li>
+<li>事件阻止默认行为不用<code>return false</code> , 使用<code>e.preventDefault</code></li>
+</ol>
+<h2 id="2-写一个计数器来体验事件处理">2. 写一个计数器来体验事件处理</h2>
+<blockquote>
+<ul>
+<li>通常情况下， 根据JavaScript 函数工作原理,如果你没有在方法后面添加 ()，例如 <code>onClick={this.handleClick}</code>，你应该为这个方法绑定 this,否则this指向<code>undefined</code>。</li>
+<li>在class组件中创建方法要想访问到构造函数中的state,需要使用<code>bind</code>绑定this指向,隐式传递参数</li>
+</ul>
+</blockquote>
+<pre><code>// class类
+class Lamp extends React.Component{
+    constructor(props){  //构造函数
+      super(props);
+      this.state={
+        num:0
+      };
+    // 为了在回调中使用 `this`，这个绑定是必不可少的。在自定义函数中绑定this指向
+    this.addNum = this.addNum.bind(this);
+    this.reduceNum = this.reduceNum.bind(this);
+    }
+   addNum(){
+      this.setState((state)=&gt;{
+        return {
+          num:++state.num
+        }
+      })
+      // console.log(this.state.num)
+   }
+  reduceNum(){
+    this.setState((state)=&gt;{
+      return {
+        num:--state.num
+      }
+    })
+  }
+  render(){
+    return (
+    &lt;div&gt;
+       &lt;button onClick={this.addNum}&gt;
+          add
+       &lt;/button&gt; 
+       &lt;button style={{marginLeft:&quot;10px&quot;}} onClick={this.reduceNum}&gt;
+         reduce
+       &lt;/button&gt; 
+      &lt;h1&gt;{this.state.num}&lt;/h1&gt;
+    &lt;/div&gt;    
+    )
+    
+  }
+}
+ReactDOM.render(&lt;Lamp /&gt;,document.getElementById(&quot;root&quot;))
+</code></pre>
+<h2 id="3-向事件处理程序传递参数">3. 向事件处理程序传递参数</h2>
+<h3 id="3-1-通过箭头函数事件对象e会通过第二个参数显示传递">3-1. 通过箭头函数（事件对象e会通过第二个参数显示传递）</h3>
+<pre><code>...
+  testFun(v){
+    console.log(v)    //1
+  }
+...
+  &lt;button onClick={()=&gt;{this.testFun(1)}}&gt;test&lt;/button&gt;
+</code></pre>
+<h3 id="3-2-使用-functionprototypebind-来实现事件对象以及更多的参数将会被隐式的进行传递">3-2. 使用 <code>Function.prototype.bind</code> 来实现（事件对象以及更多的参数将会被隐式的进行传递）</h3>
+<pre><code>...
+  testFun(this,v){
+    console.log(this,v)    // 2
+  }
+...
+      &lt;button onClick={this.testFun.bind(this, 2)}&gt;test&lt;/button&gt;
+</code></pre>
+<h1 id="7-条件渲染">7. 条件渲染</h1>
+<blockquote>
+<p>创建不同的组件来封装各种你需要的行为,依据应用的不同状态，你可以只渲染对应状态下的部分内容。使用 JavaScript 运算符 if 或者条件运算符去创建元素来表现当前的状态。</p>
+</blockquote>
+<h2 id="1-根据条件if判断组件显示">1. 根据条件<code>if</code>判断组件显示</h2>
+<pre><code>//组件A
+class ComponentA extends React.Component{
+  render(){
+    return &lt;h1&gt;组件A&lt;/h1&gt;
+  }
+}
+//组件B
+class ComponentB extends React.Component{
+  render(){
+    return &lt;h1&gt;组件B&lt;/h1&gt;
+  }
+}
+//根据props值决定显示哪个组件
+class ChooseComponent extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    if(this.props.isComponent=='A'){
+        return &lt;ComponentA /&gt;
+    }else{
+      return  &lt;ComponentB /&gt;
+    }
+  }
+}
+ReactDOM.render(&lt;ChooseComponent isComponent=&quot;B&quot; /&gt; , document.getElementById(&quot;root&quot;))
+</code></pre>
+<h2 id="2-在jsx中使用条件运算符">2. 在jsx中使用条件运算符</h2>
+<ul>
+<li>三目运算符</li>
+</ul>
+<pre><code>//组件A
+class ComponentA extends React.Component{
+  render(){
+    return &lt;h1&gt;组件A&lt;/h1&gt;
+  }
+}
+//组件B
+class ComponentB extends React.Component{
+  render(){
+    return &lt;h1&gt;组件B&lt;/h1&gt;
+  }
+}
+//根据props值决定显示哪个组件
+class ChooseComponent extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+      &lt;div&gt;
+        &lt;p&gt;
+          此时{this.props.isComponent==&quot;B&quot;?&quot;显示B&quot;:&quot;显示A&quot;}组件
+        &lt;/p&gt;
+      {this.props.isComponent==&quot;B&quot;?&lt;ComponentB /&gt;:&lt;ComponentA /&gt;}
+      &lt;/div&gt; 
+    )
+  }
+}
+ReactDOM.render(&lt;ChooseComponent isComponent=&quot;A&quot; /&gt; , document.getElementById(&quot;root&quot;))
+</code></pre>
+<ul>
+<li>使用逻辑&amp;&amp;,前面有假则假</li>
+</ul>
+<pre><code>//组件A
+class ComponentA extends React.Component{
+  render(){
+    return &lt;h1&gt;组件A&lt;/h1&gt;
+  }
+}
+//组件B
+class ComponentB extends React.Component{
+  render(){
+    return &lt;h1&gt;组件B&lt;/h1&gt;
+  }
+}
+//根据props值决定显示哪个组件
+class ChooseComponent extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+      &lt;div&gt;
+        {this.props.isComponent==&quot;A&quot; &amp;&amp;&lt;ComponentA/&gt;}
+        {this.props.isComponent==&quot;B&quot; &amp;&amp;&lt;ComponentB/&gt;}
+      &lt;/div&gt; 
+    )
+  }
+}
+ReactDOM.render(&lt;ChooseComponent isComponent=&quot;A&quot; /&gt; , document.getElementById(&quot;root&quot;))
+
+</code></pre>
+<h2 id="3-阻止组件渲染">3. 阻止组件渲染</h2>
+<blockquote>
+<p>在组件render方法中<code>return null</code></p>
+</blockquote>
+<pre><code>
+//根据props值决定显示哪个组件
+class ChooseComponent extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return null  //阻断了组件渲染，隐藏了组件
+    return (
+      &lt;div&gt;
+        {this.props.isComponent==&quot;A&quot; &amp;&amp;&lt;ComponentA/&gt;}
+        {this.props.isComponent==&quot;B&quot; &amp;&amp;&lt;ComponentB/&gt;}
+      &lt;/div&gt; 
+    )
+  }
+}
+ReactDOM.render(&lt;ChooseComponent isComponent=&quot;A&quot; /&gt; , document.getElementById(&quot;root&quot;))
+
+</code></pre>
+<h1 id="8-列表和key">8. 列表和key</h1>
+<h2 id="1-基础列表组件">1. 基础列表组件</h2>
+<blockquote>
+<p>使用<code>map()</code>将元素标签放置循环中赋值给变量，此变量接收到了一个列表组件。</p>
+</blockquote>
+<pre><code>function Test(props){
+  let arr=[1,2,3,4,5]
+  let element=arr.map((v)=&gt;{
+    return &lt;li&gt;{v}&lt;/li&gt;
+  })
+  return &lt;ul&gt;{element}&lt;/ul&gt;
+}
+ReactDOM.render(&lt;Test/&gt;, document.getElementById(&quot;root&quot;))
+</code></pre>
+<h2 id="2使用key">2.使用key</h2>
+<h3 id="2-1-key的使用">2-1. key的使用</h3>
+<p>根据上面案例中，如果给<code>Test</code>组件添加props，传递一个数组并且使用该数组来遍历组件，将会报错<br>
+<code>&quot;Warning: Each child in a list should have a unique 'key' prop.%s%s See</code><br>
+此时需要用到<code>key</code>：</p>
+<pre><code>function Test(props){
+  const numbers=props.numbers  //接收数组
+  let element=numbers.map((number,index)=&gt;{  //执行遍历
+    return &lt;li key={index}&gt;{number}&lt;/li&gt;  //给遍历元素添加key
+  })
+  return &lt;ul&gt;{element}&lt;/ul&gt;
+}
+const numbers=[1,2,3,4,5]
+ReactDOM.render(&lt;Test numbers={numbers}/&gt;, document.getElementById(&quot;root&quot;))
+</code></pre>
+<h3 id="2-2-key的理解和注意点">2-2. key的理解和注意点</h3>
+<ol>
+<li>key 帮助 React 识别元素改变（比如被添加或删除），给数组中的每一个元素赋予一个确定的标识。</li>
+<li>key 最好元素在列表中拥有的一个唯一字符串，可以使用元素索引 index 作为 key，但是会导致性能变差。</li>
+<li>元素的 key 只有放在就近的数组上下文中才有意义。（在 map() 方法中的元素需要设置 key 属性。）</li>
+<li>key 值在兄弟节点之间必须唯一。</li>
+</ol>
+<h1 id="9-表单">9. 表单</h1>
+<blockquote>
+<p>React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 setState()来更新。</p>
+</blockquote>
+<h2 id="1-受控组件">1. 受控组件</h2>
+<blockquote>
+<p>对于受控组件来说，输入的值始终由 React 的 state 驱动。(通过<code>onchange</code>监听值的改变然后传递给state)</p>
+</blockquote>
+<pre><code>class TestForm extends React.Component{
+  constructor(props){
+    super(props)
+      this.state={value:''}
+      this.handleChange=this.handleChange.bind(this)
+  }
+  handleChange(e){
+    this.setState({
+      value:e.target.value
+    })    
+  }
+  render(){
+    return (&lt;div&gt;
+      &lt;input value={this.state.value} onChange={this.handleChange} /&gt;
+      &lt;p&gt;{this.state.value}&lt;/p&gt;
+      &lt;/div&gt;)
+  }
+}
+
+ReactDOM.render(&lt;TestForm/&gt;,document.getElementById(&quot;root&quot;))
+</code></pre>
+<ul>
+<li>input</li>
+</ul>
+<pre><code>...
+&lt;input value={this.state.value} onChange={this.handleChange} /&gt;
+</code></pre>
+<ul>
+<li>textarea</li>
+</ul>
+<pre><code>textarea value={this.state.value} onChange={this.handleChange} /&gt;
+...
+</code></pre>
+<ul>
+<li>select 标签</li>
+</ul>
+<pre><code>        &lt;label&gt;
+          选择你喜欢的风味:
+          &lt;select value={this.state.value} onChange={this.handleChange}&gt;
+            &lt;option value=&quot;grapefruit&quot;&gt;葡萄柚&lt;/option&gt;
+            &lt;option value=&quot;lime&quot;&gt;酸橙&lt;/option&gt;
+            &lt;option value=&quot;coconut&quot;&gt;椰子&lt;/option&gt;
+            &lt;option value=&quot;mango&quot;&gt;芒果&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/label&gt;
+</code></pre>
+<h2 id="2-非受控组件">2. 非受控组件</h2>
+<ul>
+<li><code>input[type='file']</code></li>
+</ul>
+<blockquote>
+<p>file因为它的 value 只读，所以它是 React 中的一个非受控组件。</p>
+</blockquote>
+<pre><code>&lt;input type=&quot;file&quot; /&gt;
+</code></pre>
+<h2 id="3-处理多个输入">3. 处理多个输入</h2>
+<blockquote>
+<p>当需要处理多个 input 元素时，我们可以给每个元素添加 <code>name</code> 属性，并让处理函数根据 <code>event.target.name</code> 的值选择要执行的操作。<br>
+使用了 ES6 计算属性名称的语法更新给定输入名称对应的 state 值(通过<code>[]</code>中写表达式得到属性名称)</p>
+</blockquote>
+<pre><code>class TestForm extends React.Component{
+  constructor(props){
+    super(props)
+      this.state={
+        oneVal:'',
+        twoVal:0
+      }
+      this.handleChange=this.handleChange.bind(this)
+  }
+  handleChange(e){
+    let value=e.target.value
+    this.setState({
+      [e.target.name]:value //ES6 计算属性名称的语法
+    })    
+  }
+  render(){
+    return (&lt;div&gt;
+         &lt;input name=&quot;oneVal&quot; value={this.state.oneVal} onChange={this.handleChange} /&gt;&lt;br/&gt;
+         &lt;input name=&quot;twoVal&quot; value={this.state.twoVal} onChange={this.handleChange} /&gt;
+      &lt;p&gt;oneVal: {this.state.oneVal}&lt;/p&gt;&lt;br/&gt;
+      &lt;p&gt;twoVal: {this.state.twoVal}&lt;/p&gt;
+      &lt;/div&gt;)
+  }
+}
+
+ReactDOM.render(&lt;TestForm/&gt;,document.getElementById(&quot;root&quot;))
+</code></pre>
+<h1 id="10-状态提升">10. 状态提升</h1>
+<h2 id="1-理解">1. 理解</h2>
+<blockquote>
+<p>状态提升：将多个组件中需要共享的 state 向上移动到它们的最近共同父组件中，便可实现共享 state</p>
+</blockquote>
+<blockquote>
+<p>理解：a组件有个state值，b组件也需要时应当state值提升到父组件通过props传下来实现兄弟组件共享.(状态提升)</p>
+</blockquote>
+<h2 id="2-举例">2. 举例</h2>
+<blockquote>
+<p>需求: 组件1存温度,组件2判断是否到达沸点,组件2需要拿到组件1中的state值来判断。</p>
+</blockquote>
+<pre><code>/*
+组件1存温度
+*/
+class TestChildOne extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      num:0
+    }
+    this.handleNum=this.handleNum.bind(this)
+  }
+  handleNum(e){
+    let value=e.target.value
+    this.setState({
+      num:value
+    })
+  }
+  render(){
+    const element=&lt;input value={this.state.num} onChange={this.handleNum}/&gt;  
+    return element
+  }
+}
+/*
+组件2判断是否到达沸点
+*/
+class TestChildTwo extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      num:0
+    }
+  }
+  render(){
+    const element=(
+    &lt;&gt;
+        {this.state.num&gt;90?&quot;沸点到达了&quot;:&quot;还差点温度&quot;}
+      &lt;input value={this.state.num} onChange={this.handleNum}/&gt;  
+        &lt;/&gt;
+    )
+    return element
+  }
+}
+</code></pre>
+<blockquote>
+<p>此时两个组件都存在状态<code>this.state.num</code>,可以写一个父组件存储该状态，父组件使用属性发送，两个子组件使用props接收值</p>
+</blockquote>
+<pre><code>class TestChildOne extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={  //组价自身维护的state
+      num:0
+    }
+    this.handleNum=this.handleNum.bind(this)
+  }
+  handleNum(e){
+    let value=e.target.value
+    this.props.onChildOneHandle(value)  //子组件给父组件发送值
+    }
+  render(){
+    let num=this.props.num
+    const element=&lt;input value={num} onChange={this.handleNum}/&gt;  
+    return element
+  }
+}
+
+class TestChildTwo extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    const element=&lt;&gt;{this.props.num&gt;90?&quot;沸点到达了&quot;:&quot;还差点温度&quot;}&lt;/&gt;
+    return element
+  }
+}
+
+
+class TestParent extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      num:0
+    }
+    this.childOneHandle=this.childOneHandle.bind(this)
+  }
+  childOneHandle(val){//子组件给父组件间传参数，自定义事件
+    this.setState({
+      num:val
+    })
+  }
+  render(){
+    const element=(
+    &lt;&gt;
+        &lt;TestChildOne num={this.state.num} onChildOneHandle={this.childOneHandle}/&gt;//自定义事件接收子组件的值
+        &lt;TestChildTwo  num={this.state.num} /&gt;
+        &lt;/&gt;
+    )
+    return element
+  }
+}
+
+ReactDOM.render(
+  
+  &lt;TestParent /&gt;
+  
+  ,document.getElementById(&quot;root&quot;))
+
+</code></pre>
+<p><a href="https://codepen.io/qincongh/pen/VwGwaEK?editors=0010">点击查看运行结果</a></p>
+<h2 id="3-总结">3. 总结</h2>
+<ol>
+<li>兄弟组价需要共享state时，需要状态提升到父组件</li>
+<li>父组件接收子组件的数据时需要使用自定义组件</li>
+</ol>
+<blockquote>
+<p>父组件接收值</p>
+</blockquote>
+<pre><code>//1.在组件上定义事件
+    &lt;&gt;
+        &lt;TestChildOne num={this.state.num} onChildOneHandle={this.childOneHandle}/&gt;//自定义事件接收子组件的值
+   
+        &lt;/&gt;
+...
+//2. 接收值设置state
+  childOneHandle(val){//子组件给父组件间传参数，自定义事件
+    this.setState({
+      num:val
+    })
+
+
+</code></pre>
+<blockquote>
+<p>子组件发送值</p>
+</blockquote>
+<pre><code>...
+  handleNum(e){
+    let value=e.target.value
+    this.props.onChildOneHandle(value)  //子组件给父组件发送值
+    }
+  render(){
+    let num=this.props.num
+    const element=&lt;input value={num} onChange={this.handleNum}/&gt;  //input监听value改变事件
+    return element
+  }
+
+...
+</code></pre>
+<h1 id="11组合模式">11.组合模式</h1>
+<p>使用组合来实现组件间的代码重用（类似vue的插槽）</p>
+<h2 id="1-使用propschildren">1. 使用<code>props.children</code></h2>
+<pre><code>clss ContainerLayout extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+      &lt;div class=&quot;container-layout&quot;&gt;
+        {this.props.children}
+      &lt;/div&gt;
+    )
+  }
+}
+
+ReactDOM.render(
+  &lt;ContainerLayout&gt;
+     &lt;div class=&quot;main&quot;&gt;
+       main
+     &lt;/div&gt;
+  &lt;/ContainerLayout&gt;
+  ,document.getElementById(&quot;root&quot;))
+</code></pre>
+<h2 id="2-指定属性名">2. 指定属性名</h2>
+<pre><code>class ContainerLayout extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    const element=(
+      &lt;div className=&quot;container-layout&quot;&gt;
+            {this.props.header}
+            {this.props.main}
+            {this.props.footer}
+      &lt;/div&gt;
+    )
+    return element
+    
+  }
+}
+class ContainerMain extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    const element=(
+      &lt;div className=&quot;container-main&quot;&gt;
+         main
+      &lt;/div&gt;
+    )
+     return element
+  }
+}
+class ContainerHeader extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    const element=(
+      &lt;div className=&quot;container-header&quot;&gt;
+          header
+      &lt;/div&gt;
+    )
+     return element
+  }
+}
+class ContainerFooter extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    const element=(
+      &lt;div className=&quot;container-footer&quot;&gt;
+            footer
+      &lt;/div&gt;
+    )
+     return element
+  }
+}
+ReactDOM.render(
+  &lt;ContainerLayout
+    header={&lt;ContainerHeader/&gt;}
+    main={&lt;ContainerMain/&gt;}
+    footer={&lt;ContainerFooter/&gt;}
+    /&gt;  
+,document.getElementById(&quot;root&quot;)
+)
+</code></pre>
+<h1 id="12-代码分割">12. 代码分割</h1>
+<h2 id="1-打包概念">1. 打包概念</h2>
+<blockquote>
+<p>打包是一个将文件引入并合并到一个单独文件的过程，最终形成一个 “bundle”。 接着在页面上引入该 bundle，整个应用即可一次性加载。</p>
+</blockquote>
+<blockquote>
+<p><code>Create React App</code>使用的<code>Webpack</code>进行打包</p>
+</blockquote>
+<h2 id="2-使用import">2. 使用<code>import()</code></h2>
+<blockquote>
+<p>使用之前：</p>
+</blockquote>
+<pre><code>import { add } from './math';
+console.log(add(16, 26));
+</code></pre>
+<blockquote>
+<p>使用之后</p>
+</blockquote>
+<pre><code>import(&quot;./math&quot;).then(math =&gt; {
+  console.log(math.add(16, 26));
+});
+</code></pre>
+<blockquote>
+<p>当 <code>Webpack</code> 解析到该语法时，会自动进行代码分割。</p>
+</blockquote>
+<h2 id="3-使用reactlazy引入组件">3. 使用<code>React.lazy</code>引入组件</h2>
+<blockquote>
+<p>React.lazy 函数能让你像渲染常规组件一样处理动态引入（的组件）。</p>
+</blockquote>
+<blockquote>
+<p>React.lazy 接受一个函数，这个函数需要动态调用 import()。它必须返回一个 Promise，该 Promise 需要 resolve 一个 defalut export 的 React 组件。</p>
+</blockquote>
+<blockquote>
+<p>在 Suspense 组件中渲染 lazy 组件，如此使得我们可以使用在等待加载 lazy 组件时做优雅降级（如 loading 指示器等）。</p>
+</blockquote>
+<p>使用:</p>
+<pre><code>import React, { Suspense } from 'react';
+
+const OtherComponent = React.lazy(() =&gt; import('./OtherComponent'));
+
+function MyComponent() {
+  return (
+    &lt;div&gt;
+      &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;  //引入组件加载时的显示，fallback 属性接受任何在组件加载过程中你想展示的 React 元素。
+        &lt;OtherComponent /&gt;
+      &lt;/Suspense&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h1 id="13-context">13. Context</h1>
+<h2 id="1理解">1.理解</h2>
+<blockquote>
+<p>Context 提供了一种在组件之间共享此类值的方式，而不必显式地通过组件树的逐层传递 props。</p>
+</blockquote>
+<blockquote>
+<p>Context共享全局的数据，使用场景有当前认证的用户、主题或首选语言等。</p>
+</blockquote>
+<h2 id="2-api">2. API</h2>
+<h3 id="2-1-reactcreatecontext">2-1. React.createContext</h3>
+<pre><code>const MyContext = React.createContext(defaultValue);
+</code></pre>
+<ol>
+<li>创建一个 Context 对象。当 React 渲染一个订阅了这个 Context 对象的组件，这个组件会从组件树中离自身最近的那个匹配的 Provider 中读取到当前的 context 值。</li>
+<li>只有当组件所处的树中没有匹配到 Provider 时，其 defaultValue 参数才会生效。</li>
+<li>将 undefined 传递给 Provider 的 value 时，消费组件的 defaultValue 不会生效。</li>
+</ol>
+<h3 id="2-2-contextprovider">2-2. Context.Provider</h3>
+<pre><code>&lt;MyContext.Provider value={/* 某个值 */}&gt;
+</code></pre>
+<ol>
+<li>Context 对象都会返回一个 Provider React 组件，它允许消费组件订阅 context 的变化。</li>
+<li>Provider 接收一个 value 属性，传递给消费组件。</li>
+<li>当 Provider 的 value 值发生变化时，它内部的所有消费组件都会重新渲染</li>
+</ol>
+<h3 id="2-3-classcontexttype">2-3. Class.contextType</h3>
+<ol>
+<li>
+<p>挂载在 class 上的 contextType 属性会被重赋值为一个由 React.createContext() 创建的 Context 对象。</p>
+</li>
+<li>
+<p>使用 this.context 来消费最近 Context 上的那个值。</p>
+</li>
+</ol>
+<pre><code>class MyClass extends React.Component {
+  componentDidMount() {
+    let value = this.context;
+    /* 在组件挂载完成后，使用 MyContext 组件的值来执行一些有副作用的操作 */
+  }
+  componentDidUpdate() {
+    let value = this.context;
+    /* ... */
+  }
+  componentWillUnmount() {
+    let value = this.context;
+    /* ... */
+  }
+  render() {
+    let value = this.context;
+    /* 基于 MyContext 组件的值进行渲染 */
+  }
+}
+const MyContext = React.createContext(defaultValue);
+MyClass.contextType = MyContext;
+</code></pre>
+<blockquote>
+<p>使用 static 这个类属性来初始化你的 contextType</p>
+</blockquote>
+<pre><code>class MyClass extends React.Component {
+  static contextType = MyContext;
+  render() {
+    let value = this.context;
+    /* 基于这个值进行渲染工作 */
+  }
+}
+</code></pre>
+<h3 id="2-4-contextconsumer">2-4. Context.Consumer</h3>
+<pre><code>&lt;MyContext.Consumer&gt;
+  {value =&gt; /* 基于 context 值进行渲染*/}
+&lt;/MyContext.Consumer&gt;
+</code></pre>
+<ol>
+<li>React 组件也可以订阅到 context 变更。</li>
+</ol>
+<h3 id="2-5-contextdisplayname">2-5. Context.displayName</h3>
+<pre><code>const MyContext = React.createContext(/* some value */);
+MyContext.displayName = 'MyDisplayName';
+
+&lt;MyContext.Provider&gt;
+ // 在 DevTools 中: &quot;MyDisplayName.Provider&quot; 
+&lt;MyContext.Consumer&gt; 
+// 在 DevTools 中: &quot;MyDisplayName.Consumer&quot; 
+</code></pre>
+<p>context 对象接受一个名为 displayName 的 property，类型为字符串。React DevTools 使用该字符串来确定 context 要显示的内容。</p>
+<h2 id="3-动态context-基本使用">3. 动态Context---基本使用</h2>
+<blockquote>
+<p>设置主题案例</p>
+</blockquote>
+<h3 id="3-1-创建组件">3-1. 创建组件</h3>
+<pre><code>class Container extends React.Component {...}  //内容组件
+class ThemedButton  extends React.Component {...}  //按钮 ，用来修改context状态
+class App extends React.Component {...}//根组件
+</code></pre>
+<h3 id="3-2-创建context使用contexttype将context引入组件内部">3-2. 创建context，使用contextType将context引入组件内部</h3>
+<pre><code>//创建context
+const themes={
+   dark:'#222',
+   light:'#eee'
+}
+const ThemeContext = React.createContext(
+  themes.dark // 默认值
+);
+Container.contextType=ThemeContext
+ThemedButton.contextType=ThemeContext
+
+</code></pre>
+<h3 id="3-3-在app根组件设置statestate的值包含context的属性和值">3-3. 在App根组件设置state，state的值包含context的属性和值</h3>
+<blockquote>
+<p>使用ThemeContext.Provider将改变的state传到内部组件context中</p>
+</blockquote>
+<pre><code>class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state={
+      themes:themes.dark
+    }
+    this.changeThemes=this.changeThemes.bind(this)
+  }
+  changeThemes(){
+    this.setState({
+      themes:this.state.themes===themes.dark?themes.light:themes.dark
+    })
+  }
+  render(){
+    //使用ThemeContext.Provider 的value 子组件的context的值将由value值决定 子组件使用context接收值
+    //ThemeContext.Provider 外的组件的context值是默认值
+    return (
+     &lt;ThemeContext.Provider value={this.state.themes}&gt;
+      &lt;Container changeThemes={this.changeThemes}&gt;&lt;/Container&gt;
+     &lt;/ThemeContext.Provider&gt;
+        )
+  }
+}
+
+</code></pre>
+<h3 id="3-4-在app内部组件中传递事件">3-4. 在App内部组件中传递事件</h3>
+<pre><code>//内容样式
+class Container extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+     let themes=this.context  //获取context值
+     console.log(this.context)
+    return (
+      &lt;div style={{width:'100%',height:'500px',border:'10px solid skyblue',background:themes}}&gt;
+        &lt;ThemedButton onClick={this.props.changeThemes}/&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+//按钮
+class ThemedButton  extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    //{...this.props} 将props传递的属性全部使用
+    return (
+      &lt;button {...this.props}&gt;点击切换 / {this.context}&lt;/button&gt;
+    )
+  }
+}
+</code></pre>
+<h3 id="3-5-所有代码">3-5. 所有代码</h3>
+<pre><code>//内容样式
+class Container extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+     let themes=this.context
+     console.log(this.context)
+    return (
+      &lt;div style={{width:'100%',height:'500px',border:'10px solid skyblue',background:themes}}&gt;
+        &lt;ThemedButton onClick={this.props.changeThemes}/&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+//按钮
+class ThemedButton  extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    //{...this.props} 将props传递的属性全部使用
+    return (
+      &lt;button {...this.props}&gt;点击切换 / {this.context}&lt;/button&gt;
+    )
+  }
+}
+//创建context
+const themes={
+   dark:'#222',
+   light:'#eee'
+}
+const ThemeContext = React.createContext(
+  themes.dark // 默认值
+);
+Container.contextType=ThemeContext
+ThemedButton.contextType=ThemeContext
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state={
+      themes:themes.dark
+    }
+    this.changeThemes=this.changeThemes.bind(this)
+  }
+  changeThemes(){
+    this.setState({
+      themes:this.state.themes===themes.dark?themes.light:themes.dark
+    })
+  }
+  render(){
+    //使用ThemeContext.Provider 的value 子组件的context的值将由value值决定 子组件使用context接收值
+    //ThemeContext.Provider 外的组件的context值是默认值
+    return (
+     &lt;ThemeContext.Provider value={this.state.themes}&gt;
+      &lt;Container changeThemes={this.changeThemes}&gt;&lt;/Container&gt;
+     &lt;/ThemeContext.Provider&gt;
+        )
+  }
+}
+
+
+const root=ReactDOM.createRoot(document.getElementById('root'))
+root.render(&lt;App/&gt;)
+</code></pre>
+<p><a href="https://codepen.io/qincongh/pen/wvEajxL">codepen查看运行</a></p>
+<h2 id="4-嵌套组件中更新context">4. 嵌套组件中更新Context</h2>
+<blockquote>
+<p>根组件给较深的子组件传递context 且使用较深组件更新context状态的方法</p>
+</blockquote>
+<h3 id="4-1-创建一个context">4-1. 创建一个context</h3>
+<blockquote>
+<p>确保传递给 createContext 的默认值数据结构是调用的组件（consumers）所能匹配的</p>
+</blockquote>
+<pre><code>const themesContext=React.createContext({
+  theme:'dark',
+  changeTheme:()=&gt;{}
+})
+</code></pre>
+<h3 id="4-2-在根组件添加state">4-2. 在根组件添加state</h3>
+<blockquote>
+<p>state中包含更新state函数，通过<code>context provider</code>传递至根组件</p>
+</blockquote>
+<pre><code>class App extends React.Component{
+  constructor(props){
+    super(props)
+       this.changeTheme=()=&gt;{
+        this.setState(state=&gt;{
+         return{
+          theme:state.theme===&quot;#222&quot;?themes.light:themes.dark
+         }
+        })
+       }
+      this.state={
+          theme:themes.dark,
+          changeTheme:this.changeTheme
+        }
+  }
+
+  render(){
+    return (
+      &lt;ThemesContext.Provider value={this.state}&gt;
+      &lt;Content/&gt;
+     &lt;/ThemesContext.Provider&gt;
+    )
+  }
+}
+</code></pre>
+<h3 id="4-3-在嵌组件中使用themecontextconsumer">4-3. 在嵌组件中使用<code>ThemeContext.Consumer</code></h3>
+<blockquote>
+<p>通过 context 传递一个函数，使得 consumers 组件更新 context</p>
+</blockquote>
+<pre><code>//嵌套组件
+class ChangeButton extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+     &lt;ThemesContext.Consumer&gt;
+        {
+          ({theme,changeTheme})=&gt;{
+            console.log(theme,changeTheme)
+            return &lt;button onClick={changeTheme}&gt;{theme=='#222'?'白天':'黑夜'}&lt;/button&gt;
+          }
+          
+        }
+      
+     &lt;/ThemesContext.Consumer&gt;   
+           )
+  }
+}
+class Content extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    // console.log(this.context) 
+    return (
+    &lt;div&gt;
+      &lt;ChangeButton/&gt;
+    &lt;/div&gt;
+    )
+  }
+}
+</code></pre>
+<p><a href="https://codepen.io/qincongh/pen/OJoyjQB?editors=0011">codepen查看运行</a></p>
+<h2 id="5-一个组件消费多个-context">5. 一个组件消费多个 Context</h2>
+<h3 id="5-1-组件中提供初始-context-值">5-1. 组件中提供初始 context 值</h3>
+<pre><code>class App extends React.Component {
+  render() {
+    const {signedInUser, theme} = this.props;
+
+    // 提供初始 context 值的 App 组件
+    return (
+      &lt;ThemeContext.Provider value={theme}&gt;
+        &lt;UserContext.Provider value={signedInUser}&gt;
+          &lt;Layout /&gt;
+        &lt;/UserContext.Provider&gt;
+      &lt;/ThemeContext.Provider&gt;
+    );
+  }
+}
+
+</code></pre>
+<h3 id="5-2-组件中使用多个-context">5-2. 组件中使用多个 context</h3>
+<pre><code>// 一个组件可能会消费多个 context
+function Content() {
+  return (
+    &lt;ThemeContext.Consumer&gt;
+      {theme =&gt; (
+        &lt;UserContext.Consumer&gt;
+          {user =&gt; (
+            &lt;ProfilePage user={user} theme={theme} /&gt;
+          )}
+        &lt;/UserContext.Consumer&gt;
+      )}
+    &lt;/ThemeContext.Consumer&gt;
+  );
+}
+</code></pre>
+<h1 id="14-错误边界">14. 错误边界</h1>
+<h2 id="1-理解-2">1. 理解</h2>
+<ol>
+<li>
+<p>错误边界是一种 React 组件，这种组件可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI，而不是渲染那些崩溃了的子组件树。<br>
+(简单理解: 子组件发生错误时，渲染备用UI的组件。)</p>
+</li>
+<li>
+<p>只有 class 组件才可以成为错误边界组件。</p>
+</li>
+<li>
+<p>大多数情况只需要声明一个错误边界组件，在整个应用去使用</p>
+</li>
+</ol>
+<h2 id="2-使用">2. 使用</h2>
+<h3 id="2-1-定义公共组件在需要的地方使用这个组件包裹子组件">2-1. 定义公共组件，在需要的地方使用这个组件包裹子组件</h3>
+<pre><code>class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // 更新 state 使下一次渲染能够显示降级后的 UI
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // 捕获错误信息
+    // 你同样可以将错误日志上报给服务器
+    logErrorToMyService(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // 渲染错误视图
+      return &lt;h1&gt;Something went wrong.&lt;/h1&gt;;
+    }
+
+    // 渲染正确视图
+    return this.props.children; 
+  }
+}
+</code></pre>
+<h3 id="2-2-在组件中使用">2-2. 在组件中使用</h3>
+<pre><code>&lt;ErrorBoundary&gt;
+  &lt;MyWidget /&gt; // 自定义组件
+&lt;/ErrorBoundary&gt;
+</code></pre>
+<h2 id="3-注意点">3. 注意点</h2>
+<blockquote>
+<p>错误边界无法捕获以下场景中产生的错误：<br>
+事件处理（了解更多）<br>
+异步代码（例如 setTimeout 或 requestAnimationFrame 回调函数）。使用try...catch{}<br>
+服务端渲染<br>
+它自身抛出来的错误（并非它的子组件）</p>
+</blockquote>
+<h1 id="15-refs转发">15. Refs转发</h1>
+<blockquote>
+<p>Ref 转发是一项将 ref 自动地通过组件传递到其一子组件的技巧</p>
+</blockquote>
+<h2 id="1-使用ref在组件内部获取dom">1. 使用Ref在组件内部获取dom</h2>
+<ul>
+<li>使用<code>ref.name</code>标记</li>
+<li>使用<code>this.refs.name</code>获取值</li>
+</ul>
+<pre><code>class Container extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  componentDidMount(){  //挂载生命周期
+    console.log(this.refs.containerDom) //&lt;div class=&quot;container&quot;&gt;main&lt;/div&gt;
+    console.log(this.refs.containerDom.className)//container
+  }
+  render(){
+    return (
+      &lt;div ref=&quot;containerDom&quot; className=&quot;container&quot;&gt;
+        main
+      &lt;/div&gt;
+    )
+  }
+}
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(&lt;Container/&gt;)
+</code></pre>
+<h2 id="2-转发自定义组件中的refs">2. 转发自定义组件中的refs</h2>
+<blockquote>
+<p><code>React.forwardRef</code>创建的组件可以共享自身绑定的ref</p>
+</blockquote>
+<ol>
+<li><u>使用<code>React.forwardRef((props,ref)=&gt;{...})</code>方法创建一个组件</u>。该方法多了一个ref参数，该参数接收父组件传递的ref并绑定给内部组件ref上。该方法返回一个render。</li>
+<li><u>在外部组件使用</u>。使用<code>React.createRef()</code>创建一个变量，将该变量绑定到forwardRef创建的组件ref上</li>
+<li><u>获取共享的ref</u>。<code>React.createRef()</code>创建的变量返回一个对象，对象中的current属性可以拿到forwardRef创建的组件ref。</li>
+</ol>
+<pre><code>
+class Container extends React.Component{
+  constructor(props){
+        super(props)
+        this.containerBtnDom=React.createRef()
+  }
+  componentDidMount(){  //挂载生命周期
+    console.log(this.containerBtnDom)  //返回值: {current: button.container-button}
+  }
+  render(){
+    return (
+      &lt;div ref=&quot;containerDom&quot; className=&quot;container&quot;&gt;
+        &lt;ContainerButton ref={this.containerBtnDom}&gt;
+          main
+        &lt;/ContainerButton&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+
+const ContainerButton=React.forwardRef((props,ref)=&gt;{ //共享ref，该方法相比于创建组件的方法多了一个ref参数
+  //返回一个render
+  return &lt;button className=&quot;container-button&quot; ref={ref}&gt;点击&lt;/button&gt;
+})
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(&lt;Container/&gt;)
+
+</code></pre>
+<h2 id="3-在高阶组件中转发-refs">3. 在高阶组件中转发 refs</h2>
+<h2 id="4-在-devtools-中显示自定义名称">4. 在 DevTools 中显示自定义名称</h2>
+<h1 id="16-fragments">16. Fragments</h1>
+<h2 id="1-理解-3">1. 理解</h2>
+<blockquote>
+<p>Fragments 允许你将子列表分组，而无需向 DOM 添加额外节点。（空组件，占位组件）</p>
+</blockquote>
+<h2 id="2-使用-2">2. 使用</h2>
+<h3 id="2-1-reactfragment">2-1. <code>React.Fragment</code></h3>
+<p><code>&lt;React.Fragment&gt;..&lt;/React.Fragment&gt;</code></p>
+<pre><code>class Columns extends React.Component {
+  render() {
+    return (
+      &lt;React.Fragment&gt;
+        &lt;td&gt;Hello&lt;/td&gt;
+        &lt;td&gt;World&lt;/td&gt;
+      &lt;/React.Fragment&gt;
+    );
+  }
+}
+
+class Table extends React.Component {
+  render() {
+    return (
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;Columns /&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    );
+  }
+}
+</code></pre>
+<blockquote>
+<p>此时Table正确输出table：</p>
+</blockquote>
+<pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;div&gt;
+      &lt;td&gt;Hello&lt;/td&gt;
+      &lt;td&gt;World&lt;/td&gt;
+    &lt;/div&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<h3 id="2-2-短语法">2-2. 短语法</h3>
+<p><code>&lt;&gt;...&lt;/&gt;</code></p>
+<pre><code>class Columns extends React.Component {
+  render() {
+    return (
+      &lt;&gt;
+        &lt;td&gt;Hello&lt;/td&gt;
+        &lt;td&gt;World&lt;/td&gt;
+      &lt;/&gt;
+    );
+  }
+}
+</code></pre>
+<h2 id="3-fragments可传递key属性">3. Fragments可传递key属性</h2>
+<blockquote>
+<p>key 是目前唯一可以传递给 Fragment 的属性。<br>
+在遍历一个数组时使用到了<code>Fragments</code>可以给<code>Fragments</code>添加key</p>
+</blockquote>
+<pre><code>function Glossary(props) {
+  return (
+    &lt;dl&gt;
+      {props.items.map(item =&gt; (
+        // 没有`key`，React 会发出一个关键警告
+        &lt;React.Fragment key={item.id}&gt;
+          &lt;dt&gt;{item.term}&lt;/dt&gt;
+          &lt;dd&gt;{item.description}&lt;/dd&gt;
+        &lt;/React.Fragment&gt;
+      ))}
+    &lt;/dl&gt;
+  );
+}
+</code></pre>
+<h1 id="17-高阶组件">17. 高阶组件</h1>
+<h2 id="1-理解-4">1. 理解</h2>
+<blockquote>
+<p>高阶组件是参数为组件，返回值为新组件的函数。</p>
+</blockquote>
+<blockquote>
+<p>组件是将 props 转换为 UI，而高阶组件是将组件转换为另一个组件。</p>
+</blockquote>
+<h1 id="18-jsx详解">18. jsx详解</h1>
+<h2 id="1-jsx编译的结果">1. Jsx编译的结果</h2>
+<blockquote>
+<p>JSX 仅仅只是 <code>React.createElement(component, props, ...children)</code> 函数的语法糖。</p>
+</blockquote>
+<p>jsx语句</p>
+<pre><code>&lt;MyButton color=&quot;blue&quot; shadowSize={2}&gt;
+  Click Me
+&lt;/MyButton&gt;
+
+&lt;div className=&quot;container&quot;&gt;
+</code></pre>
+<p>编译为：</p>
+<pre><code>React.createElement(
+  MyButton,
+  {color: 'blue', shadowSize: 2},
+  'Click Me'
+)
+
+React.createElement(
+  'div',
+  {className: 'container'}
+)
+</code></pre>
+<h2 id="2-react必须在作用域内">2. React必须在作用域内</h2>
+<blockquote>
+<p>JSX 会编译为 React.createElement 调用形式，所以 React 库也必须包含在 JSX 代码作用域内。(直接通过 <code>&lt;script&gt;</code> 标签加载 React，则必须将 React 挂载到全局变量中)</p>
+</blockquote>
+<pre><code>import React from 'react';
+import CustomButton from './CustomButton';
+
+function WarningButton() {
+  // return React.createElement(CustomButton, {color: 'red'}, null);
+  return &lt;CustomButton color=&quot;red&quot; /&gt;;
+}
+</code></pre>
+<h2 id="3-使用点语法来引用一个-react-组件">3. 使用点语法来引用一个 React 组件</h2>
+<pre><code>import React from 'react';
+const MyComponents = {
+  DatePicker: function DatePicker(props) {//组件
+    return &lt;div&gt;Imagine a {props.color} datepicker here.&lt;/div&gt;;
+  }
+}
+function BlueDatePicker() {
+  return &lt;MyComponents.DatePicker color=&quot;blue&quot; /&gt;;  //直接引用
+}
+
+</code></pre>
+<h2 id="4-自定义的组件必须以大写字母开头">4. 自定义的组件必须以大写字母开头</h2>
+<h2 id="5-props可以使用表达式">5. props可以使用表达式</h2>
+<h2 id="6-字符串字面量">6. 字符串字面量</h2>
+<p>以下两个 JSX 表达式是等价的：</p>
+<pre><code>&lt;MyComponent message=&quot;hello world&quot; /&gt;
+
+&lt;MyComponent message={'hello world'} /&gt;
+</code></pre>
+<h2 id="7-props-默认值为-true">7. Props 默认值为 “True”</h2>
+<p>以下两个 JSX 表达式是等价的：</p>
+<pre><code>&lt;MyTextBox autocomplete /&gt;
+
+&lt;MyTextBox autocomplete={true} /&gt;
+</code></pre>
+<h2 id="8-属性展开">8. 属性展开</h2>
+<blockquote>
+<p>使用展开运算符 ... 来在 JSX 中传递整个 props 对象</p>
+</blockquote>
+<pre><code>function App1() {
+  return &lt;Greeting firstName=&quot;Ben&quot; lastName=&quot;Hector&quot; /&gt;;
+}
+
+function App2() {
+  const props = {firstName: 'Ben', lastName: 'Hector'};
+  return &lt;Greeting {...props} /&gt;;
+}
+</code></pre>
+<h2 id="9-布尔类型-null-以及-undefined-将会忽略">9. 布尔类型、Null 以及 Undefined 将会忽略</h2>
+<pre><code>&lt;div /&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;div&gt;{false}&lt;/div&gt;
+
+&lt;div&gt;{null}&lt;/div&gt;
+
+&lt;div&gt;{undefined}&lt;/div&gt;
+
+&lt;div&gt;{true}&lt;/div&gt;
+</code></pre>
+<h1 id="19-portals">19. Portals</h1>
+<h2 id="1-理解-5">1. 理解</h2>
+<blockquote>
+<p>Portals将子节点渲染到存在于父组件以外的 DOM 节点。<br>
+使用场景:对话框、悬浮卡以及提示框。</p>
+</blockquote>
+<h2 id="2-基本使用">2. 基本使用</h2>
+<blockquote>
+<p><code>ReactDOM.createPortal(child, container)</code>  child：任何react组件。container： dom元素</p>
+</blockquote>
+<p><code>子组件（Portals组件）</code></p>
+<pre><code>// the portal API.
+class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    // Create a div that we'll render the modal into. Because each
+    // Modal component has its own element, we can render multiple
+    // modal components into the modal container.
+    this.el = document.createElement('div');
+  }
+
+  componentDidMount() {  //组件绑定时
+    // Append the element into the DOM on mount. We'll render
+    // into the modal container element (see the HTML tab).
+    modalRootEl.appendChild(this.el);
+  }
+
+  componentWillUnmount() {  //组件销毁时
+    // Remove the element from the DOM when we unmount
+    modalRootEl.removeChild(this.el);
+  }
+  
+  render() {
+    // Use a portal to render the children into the element
+    return ReactDOM.createPortal(
+      // 任何react子组件: JSX, strings, arrays, etc.
+      this.props.children,
+      // DOM元素
+      this.el,
+    );
+  }
+}
+
+</code></pre>
+<p><code>父组件</code></p>
+<pre><code>class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showModal: false};
+    
+    this.handleShow = this.handleShow.bind(this);
+    this.handleHide = this.handleHide.bind(this);
+  }
+
+  handleShow() {
+    this.setState({showModal: true});
+  }
+  
+  handleHide() {
+    this.setState({showModal: false});
+  }
+
+  render() {
+    // Show a Modal on click.
+    // (In a real app, don't forget to use ARIA attributes
+    // for accessibility!)
+    const modal = this.state.showModal ? (
+      &lt;Modal&gt;
+        &lt;div className=&quot;modal&quot;&gt;
+          &lt;div&gt;
+            With a portal, we can render content into a different
+            part of the DOM, as if it were any other React child.
+          &lt;/div&gt;
+          This is being rendered inside the #modal-container div.
+          &lt;button onClick={this.handleHide}&gt;Hide modal&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/Modal&gt;
+    ) : null;
+
+    return (
+      &lt;div className=&quot;app&quot;&gt;
+        This div has overflow: hidden.
+        &lt;button onClick={this.handleShow}&gt;Show modal&lt;/button&gt;
+        {modal}
+      &lt;/div&gt;
+    );
+  }
+}
+
+</code></pre>
+<h2 id="3-portals创建的组件存在事件冒泡">3. Portals创建的组件存在事件冒泡</h2>
+<h1 id="20-使用createreactclass方法创建组件">20. 使用createReactClass()方法创建组件</h1>
+<blockquote>
+<p>使用 <code>create-react-class</code> 模块代替Es中class创建组件的方法</p>
+</blockquote>
+<h1 id="1-基本使用">1. 基本使用</h1>
+<ul>
+<li>class创建组件</li>
+</ul>
+<pre><code>class Greeting extends React.Component {
+  render() {
+    return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;
+  }
+}
+</code></pre>
+<ul>
+<li>createReactClass创建组件</li>
+</ul>
+<pre><code>var createReactClass = require('create-react-class');
+var Greeting = createReactClass({
+  render: function() {
+    return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;
+  }
+});
+</code></pre>
+<h1 id="2-声明默认属性props">2. 声明默认属性（props）</h1>
+<ul>
+<li>class中定义defaultProps属性</li>
+</ul>
+<pre><code>class Greeting extends React.Component {
+  // ...
+}
+
+Greeting.defaultProps = {
+  name: 'Mary'
+};
+</code></pre>
+<ul>
+<li>createReactClass使用defaultProps属性</li>
+</ul>
+<pre><code>var Greeting = createReactClass({
+  getDefaultProps: function() {
+    return {
+      name: 'Mary'
+    };
+  },
+
+  // ...
+
+});
+</code></pre>
+<h2 id="3-初始化state">3. 初始化state</h2>
+<ul>
+<li>class组件</li>
+</ul>
+<pre><code>class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {count: props.initialCount};
+  }
+  // ...
+}
+</code></pre>
+<ul>
+<li>createReactClass中创建state</li>
+</ul>
+<pre><code>//getInitialState方法
+var Counter = createReactClass({
+  getInitialState: function() {
+    return {count: this.props.initialCount};
+  },
+  // ...
+});
+</code></pre>
+<h2 id="4-自动绑定this">4. 自动绑定this</h2>
+<ul>
+<li>class中<code>.bind(this)</code></li>
+</ul>
+<pre><code>class SayHello extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {message: 'Hello!'};
+    // 这一行很重要！
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    alert(this.state.message);
+  }
+
+  render() {
+    // 由于 `this.handleClick` 已经绑定至实例，因此我们才可以用它来处理点击事件
+    return (
+      &lt;button onClick={this.handleClick}&gt;
+        Say hello
+      &lt;/button&gt;
+    );
+  }
+}
+</code></pre>
+<ul>
+<li>createReactClass中会自动绑定至实例</li>
+</ul>
+<pre><code>var SayHello = createReactClass({
+  getInitialState: function() {
+    return {message: 'Hello!'};
+  },
+
+  handleClick: function() {  //直接使用this实例上的属性
+    alert(this.state.message);
+  },
+
+  render: function() {
+    return (
+      &lt;button onClick={this.handleClick}&gt;
+        Say hello
+      &lt;/button&gt;
+    );
+  }
+});
+</code></pre>
+<h1 id="21-使用reactcreateelement语法糖">21. 使用React.createElement语法糖</h1>
+<h2 id="使用jsx时的语法">使用jsx时的语法</h2>
+<pre><code>class Container from React.Component{
+   construct(props){
+       super(props)     
+   }
+   render(){
+      return &lt;div name='test'&gt;container&lt;/div&gt;
+   }
+}
+ReactDOM.render(&lt;Container /&gt; , document.getElementById(&quot;root&quot;))
+</code></pre>
+<h2 id="使用reactcreateelement语法糖">使用<code>React.createElement</code>语法糖</h2>
+<blockquote>
+<p><code>React.createElement(元素组件名称, 属性, ...children)</code></p>
+</blockquote>
+<pre><code>class Container from React.Component{
+   construct(props){
+       super(props)     
+   }
+   render(){
+      return React.createElement('div', {name:'test'}, null)
+   }
+}
+ReactDOM.render(React.createElement('Container',null,null) , document.getElementById(&quot;root&quot;))
+</code></pre>
+<h2 id="创建reactcreateelement的快捷方式">创建<code>React.createElement</code>的快捷方式</h2>
+<pre><code>const e = React.createElement;
+ReactDOM.render(
+  e('div', null, 'Hello World'),
+  document.getElementById('root')
+);
+</code></pre>
+<h1 id="22-hook">22. Hook</h1>
+<h2 id="1-简介-2">1. 简介</h2>
+<h3 id="理解">理解</h3>
+<blockquote>
+<p>Hook 就是 JavaScript 函数。</p>
+</blockquote>
+<h3 id="注意点">注意点：</h3>
+<ol>
+<li>只能在函数最外层调用 Hook。不要在循环、条件判断或者子函数中调用。</li>
+<li>只能在 React 的函数组件中或者自定义的 Hook 中调用 Hook。</li>
+</ol>
+<h2 id="2-hook-api">2. Hook API</h2>
+<h3 id="usestate">useState</h3>
+<blockquote>
+<p>返回一个 state，以及更新 state 的函数。<br>
+setState参数接收一个新的state值</p>
+</blockquote>
+<pre><code>import React, { useState } from 'react';
+const [state, setState] = useState(initialState);
+</code></pre>
+<blockquote>
+<p>计数器demo：</p>
+</blockquote>
+<pre><code>// Babel环境
+function ContainerButton(){
+  const [count,setCount]=React.useState(0)
+  const handleAdd=()=&gt;{
+    setCount(count+1);
+  }
+  return (
+    &lt;button onClick={handleAdd}&gt;点击{count}&lt;/button&gt;
+  )  
+}
+
+ReactDOM.render(
+  &lt;ContainerButton/&gt;,
+  document.getElementById('root')
+);
+
+</code></pre>
+<h3 id="useeffect">useEffect</h3>
+<h4 id="初次了解">初次了解</h4>
+<blockquote>
+<p>赋值给 useEffect 的函数会在组件渲染到屏幕之后执行。</p>
+</blockquote>
+<blockquote>
+<p>effect 将在每轮渲染结束后执行，但你可以选择让它 在只有某些值改变的时候 才执行。</p>
+</blockquote>
+<blockquote>
+<p>每个 effect 都可以返回一个清除函数。React 会在组件卸载的时候执行清除操作。</p>
+</blockquote>
+<h5 id="不需要清除的effect操作使用">不需要清除的effect操作使用</h5>
+<pre><code>function ContainerButton(){
+  const [count,setCount]=React.useState(0)
+  const handleAdd=()=&gt;{
+    setCount(count+1);
+  }
+   React.useEffect(() =&gt; {  //会在state状态发生改变时执行
+       console.log(count)
+  });
+  return (
+    &lt;button onClick={handleAdd}&gt;点击{count}&lt;/button&gt;
+  )  
+}
+
+ReactDOM.render(
+  &lt;ContainerButton/&gt;,
+  document.getElementById('root')
+);
+
+</code></pre>
+<h5 id="需要清除的effect操作使用">需要清除的effect操作使用</h5>
+<blockquote>
+<p>假设订阅一个ws连接，组件渲染到屏幕之后打开ws连接，组件卸载时关闭连接</p>
+</blockquote>
+<pre><code>function Container(){
+  const socket = new WebSocket('ws://localhost:8080');
+   React.useEffect(() =&gt; {
+     socket.addEventListener('open', function (event) {
+           socket.send('Hello Server!');
+     });
+     return ()=&gt;{  //销毁时执行的事件
+     socket.addEventListener('close', function (event) {
+           socket.send('WebSocket close!');
+     });
+     }
+  });
+  return (
+    &lt;div&gt;WebSocket&lt;/div&gt;
+  )  
+}
+
+ReactDOM.render(
+  &lt;Container/&gt;,
+  document.getElementById('root')
+);
+
+</code></pre>
+<h4 id="详细理解">详细理解</h4>
+<blockquote>
+<p>接收参数：<br>
+useEffect 接受两个参数，第一个参数是一个回调函数，这个回调函数会在组件渲染之后执行。第二个参数是一个数组，它用来指定在什么情况下需要执行这个回调函数</p>
+</blockquote>
+<ol>
+<li>在组件挂载时只请求一次数据，将 useEffect 的第二个参数设置为空数组 []</li>
+</ol>
+<pre><code>  useEffect(() =&gt; {
+    // 在组件挂载时请求数据
+    fetchData();
+  }, []);
+</code></pre>
+<ol start="2">
+<li>在某个状态变化时重新请求数据，可以将需要监视的状态变量作为 useEffect 的第二个参数</li>
+</ol>
+<pre><code>  useEffect(() =&gt; {
+    // 在 searchTerm 变化时请求数据
+    fetchData();
+  }, [searchTerm]);
+
+</code></pre>
+<h3 id="usecontext">useContext</h3>
+<p><code>const value = useContext(MyContext);</code></p>
+<blockquote>
+<p>接收一个 context 对象（<code>React.createContext</code> 的返回值）并返回该 context 的当前值。当前的 context 值由上层组件中距离当前组件最近的 <code>&lt;MyContext.Provider&gt; </code>的<code> value prop</code> 决定。</p>
+</blockquote>
+<blockquote>
+<p>基本使用</p>
+</blockquote>
+<pre><code>function Container(){
+  const [count,setCount]=React.useState(0)
+  const handleAddCount=()=&gt;{
+    setCount(count+1)
+  }
+  return (
+//     传递context
+    &lt;CountContext.Provider value={count}&gt; 
+    &lt;div&gt;&lt;ContainerButton handleAddCount={handleAddCount}/&gt;&lt;/div&gt;
+    &lt;/CountContext.Provider&gt;  
+  )  
+}
+function ContainerButton(props){
+  const count = React.useContext(CountContext)  //调用context
+  return &lt;button onClick={props.handleAddCount}&gt;点击{count}&lt;/button&gt;
+}
+const CountContext=React.createContext(0) //创建context
+ReactDOM.render(
+  &lt;Container/&gt;,
+  document.getElementById('root')
+);
+
+</code></pre>
+<h3 id="usereducer"><a href="https://react.docschina.org/docs/hooks-reference.html#usereducer">useReducer</a></h3>
+<h2 id="usecallback"><a href="https://react.docschina.org/docs/hooks-reference.html#useCallback">useCallback</a></h2>
+<pre><code>// 配合React.memo使用，memo可以防止父组件状态更新时子组件重新渲染。useCallback函数缓存
+import React, { useCallback, memo, useState } from &quot;react&quot;;
+const Child = memo((props: { count: number }) =&gt; {
+  //memo包裹子组件不会重新渲染,props有父组件值是会重新渲染
+  console.log(&quot;子组件渲染&quot;);
+  return &lt;div&gt;子组件 {props.count}&lt;/div&gt;;
+});
+const UseCallbackDemo = () =&gt; {
+  let [count, setCount] = useState&lt;number&gt;(0);
+  const handleClick = useCallback(() =&gt; {
+    setCount(++count);
+  }, [count]);
+  return (
+    &lt;div&gt;
+      &lt;button onClick={handleClick}&gt;点击&lt;/button&gt;
+      &lt;Child count={count} /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default UseCallbackDemo;
+
+</code></pre>
+<h3 id="usememo"><a href="https://react.docschina.org/docs/hooks-reference.html#useMemo">useMemo</a></h3>
+<h3 id="useref"><a href="https://react.docschina.org/docs/hooks-reference.html#useRef">useRef</a></h3>
+<h3 id="useimperativehandle"><a href="https://react.docschina.org/docs/hooks-reference.html#useImperativeHandle">useImperativeHandle</a></h3>
+<h3 id="uselayouteffect"><a href="https://react.docschina.org/docs/hooks-reference.html#useLayoutEffect">useLayoutEffect</a></h3>
+<h3 id="usedebugvalue"><a href="https://react.docschina.org/docs/hooks-reference.html#useDebugValue">useDebugValue</a></h3>
+<h3 id="usedeferredvalue"><a href="https://react.docschina.org/docs/hooks-reference.html#useDeferredValue">useDeferredValue</a></h3>
+<h3 id="usetransition"><a href="https://react.docschina.org/docs/hooks-reference.html#useTransition">useTransition</a></h3>
+<h3 id="useid"><a href="https://react.docschina.org/docs/hooks-reference.html#useId">useId</a></h3>
+<h3 id="usesyncexternalstore"><a href="https://react.docschina.org/docs/hooks-reference.html#useSyncExternalStore">useSyncExternalStore</a></h3>
+<h3 id="useinsertioneffect"><a href="https://react.docschina.org/docs/hooks-reference.html#useInsertionEffect">useInsertionEffect</a></h3>
+<h2 id="3-自定义hook方法">3. 自定义Hook方法</h2>
+<ol>
+<li>通过自定义 Hook，可以将组件逻辑提取到可重用的函数中。</li>
+<li>自定义 Hook 是一个函数，其名称以 “use” 开头，函数内部可以调用其他的 Hook。</li>
+</ol>
+<blockquote>
+<p>创建 useTitle Hook Demo</p>
+</blockquote>
+<pre><code>import { useEffect } from 'react'
+
+const useTitle = (title) =&gt; {
+    useEffect(() =&gt; {
+      document.title = title
+    }, [])
+  
+    return
+  }
+
+export default useTitle
+</code></pre>
+<h1 id="react学习链接">React学习链接</h1>
+<h2 id="项目网课">项目网课</h2>
+<p>https://www.bilibili.com/video/BV1Z44y1K7Fj/?p=99</p>
+<h2 id="项目搭建文章">项目搭建文章</h2>
+<p>https://juejin.cn/post/7174412042013507615</p>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E8%AE%A4%E8%AF%86react%E5%92%8C%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83">1. 认识React和搭建环境</a>
+<ul>
+<li><a href="#1-%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83">1. 搭建环境</a>
+<ul>
+<li><a href="#1-1-%E4%BD%BF%E7%94%A8cdn%E9%93%BE%E6%8E%A5">1-1. 使用cdn链接</a></li>
+<li><a href="#1-2%E4%BD%BF%E7%94%A8npm">1-2.使用npm</a></li>
+<li><a href="#1-3%E4%BD%BF%E7%94%A8create-react-app%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83">1-3.使用create-react-app快速搭建环境</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-jsx%E7%AE%80%E4%BB%8B">2. jsx简介</a>
+<ul>
+<li><a href="#1-%E7%AE%80%E4%BB%8B">1. 简介</a></li>
+<li><a href="#2-%E5%86%99%E4%B8%80%E4%B8%AAhello-world">2. 写一个<code>hello world！</code></a></li>
+<li><a href="#3jsx%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">3.jsx基本使用</a>
+<ul>
+<li><a href="#3-1-jsx%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%B5%8C%E5%85%A5%E8%A1%A8%E8%BE%BE%E5%BC%8F">3-1. jsx中使用<code>{}</code>嵌入表达式</a></li>
+<li><a href="#3-2-jsx%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7">3-2. jsx定义属性</a></li>
+<li><a href="#3-3-%E6%8C%87%E5%AE%9A%E5%AD%90%E5%85%83%E7%B4%A0">3-3. 指定子元素</a></li>
+<li><a href="#3-4-jsx%E8%A1%A8%E7%A4%BA%E5%AF%B9%E8%B1%A1">3-4. jsx表示对象</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3-%E5%85%83%E7%B4%A0%E6%B8%B2%E6%9F%93">3. 元素渲染</a>
+<ul>
+<li><a href="#%E5%B0%86%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B8%B2%E6%9F%93%E4%B8%BA-dom">将一个元素渲染为 DOM</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%87%BD%E6%95%B0%E5%8A%A8%E6%80%81%E6%9B%B4%E6%96%B0jsx%E4%B8%AD%E7%9A%84%E5%80%BC">使用函数动态更新jsx中的值</a></li>
+</ul>
+</li>
+<li><a href="#4-%E7%BB%84%E4%BB%B6%E5%92%8Cprops">4. 组件和props</a>
+<ul>
+<li><a href="#1-%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6%E5%92%8Cclass%E7%BB%84%E4%BB%B6">1. 函数组件和class组件</a></li>
+<li><a href="#2-%E6%9E%84%E5%BB%BA%E7%BB%84%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B">2. 构建组件的基本流程</a></li>
+<li><a href="#3-%E7%BB%84%E5%90%88%E7%BB%84%E4%BB%B6">3. 组合组件</a></li>
+<li><a href="#4-%E6%8F%90%E5%8F%96%E7%BB%84%E4%BB%B6">4. 提取组件</a></li>
+<li><a href="#5react%E7%9A%84props%E7%9A%84%E5%8F%AA%E8%AF%BB%E6%80%A7">5.React的Props的只读性</a></li>
+</ul>
+</li>
+<li><a href="#5-state%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">5. state与生命周期</a>
+<ul>
+<li><a href="#1-%E4%BA%86%E8%A7%A3state">1. 了解state</a></li>
+<li><a href="#2-%E5%B0%86%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAclass%E7%BB%84%E4%BB%B6">2. 将函数组件转换为Class组件</a>
+<ul>
+<li><a href="#%E6%AD%A5%E9%AA%A4">步骤：</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E8%87%AA%E6%88%91%E6%9B%B4%E6%96%B0">3. 实现组件自我更新</a>
+<ul>
+<li><a href="#3-1-%E5%9C%A8%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6%E4%B8%AD%E5%8F%AF%E4%BB%A5%E6%B7%BB%E5%8A%A0%E5%AE%9A%E6%97%B6%E5%99%A8%E6%97%B6%E5%88%BB%E6%B8%B2%E6%9F%93%E7%BB%84%E4%BB%B6%E8%BE%BE%E5%88%B0%E8%87%AA%E5%B7%B1%E6%9B%B4%E6%96%B0%E7%9A%84%E6%95%88%E6%9E%9C">3-1. 在函数组件中可以添加定时器，时刻渲染组件达到自己更新的效果</a></li>
+<li><a href="#3-2-%E5%90%91-class-%E7%BB%84%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%B1%80%E9%83%A8%E7%9A%84-state%E6%B7%BB%E5%8A%A0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%86%85%E9%83%A8%E6%B8%B2%E6%9F%93%E6%9B%B4%E6%96%B0">3-2. 向 class 组件中添加局部的 state,添加生命周期函数实现组件内部渲染更新</a>
+<ul>
+<li><a href="#1-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA-class-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%84%B6%E5%90%8E%E5%9C%A8%E8%AF%A5%E5%87%BD%E6%95%B0%E4%B8%AD%E4%B8%BA-thisstate-%E8%B5%8B%E5%88%9D%E5%80%BC">1. 添加一个 class 构造函数，然后在该函数中为 <code>this.state</code> 赋初值：</a></li>
+<li><a href="#2-%E6%8A%8A-render-%E6%96%B9%E6%B3%95%E4%B8%AD%E7%9A%84-thispropsdate-%E6%9B%BF%E6%8D%A2%E6%88%90-thisstatedate">2. 把 <code>render()</code> 方法中的<code> this.props.date</code> 替换成<code> this.state.date</code> ：</a></li>
+<li><a href="#3-%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8clock%E7%BB%84%E4%BB%B6">3. 直接使用Clock组件</a></li>
+<li><a href="#4-%E5%9C%A8class%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95">4. 在class类中使用生命周期方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4-state%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">4. state使用注意事项</a>
+<ul>
+<li><a href="#4-1-%E4%B8%8D%E8%A6%81%E7%9B%B4%E6%8E%A5%E4%BF%AE%E6%94%B9state%E8%80%8C%E6%98%AF%E4%BD%BF%E7%94%A8setstate%E6%96%B9%E6%B3%95">4-1. 不要直接修改state,而是使用<code>setState()</code>方法</a></li>
+<li><a href="#4-2-state%E5%92%8Cprops%E7%9A%84%E6%9B%B4%E6%96%B0%E6%98%AF%E5%BC%82%E6%AD%A5%E7%9A%84%E4%B8%8D%E8%A6%81%E4%BE%9D%E8%B5%96%E4%BB%96%E4%BB%AC%E7%9A%84%E5%80%BC%E6%9D%A5%E6%9B%B4%E6%96%B0%E4%B8%8B%E4%B8%80%E4%B8%AA%E7%8A%B6%E6%80%81%E8%80%8C%E6%98%AF%E4%BD%BF%E7%94%A8setstatestateprops">4-2. state和props的更新是异步的,不要依赖他们的值来更新下一个状态,而是使用<code>setState((state,props)=&gt;{...})</code></a></li>
+<li><a href="#4-3-state%E7%9A%84%E6%9B%B4%E6%96%B0%E4%BC%9A%E8%A2%AB%E5%90%88%E5%B9%B6">4-3. state的更新会被合并</a></li>
+<li><a href="#4-4-%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%91%E4%B8%8B%E6%B5%81%E5%8A%A8%E7%9A%84">4-4. 数据是向下流动的</a></li>
+</ul>
+</li>
+<li><a href="#5-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0">5. 生命周期函数</a>
+<ul>
+<li><a href="#5-1-%E6%8C%82%E8%BD%BD%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0-componentdidmount">5-1. 挂载生命周期函数 <code>componentDidMount</code></a></li>
+<li><a href="#5-2-%E5%8D%B8%E8%BD%BD%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0-componentwillunmount">5-2. 卸载生命周期函数 <code>componentWillUnmount</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#6-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">6. 事件处理</a>
+<ul>
+<li><a href="#1-%E4%B8%8E%E4%BC%A0%E7%BB%9Fhtml%E7%9A%84%E5%86%99%E6%B3%95%E4%B8%8D%E5%90%8C">1. 与传统html的写法不同</a></li>
+<li><a href="#2-%E5%86%99%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%95%B0%E5%99%A8%E6%9D%A5%E4%BD%93%E9%AA%8C%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">2. 写一个计数器来体验事件处理</a></li>
+<li><a href="#3-%E5%90%91%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0">3. 向事件处理程序传递参数</a>
+<ul>
+<li><a href="#3-1-%E9%80%9A%E8%BF%87%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1e%E4%BC%9A%E9%80%9A%E8%BF%87%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8F%82%E6%95%B0%E6%98%BE%E7%A4%BA%E4%BC%A0%E9%80%92">3-1. 通过箭头函数（事件对象e会通过第二个参数显示传递）</a></li>
+<li><a href="#3-2-%E4%BD%BF%E7%94%A8-functionprototypebind-%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E6%9B%B4%E5%A4%9A%E7%9A%84%E5%8F%82%E6%95%B0%E5%B0%86%E4%BC%9A%E8%A2%AB%E9%9A%90%E5%BC%8F%E7%9A%84%E8%BF%9B%E8%A1%8C%E4%BC%A0%E9%80%92">3-2. 使用 <code>Function.prototype.bind</code> 来实现（事件对象以及更多的参数将会被隐式的进行传递）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#7-%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93">7. 条件渲染</a>
+<ul>
+<li><a href="#1-%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6if%E5%88%A4%E6%96%AD%E7%BB%84%E4%BB%B6%E6%98%BE%E7%A4%BA">1. 根据条件<code>if</code>判断组件显示</a></li>
+<li><a href="#2-%E5%9C%A8jsx%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6">2. 在jsx中使用条件运算符</a></li>
+<li><a href="#3-%E9%98%BB%E6%AD%A2%E7%BB%84%E4%BB%B6%E6%B8%B2%E6%9F%93">3. 阻止组件渲染</a></li>
+</ul>
+</li>
+<li><a href="#8-%E5%88%97%E8%A1%A8%E5%92%8Ckey">8. 列表和key</a>
+<ul>
+<li><a href="#1-%E5%9F%BA%E7%A1%80%E5%88%97%E8%A1%A8%E7%BB%84%E4%BB%B6">1. 基础列表组件</a></li>
+<li><a href="#2%E4%BD%BF%E7%94%A8key">2.使用key</a>
+<ul>
+<li><a href="#2-1-key%E7%9A%84%E4%BD%BF%E7%94%A8">2-1. key的使用</a></li>
+<li><a href="#2-2-key%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E6%B3%A8%E6%84%8F%E7%82%B9">2-2. key的理解和注意点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#9-%E8%A1%A8%E5%8D%95">9. 表单</a>
+<ul>
+<li><a href="#1-%E5%8F%97%E6%8E%A7%E7%BB%84%E4%BB%B6">1. 受控组件</a></li>
+<li><a href="#2-%E9%9D%9E%E5%8F%97%E6%8E%A7%E7%BB%84%E4%BB%B6">2. 非受控组件</a></li>
+<li><a href="#3-%E5%A4%84%E7%90%86%E5%A4%9A%E4%B8%AA%E8%BE%93%E5%85%A5">3. 处理多个输入</a></li>
+</ul>
+</li>
+<li><a href="#10-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87">10. 状态提升</a>
+<ul>
+<li><a href="#1-%E7%90%86%E8%A7%A3">1. 理解</a></li>
+<li><a href="#2-%E4%B8%BE%E4%BE%8B">2. 举例</a></li>
+<li><a href="#3-%E6%80%BB%E7%BB%93">3. 总结</a></li>
+</ul>
+</li>
+<li><a href="#11%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F">11.组合模式</a>
+<ul>
+<li><a href="#1-%E4%BD%BF%E7%94%A8propschildren">1. 使用<code>props.children</code></a></li>
+<li><a href="#2-%E6%8C%87%E5%AE%9A%E5%B1%9E%E6%80%A7%E5%90%8D">2. 指定属性名</a></li>
+</ul>
+</li>
+<li><a href="#12-%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2">12. 代码分割</a>
+<ul>
+<li><a href="#1-%E6%89%93%E5%8C%85%E6%A6%82%E5%BF%B5">1. 打包概念</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8import">2. 使用<code>import()</code></a></li>
+<li><a href="#3-%E4%BD%BF%E7%94%A8reactlazy%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6">3. 使用<code>React.lazy</code>引入组件</a></li>
+</ul>
+</li>
+<li><a href="#13-context">13. Context</a>
+<ul>
+<li><a href="#1%E7%90%86%E8%A7%A3">1.理解</a></li>
+<li><a href="#2-api">2. API</a>
+<ul>
+<li><a href="#2-1-reactcreatecontext">2-1. React.createContext</a></li>
+<li><a href="#2-2-contextprovider">2-2. Context.Provider</a></li>
+<li><a href="#2-3-classcontexttype">2-3. Class.contextType</a></li>
+<li><a href="#2-4-contextconsumer">2-4. Context.Consumer</a></li>
+<li><a href="#2-5-contextdisplayname">2-5. Context.displayName</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%8A%A8%E6%80%81context-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">3. 动态Context---基本使用</a>
+<ul>
+<li><a href="#3-1-%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6">3-1. 创建组件</a></li>
+<li><a href="#3-2-%E5%88%9B%E5%BB%BAcontext%E4%BD%BF%E7%94%A8contexttype%E5%B0%86context%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6%E5%86%85%E9%83%A8">3-2. 创建context，使用contextType将context引入组件内部</a></li>
+<li><a href="#3-3-%E5%9C%A8app%E6%A0%B9%E7%BB%84%E4%BB%B6%E8%AE%BE%E7%BD%AEstatestate%E7%9A%84%E5%80%BC%E5%8C%85%E5%90%ABcontext%E7%9A%84%E5%B1%9E%E6%80%A7%E5%92%8C%E5%80%BC">3-3. 在App根组件设置state，state的值包含context的属性和值</a></li>
+<li><a href="#3-4-%E5%9C%A8app%E5%86%85%E9%83%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BC%A0%E9%80%92%E4%BA%8B%E4%BB%B6">3-4. 在App内部组件中传递事件</a></li>
+<li><a href="#3-5-%E6%89%80%E6%9C%89%E4%BB%A3%E7%A0%81">3-5. 所有代码</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%B5%8C%E5%A5%97%E7%BB%84%E4%BB%B6%E4%B8%AD%E6%9B%B4%E6%96%B0context">4. 嵌套组件中更新Context</a>
+<ul>
+<li><a href="#4-1-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAcontext">4-1. 创建一个context</a></li>
+<li><a href="#4-2-%E5%9C%A8%E6%A0%B9%E7%BB%84%E4%BB%B6%E6%B7%BB%E5%8A%A0state">4-2. 在根组件添加state</a></li>
+<li><a href="#4-3-%E5%9C%A8%E5%B5%8C%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8themecontextconsumer">4-3. 在嵌组件中使用<code>ThemeContext.Consumer</code></a></li>
+</ul>
+</li>
+<li><a href="#5-%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6%E6%B6%88%E8%B4%B9%E5%A4%9A%E4%B8%AA-context">5. 一个组件消费多个 Context</a>
+<ul>
+<li><a href="#5-1-%E7%BB%84%E4%BB%B6%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%88%9D%E5%A7%8B-context-%E5%80%BC">5-1. 组件中提供初始 context 值</a></li>
+<li><a href="#5-2-%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA-context">5-2. 组件中使用多个 context</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#14-%E9%94%99%E8%AF%AF%E8%BE%B9%E7%95%8C">14. 错误边界</a>
+<ul>
+<li><a href="#1-%E7%90%86%E8%A7%A3-2">1. 理解</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8">2. 使用</a>
+<ul>
+<li><a href="#2-1-%E5%AE%9A%E4%B9%89%E5%85%AC%E5%85%B1%E7%BB%84%E4%BB%B6%E5%9C%A8%E9%9C%80%E8%A6%81%E7%9A%84%E5%9C%B0%E6%96%B9%E4%BD%BF%E7%94%A8%E8%BF%99%E4%B8%AA%E7%BB%84%E4%BB%B6%E5%8C%85%E8%A3%B9%E5%AD%90%E7%BB%84%E4%BB%B6">2-1. 定义公共组件，在需要的地方使用这个组件包裹子组件</a></li>
+<li><a href="#2-2-%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8">2-2. 在组件中使用</a></li>
+</ul>
+</li>
+<li><a href="#3-%E6%B3%A8%E6%84%8F%E7%82%B9">3. 注意点</a></li>
+</ul>
+</li>
+<li><a href="#15-refs%E8%BD%AC%E5%8F%91">15. Refs转发</a>
+<ul>
+<li><a href="#1-%E4%BD%BF%E7%94%A8ref%E5%9C%A8%E7%BB%84%E4%BB%B6%E5%86%85%E9%83%A8%E8%8E%B7%E5%8F%96dom">1. 使用Ref在组件内部获取dom</a></li>
+<li><a href="#2-%E8%BD%AC%E5%8F%91%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84refs">2. 转发自定义组件中的refs</a></li>
+<li><a href="#3-%E5%9C%A8%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%BD%AC%E5%8F%91-refs">3. 在高阶组件中转发 refs</a></li>
+<li><a href="#4-%E5%9C%A8-devtools-%E4%B8%AD%E6%98%BE%E7%A4%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8D%E7%A7%B0">4. 在 DevTools 中显示自定义名称</a></li>
+</ul>
+</li>
+<li><a href="#16-fragments">16. Fragments</a>
+<ul>
+<li><a href="#1-%E7%90%86%E8%A7%A3-3">1. 理解</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8-2">2. 使用</a>
+<ul>
+<li><a href="#2-1-reactfragment">2-1. <code>React.Fragment</code></a></li>
+<li><a href="#2-2-%E7%9F%AD%E8%AF%AD%E6%B3%95">2-2. 短语法</a></li>
+</ul>
+</li>
+<li><a href="#3-fragments%E5%8F%AF%E4%BC%A0%E9%80%92key%E5%B1%9E%E6%80%A7">3. Fragments可传递key属性</a></li>
+</ul>
+</li>
+<li><a href="#17-%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6">17. 高阶组件</a>
+<ul>
+<li><a href="#1-%E7%90%86%E8%A7%A3-4">1. 理解</a></li>
+</ul>
+</li>
+<li><a href="#18-jsx%E8%AF%A6%E8%A7%A3">18. jsx详解</a>
+<ul>
+<li><a href="#1-jsx%E7%BC%96%E8%AF%91%E7%9A%84%E7%BB%93%E6%9E%9C">1. Jsx编译的结果</a></li>
+<li><a href="#2-react%E5%BF%85%E9%A1%BB%E5%9C%A8%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%86%85">2. React必须在作用域内</a></li>
+<li><a href="#3-%E4%BD%BF%E7%94%A8%E7%82%B9%E8%AF%AD%E6%B3%95%E6%9D%A5%E5%BC%95%E7%94%A8%E4%B8%80%E4%B8%AA-react-%E7%BB%84%E4%BB%B6">3. 使用点语法来引用一个 React 组件</a></li>
+<li><a href="#4-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E7%BB%84%E4%BB%B6%E5%BF%85%E9%A1%BB%E4%BB%A5%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D%E5%BC%80%E5%A4%B4">4. 自定义的组件必须以大写字母开头</a></li>
+<li><a href="#5-props%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F">5. props可以使用表达式</a></li>
+<li><a href="#6-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E9%87%8F">6. 字符串字面量</a></li>
+<li><a href="#7-props-%E9%BB%98%E8%AE%A4%E5%80%BC%E4%B8%BA-true">7. Props 默认值为 “True”</a></li>
+<li><a href="#8-%E5%B1%9E%E6%80%A7%E5%B1%95%E5%BC%80">8. 属性展开</a></li>
+<li><a href="#9-%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B-null-%E4%BB%A5%E5%8F%8A-undefined-%E5%B0%86%E4%BC%9A%E5%BF%BD%E7%95%A5">9. 布尔类型、Null 以及 Undefined 将会忽略</a></li>
+</ul>
+</li>
+<li><a href="#19-portals">19. Portals</a>
+<ul>
+<li><a href="#1-%E7%90%86%E8%A7%A3-5">1. 理解</a></li>
+<li><a href="#2-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">2. 基本使用</a></li>
+<li><a href="#3-portals%E5%88%9B%E5%BB%BA%E7%9A%84%E7%BB%84%E4%BB%B6%E5%AD%98%E5%9C%A8%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1">3. Portals创建的组件存在事件冒泡</a></li>
+</ul>
+</li>
+<li><a href="#20-%E4%BD%BF%E7%94%A8createreactclass%E6%96%B9%E6%B3%95%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6">20. 使用createReactClass()方法创建组件</a></li>
+<li><a href="#1-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">1. 基本使用</a></li>
+<li><a href="#2-%E5%A3%B0%E6%98%8E%E9%BB%98%E8%AE%A4%E5%B1%9E%E6%80%A7props">2. 声明默认属性（props）</a>
+<ul>
+<li><a href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96state">3. 初始化state</a></li>
+<li><a href="#4-%E8%87%AA%E5%8A%A8%E7%BB%91%E5%AE%9Athis">4. 自动绑定this</a></li>
+</ul>
+</li>
+<li><a href="#21-%E4%BD%BF%E7%94%A8reactcreateelement%E8%AF%AD%E6%B3%95%E7%B3%96">21. 使用React.createElement语法糖</a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8jsx%E6%97%B6%E7%9A%84%E8%AF%AD%E6%B3%95">使用jsx时的语法</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8reactcreateelement%E8%AF%AD%E6%B3%95%E7%B3%96">使用<code>React.createElement</code>语法糖</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BAreactcreateelement%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F">创建<code>React.createElement</code>的快捷方式</a></li>
+</ul>
+</li>
+<li><a href="#22-hook">22. Hook</a>
+<ul>
+<li><a href="#1-%E7%AE%80%E4%BB%8B-2">1. 简介</a>
+<ul>
+<li><a href="#%E7%90%86%E8%A7%A3">理解</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点：</a></li>
+</ul>
+</li>
+<li><a href="#2-hook-api">2. Hook API</a>
+<ul>
+<li><a href="#usestate">useState</a></li>
+<li><a href="#useeffect">useEffect</a>
+<ul>
+<li><a href="#%E5%88%9D%E6%AC%A1%E4%BA%86%E8%A7%A3">初次了解</a>
+<ul>
+<li><a href="#%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B8%85%E9%99%A4%E7%9A%84effect%E6%93%8D%E4%BD%9C%E4%BD%BF%E7%94%A8">不需要清除的effect操作使用</a></li>
+<li><a href="#%E9%9C%80%E8%A6%81%E6%B8%85%E9%99%A4%E7%9A%84effect%E6%93%8D%E4%BD%9C%E4%BD%BF%E7%94%A8">需要清除的effect操作使用</a></li>
+</ul>
+</li>
+<li><a href="#%E8%AF%A6%E7%BB%86%E7%90%86%E8%A7%A3">详细理解</a></li>
+</ul>
+</li>
+<li><a href="#usecontext">useContext</a></li>
+<li><a href="#usereducer">useReducer</a></li>
+</ul>
+</li>
+<li><a href="#usecallback">useCallback</a>
+<ul>
+<li><a href="#usememo">useMemo</a></li>
+<li><a href="#useref">useRef</a></li>
+<li><a href="#useimperativehandle">useImperativeHandle</a></li>
+<li><a href="#uselayouteffect">useLayoutEffect</a></li>
+<li><a href="#usedebugvalue">useDebugValue</a></li>
+<li><a href="#usedeferredvalue">useDeferredValue</a></li>
+<li><a href="#usetransition">useTransition</a></li>
+<li><a href="#useid">useId</a></li>
+<li><a href="#usesyncexternalstore">useSyncExternalStore</a></li>
+<li><a href="#useinsertioneffect">useInsertionEffect</a></li>
+</ul>
+</li>
+<li><a href="#3-%E8%87%AA%E5%AE%9A%E4%B9%89hook%E6%96%B9%E6%B3%95">3. 自定义Hook方法</a></li>
+</ul>
+</li>
+<li><a href="#react%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5">React学习链接</a>
+<ul>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E7%BD%91%E8%AF%BE">项目网课</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E6%96%87%E7%AB%A0">项目搭建文章</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/da-bao-vite-qian-duan-xiang-mu-da-bao-an-huan-jing-qu-fen-lu-jing/">
+          <h3 class="post-title">
+            打包 - vite前端项目打包按环境区分路径
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

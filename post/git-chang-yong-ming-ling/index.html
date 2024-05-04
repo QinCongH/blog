@@ -1,0 +1,394 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>git常用命令 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="git常用命令 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="初始化
+git init
+将文件更改添加到暂存区
+git add .
+将暂存区内容添加到本地仓库
+git commit -m '提交描述'
+将本地分支版本上传到远程分支并且合并
+git push origin master:master
+本..." />
+  <meta name="keywords" content="git" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            git常用命令
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-13
+            </span>
+            <span>
+              2 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/EkPmoJq_R/" class="post-tag">
+              # git
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="初始化">初始化</h1>
+<p><code>git init</code></p>
+<h1 id="将文件更改添加到暂存区">将文件更改添加到暂存区</h1>
+<p><code>git add .</code></p>
+<h1 id="将暂存区内容添加到本地仓库">将暂存区内容添加到本地仓库</h1>
+<p><code>git commit -m '提交描述'</code></p>
+<h1 id="将本地分支版本上传到远程分支并且合并">将本地分支版本上传到远程分支并且合并</h1>
+<p><code>git push origin master:master</code><br>
+本地分支和远程分支一样可以忽略':'冒号。<br>
+<code>git push origin master</code></p>
+<h1 id="将远程分支拉取到本地">将远程分支拉取到本地</h1>
+<p><code>git pull origin master</code></p>
+<h1 id="查看当前已配置的远程仓库">查看当前已配置的远程仓库</h1>
+<p><code>git remote -v</code></p>
+<h1 id="本地关联远程仓库">本地关联远程仓库</h1>
+<p><code>git remote add origin http://xxx.git</code></p>
+<h1 id="重命名远程仓库">重命名远程仓库</h1>
+<p><code>git remote rename http://xxx.git</code></p>
+<h1 id="删除远程仓库">删除远程仓库</h1>
+<p><code>git remote remove http://xxx.git</code></p>
+<h1 id="创建分支">创建分支</h1>
+<p><code>git branch branchname</code></p>
+<h1 id="切换分支">切换分支</h1>
+<p><code>git checkout branchname</code></p>
+<h1 id="创建新分支并切换到当前分支">创建新分支并切换到当前分支</h1>
+<p><code>git checkout -b branchname</code></p>
+<h1 id="创建新分支并切换到指定版本分支">创建新分支并切换到指定版本分支</h1>
+<p><code>git checkout -b branchname 6179b55839f403cf079b89f4c64b6f37fd821350</code></p>
+<h1 id="根据tag创建分支">根据tag创建分支</h1>
+<p><code>git branch 1215-tag-1.0.1 1.0.1</code><br>
+<code>git branch 分支名称 tag名称</code></p>
+<h1 id="从远程获取代码库">从远程获取代码库</h1>
+<p><code>git fetch</code></p>
+<h1 id="合并分支">合并分支</h1>
+<p><code>git merge branchname</code></p>
+<h1 id="查看历史提交">查看历史提交</h1>
+<p><code>git log</code></p>
+<h1 id="克隆远程代码">克隆远程代码</h1>
+<p><code>git clone http://xxx.git</code></p>
+<h1 id="创建一个带注解的标签">创建一个带注解的标签</h1>
+<p><code>git tag -a v1.0</code></p>
+<h1 id="查看所有标签">查看所有标签</h1>
+<p><code>git tag</code></p>
+<h1 id="查看当前配置用户">查看当前配置用户</h1>
+<p><code>git config user.name</code></p>
+<h1 id="查看当前配置邮箱">查看当前配置邮箱</h1>
+<p><code>git config user.email</code></p>
+<h1 id="配置当前用户">配置当前用户</h1>
+<ul>
+<li>全局配置<br>
+<code>git config --global user.name &quot;Your name&quot;</code></li>
+<li>当前项目配置<br>
+<code>git config user.name &quot;Your name&quot;</code></li>
+</ul>
+<h1 id="配置当前邮箱">配置当前邮箱</h1>
+<ul>
+<li>全局配置<br>
+<code>git config --global user.email &quot;Your eamil&quot;</code></li>
+<li>当前项目配置<br>
+<code>git config user.email &quot;Your name&quot;</code></li>
+</ul>
+<h1 id="统计项目中的文件行数">统计项目中的文件行数</h1>
+<p><code>find . &quot;(&quot; -name &quot;*.html&quot; -or -name &quot;*.js&quot; -or -name &quot;*.css&quot; -or -name &quot;*.vue&quot; &quot;)&quot; -print | xargs wc -l</code></p>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96">初始化</a></li>
+<li><a href="#%E5%B0%86%E6%96%87%E4%BB%B6%E6%9B%B4%E6%94%B9%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%9A%82%E5%AD%98%E5%8C%BA">将文件更改添加到暂存区</a></li>
+<li><a href="#%E5%B0%86%E6%9A%82%E5%AD%98%E5%8C%BA%E5%86%85%E5%AE%B9%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93">将暂存区内容添加到本地仓库</a></li>
+<li><a href="#%E5%B0%86%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E7%89%88%E6%9C%AC%E4%B8%8A%E4%BC%A0%E5%88%B0%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%B9%B6%E4%B8%94%E5%90%88%E5%B9%B6">将本地分支版本上传到远程分支并且合并</a></li>
+<li><a href="#%E5%B0%86%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E6%8B%89%E5%8F%96%E5%88%B0%E6%9C%AC%E5%9C%B0">将远程分支拉取到本地</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E5%B7%B2%E9%85%8D%E7%BD%AE%E7%9A%84%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93">查看当前已配置的远程仓库</a></li>
+<li><a href="#%E6%9C%AC%E5%9C%B0%E5%85%B3%E8%81%94%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93">本地关联远程仓库</a></li>
+<li><a href="#%E9%87%8D%E5%91%BD%E5%90%8D%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93">重命名远程仓库</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93">删除远程仓库</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF">创建分支</a></li>
+<li><a href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF">切换分支</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E5%88%86%E6%94%AF%E5%B9%B6%E5%88%87%E6%8D%A2%E5%88%B0%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF">创建新分支并切换到当前分支</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E5%88%86%E6%94%AF%E5%B9%B6%E5%88%87%E6%8D%A2%E5%88%B0%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC%E5%88%86%E6%94%AF">创建新分支并切换到指定版本分支</a></li>
+<li><a href="#%E6%A0%B9%E6%8D%AEtag%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF">根据tag创建分支</a></li>
+<li><a href="#%E4%BB%8E%E8%BF%9C%E7%A8%8B%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%A0%81%E5%BA%93">从远程获取代码库</a></li>
+<li><a href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF">合并分支</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2%E6%8F%90%E4%BA%A4">查看历史提交</a></li>
+<li><a href="#%E5%85%8B%E9%9A%86%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81">克隆远程代码</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B8%A6%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%A0%87%E7%AD%BE">创建一个带注解的标签</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E6%A0%87%E7%AD%BE">查看所有标签</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7">查看当前配置用户</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E9%82%AE%E7%AE%B1">查看当前配置邮箱</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E5%BD%93%E5%89%8D%E7%94%A8%E6%88%B7">配置当前用户</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E5%BD%93%E5%89%8D%E9%82%AE%E7%AE%B1">配置当前邮箱</a></li>
+<li><a href="#%E7%BB%9F%E8%AE%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0">统计项目中的文件行数</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/da-jian-xiang-ying-shi-de-wang-zhan/">
+          <h3 class="post-title">
+            搭建响应式的网站
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,577 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>截图功能 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="截图功能 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="思路
+使用html2canvas插件，dom节点转Canvas再转化成Image。
+实现
+安装html2canvas
+使用npm
+npm i html2Canvas
+// es6引入
+import html2Canvas from 'htm..." />
+  <meta name="keywords" content="es6" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            截图功能
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-21
+            </span>
+            <span>
+              6 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/YEr5SsLJh/" class="post-tag">
+              # es6
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="思路">思路</h1>
+<p>使用html2canvas插件，dom节点转Canvas再转化成Image。</p>
+<h1 id="实现">实现</h1>
+<h2 id="安装html2canvas">安装html2canvas</h2>
+<p>使用npm</p>
+<pre><code>npm i html2Canvas
+// es6引入
+import html2Canvas from 'html2canvas';
+</code></pre>
+<p>使用Cdn</p>
+<pre><code>&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.min.js&quot;&gt;&lt;/script&gt;
+
+// 使用
+window.html2canvas
+</code></pre>
+<h2 id="封装myhtml2canvas工具类">封装MyHtml2canvas工具类</h2>
+<p><code>MyHtml2canvas.ts</code></p>
+<pre><code> class MyHtml2canvas {
+        // 插件实例
+        html2canvas;
+        constructor(html2canvas) {
+            this.html2canvas = html2canvas
+        }
+        /**
+         * @desc cavans转换为base64
+         */
+        generatePicture({
+            canvas,
+            type = &quot;image/png&quot;,
+            encoderOptions = 0.92
+        }) {
+            return canvas.toDataURL(type, encoderOptions);
+        }
+        /**
+         * @desc 获取Cavans
+         */
+        getCanvas = (dom, backgroundColor = &quot;rgba(0,0,0,.1)&quot;) =&gt; {
+            return this.html2canvas(dom, {
+                scale: 2,
+                allowTaint: false, //允许污染
+                useCORS: true,
+                backgroundColor //'transparent'  //背景色
+            })
+        }
+        /**
+         * @desc 获取图片文件
+         */
+        getPictureFile(dom, backgroundColor = &quot;rgba(0,0,0,.1)&quot;) {
+            return new Promise(async (resolve, reject) =&gt; {
+                try {
+                    let canvas = await this.getCanvas(dom)
+                    let maskImg = this.generatePicture({
+                        canvas
+                    })
+                    let file = this.base64ToFile(maskImg)
+                    resolve(file)
+                } catch (error) {
+                    reject(error)
+                }
+
+            })
+        }
+        /**
+         * @desc 获取截图文件的地址
+         */
+        async getPictureUrl(dom) {
+            let file = await this.getPictureFile(dom)
+            let url = await this.fileToUrl(file)
+            return url
+        }
+        /**
+         * @desc base64转化为file文件
+         */
+        base64ToFile(base64Data) {
+            const arr = base64Data.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bytes = atob(arr[1]);
+            let n = bytes.length;
+            const ia = new Uint8Array(n);
+            while (n--) {
+                ia[n] = bytes.charCodeAt(n);
+            }
+            return new File([ia], 'jpeg', {
+                type: mime
+            });
+        };
+        /**
+         * @description file to url
+         * @param file 
+         * @returns 
+         */
+        fileToUrl = async function (file) {
+            let getBase64Res = await this.getBase64(file)
+            let base64toBlobRes = this.base64toBlob(getBase64Res)
+            let blobToUrlRes = this.blobToUrl(base64toBlobRes)
+            return blobToUrlRes
+        }
+        /**
+         * @description 1. file转base64
+         * @param file
+         */
+        getBase64 = (file) =&gt; {
+            return new Promise((resolve, reject) =&gt; {
+                const reader = new FileReader()
+                let fileResult = ''
+                reader.readAsDataURL(file)
+                // 开始转
+                reader.onload = () =&gt; {
+                    fileResult = reader.result
+                }
+                // 转 失败
+                reader.onerror = (error) =&gt; {
+                    reject(error)
+                }
+                // 转 结束
+                reader.onloadend = () =&gt; {
+                    // this.formJar.fileName = file.name
+                    resolve(fileResult)
+                }
+            })
+        }
+        /**
+         * @description  base64转blob
+         * @param base64Data 
+         * @param fileType 
+         * @returns 
+         */
+        base64toBlob = (base64Data, fileType = 'image/png') =&gt; {
+            //console.log(base64Data);//data:image/png;base64,
+            let data = base64Data.startsWith('data:') ?
+                base64Data :
+                `data:${fileType};base64,${base64Data}`;
+            var byteString;
+            if (data.split(',')[0].indexOf('base64') &gt;= 0)
+                byteString = atob(data.split(',')[1]);
+            //base64 解码
+            else {
+                byteString = unescape(data.split(',')[1]);
+            }
+            var mimeString = data.split(',')[0].split(':')[1].split(';')[0]; //mime类型 -- image/png
+            var ia = new Uint8Array(byteString.length); //创建视图
+            for (var i = 0; i &lt; byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            var blob = new Blob([ia], {
+                type: mimeString,
+            });
+            return blob;
+        };
+        /**
+         * @desc  blob转换为url
+         * @param blob 
+         * @returns 
+         */
+        blobToUrl = (blob) =&gt; {
+            return URL.createObjectURL(blob)
+        }
+    }
+   
+</code></pre>
+<h2 id="项目中使用">项目中使用</h2>
+<pre><code>   &lt;div class=&quot;box&quot;&gt;
+    &lt;/div&gt;
+&lt;script&gt;
+        const myHtml2canvas = new MyHtml2canvas(html2canvas)
+        const boxDom = document.querySelector('.box')
+        let picFile = await myHtml2canvas.getPictureFile(boxDom)
+        let url = await myHtml2canvas.getPictureUrl(boxDom)
+&lt;/script&gt;
+</code></pre>
+<p>也可以使用其他插件：domtoimage （将dom转svg再生成图片），使用webRtc实现截图功能。<br>
+以下是以webRtc实现截图的Demo。</p>
+<h1 id="webrtc实现截图">webRtc实现截图</h1>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;utf-8&quot; /&gt;
+		&lt;title&gt;&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div style=&quot;width: 100%; height: 100%; position: relative; top: 0; left: 0; z-index: 1; overflow-y: hidden;&quot;&gt;
+			&lt;video id=&quot;video&quot; style=&quot;width: 1600; height: 900; position: absolute; top: 0; left: 0;&quot; autoplay&gt;&lt;/video&gt;
+		&lt;/div&gt;
+		&lt;div style=&quot;width: 100%; height: 100%; z-index: 2;&quot;&gt;
+			&lt;button onclick=&quot;screenshoutBtnClick()&quot;&gt;截图&lt;/button&gt;
+			&lt;img id=&quot;showScreenShout&quot; style=&quot;width:100%; height: 100%;&quot; /&gt;
+
+			&lt;div id=&quot;needScreenShotArea&quot;  style=&quot;width: 300px; height:150px;&quot;&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
+
+	&lt;script&gt;
+		function init() {
+			if (window.screen) {
+				var video = document.getElementById('video');
+				video.style.width = window.screen.width + &quot;px&quot;;
+				video.style.height = window.screen.height + &quot;px&quot;;
+			}
+		}
+
+		init();
+
+		const displayMediaOptions = {
+			video: {
+				cursor: &quot;always&quot;
+			},
+			audio: false
+		};
+		let videoElem = document.getElementById(&quot;video&quot;);
+
+		function screenshoutBtnClick() {
+			var windowX = event.screenX - event.clientX;
+			var windowY = event.screenY - event.clientY;
+			navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(stream =&gt; {
+				videoElem.srcObject = stream;
+				setTimeout(() =&gt; {
+					var canvas = document.createElement(&quot;canvas&quot;);
+					canvas.width = videoElem.clientWidth;
+					canvas.height = videoElem.clientHeight;
+					var needScreenShotEl = document.getElementById('needScreenShotArea');
+					var pos = getPosition(needScreenShotEl);
+					var toolBarHeight = window.outerHeight - window.innerHeight;
+					canvas.getContext(&quot;2d&quot;).drawImage(videoElem, windowX + pos.left,
+						windowY + (document.fullscreenElement ? pos.top : pos.top),
+						needScreenShotEl.clientWidth, needScreenShotEl.clientHeight, 0, 0, canvas.width, canvas.height
+					);
+					var dataURL = canvas.toDataURL(&quot;image/png&quot;);
+					document.getElementById('showScreenShout').src = dataURL;
+
+					let tracks = videoElem.srcObject.getTracks();
+					tracks.forEach(track =&gt; track.stop());
+					videoElem.srcObject = null;
+				}, 200)
+			}).finally(() =&gt; {
+
+			});
+		}
+
+		function getPosition(node) {
+			//获取元素相对于其父元素的left值var left
+			var left = node.offsetLeft;
+			var top = node.offsetTop;
+			// 取得元素的offsetParent
+			current = node.offsetParent;
+
+			// 一直循环直到根元素
+			while (current != null) {
+				left += current.offsetLeft;
+				top += current.offsetTop;
+				current = current.offsetParent;
+			}
+			return {
+				&quot;left&quot;: left,
+				&quot;top&quot;: top
+			};
+		}
+	&lt;/script&gt;
+&lt;/html&gt;
+
+
+</code></pre>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#%E6%80%9D%E8%B7%AF">思路</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0">实现</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85html2canvas">安装html2canvas</a></li>
+<li><a href="#%E5%B0%81%E8%A3%85myhtml2canvas%E5%B7%A5%E5%85%B7%E7%B1%BB">封装MyHtml2canvas工具类</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8">项目中使用</a></li>
+</ul>
+</li>
+<li><a href="#webrtc%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE">webRtc实现截图</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/jian-jin-shi-web-ying-yong-pwa/">
+          <h3 class="post-title">
+            渐进式web应用（PWA）
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

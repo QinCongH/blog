@@ -1,0 +1,595 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>react生态 - nextJs | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="react生态 - nextJs | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="
+Next.js是一个 React 开发框架。
+Nextjs是一个使用react作为前端框架底层的支持SSR(请求时渲染)、SSG(构建时渲染)等技术的全栈框架
+
+1. 创建页面
+
+例: 新增一个about页面
+
+
+在app目录下新建abo..." />
+  <meta name="keywords" content="React" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            react生态 - nextJs
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-26
+            </span>
+            <span>
+              5 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/TL1T7hUz1/" class="post-tag">
+              # React
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <blockquote>
+<p>Next.js是一个 React 开发框架。<br>
+Nextjs是一个使用react作为前端框架底层的支持SSR(请求时渲染)、SSG(构建时渲染)等技术的全栈框架</p>
+</blockquote>
+<h1 id="1-创建页面">1. 创建页面</h1>
+<blockquote>
+<p>例: 新增一个about页面</p>
+</blockquote>
+<ol>
+<li>在app目录下新建<code>about/page.tsx</code>文件</li>
+</ol>
+<pre><code>- app
+- - about
+- - - page.tsx
+</code></pre>
+<ol start="2">
+<li>在page.tsx文件中导出一个函数式组件</li>
+</ol>
+<pre><code>export default function About() {
+    return (
+      &lt;main className=&quot;about&quot;&gt;
+        关于
+      &lt;/main&gt;
+    )
+  }
+</code></pre>
+<ol start="3">
+<li>在标签栏中访问</li>
+</ol>
+<pre><code>http://localhost:3000/about
+</code></pre>
+<h1 id="2-使用组件">2. 使用组件</h1>
+<blockquote>
+<p>新建一个按钮组件</p>
+</blockquote>
+<ol>
+<li>
+<p>新建<code>components/CtnButton.tsx</code>文件</p>
+</li>
+<li>
+<p>在CtnButton.tsx文件中导出一个函数式组件</p>
+</li>
+</ol>
+<pre><code>export default function CtnButton(props: {
+    text: string
+}) {
+    return (
+        &lt;button&gt;
+            {props.text}
+        &lt;/button&gt;
+    )
+}
+
+</code></pre>
+<ol start="3">
+<li>在页面中引入使用</li>
+</ol>
+<p><code>about/page.tsx</code></p>
+<pre><code>import CtnButton from &quot;@/src/components/CtnButton/CtnButton&quot;
+export default function About() {
+    return (
+      &lt;main className=&quot;about&quot;&gt;
+        关于
+        &lt;CtnButton text=&quot;测试&quot;&gt;&lt;/CtnButton&gt;
+      &lt;/main&gt;
+    )
+  }
+
+</code></pre>
+<h1 id="3-创建layout布局">3. 创建layout布局</h1>
+<blockquote>
+<p>nextJs创建了一个根布局组件<code>layout.tsx</code>，默认使用全局</p>
+</blockquote>
+<pre><code>import './globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: '我的nextJs应用',
+  description: 'Generated by create next app',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    &lt;html lang=&quot;en&quot;&gt;
+      &lt;body className={inter.className}&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
+  )
+}
+
+</code></pre>
+<h1 id="4-使用css样式">4. 使用css样式</h1>
+<h2 id="4-1-css模块">4-1. css模块</h2>
+<p>参考链接：https://nextjs.org/docs/app/building-your-application/styling/css-modules</p>
+<h2 id="4-2-使用scss">4-2. 使用scss</h2>
+<p>参考链接：https://nextjs.org/docs/app/building-your-application/styling/sass</p>
+<ol>
+<li>安装scss</li>
+</ol>
+<pre><code>npm install --save-dev sass
+</code></pre>
+<ol start="2">
+<li>创建style目录存储css样式文件，新建一个style.scss</li>
+</ol>
+<pre><code>.myscss{
+    color: red;
+}
+</code></pre>
+<ol start="3">
+<li>在layout.tsx布局组件中导入</li>
+</ol>
+<pre><code>import './globals.css'
+import '@/src/style/style.scss'  //在此导入
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: '测试nextJsDemo',
+  description: 'Generated by create next app',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    &lt;html lang=&quot;en&quot;&gt;
+      &lt;body className={inter.className}&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
+  )
+}
+
+</code></pre>
+<ol start="4">
+<li>在页面中使用<br>
+<code>about/page.tsx</code></li>
+</ol>
+<pre><code>import CtnButton from &quot;@/src/components/CtnButton/CtnButton&quot;
+export default function About() {
+  return (
+    &lt;main className=&quot;about&quot;&gt;
+      &lt;!--在此处使用--&gt;
+      &lt;p className=&quot;myscss&quot;&gt;
+        关于
+      &lt;/p&gt;
+      &lt;CtnButton text=&quot;测试&quot;&gt;&lt;/CtnButton&gt;
+    &lt;/main&gt;
+  )
+}
+</code></pre>
+<h1 id="5-使用ui插件">5. 使用ui插件</h1>
+<ol>
+<li>使用ant.design</li>
+</ol>
+<p>https://ant.design/docs/react/use-with-next-cn</p>
+<ol start="2">
+<li>nextui<br>
+https://nextui.org/</li>
+</ol>
+<h1 id="6-接口请求封装">6. 接口请求封装</h1>
+<h1 id="7-页面跳转">7. <a href="https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook">页面跳转</a></h1>
+<h2 id="7-1-使用userouter钩子">7-1. 使用useRouter钩子</h2>
+<pre><code>'use client'
+ 
+import { useRouter } from 'next/navigation'
+ 
+export default function Page() {
+  const router = useRouter()
+ 
+  return (
+    &lt;button type=&quot;button&quot; onClick={() =&gt; router.push('/dashboard')}&gt;
+      Dashboard
+    &lt;/button&gt;
+  )
+}
+</code></pre>
+<h2 id="7-2-使用link组件">7-2. 使用Link组件</h2>
+<pre><code>import Link from 'next/link'
+ 
+export default function Page() {
+  return &lt;Link href=&quot;/dashboard&quot;&gt;Dashboard&lt;/Link&gt;
+}
+</code></pre>
+<h2 id="使用usepathname检查用户当前活动的路由">使用usePathname()检查用户当前活动的路由</h2>
+<pre><code>'use client'
+ 
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+ 
+export function Navigation({ navLinks }) {
+  const pathname = usePathname()
+ 
+  return (
+    &lt;&gt;
+      {navLinks.map((link) =&gt; {
+        const isActive = pathname === link.href
+ 
+        return (
+          &lt;Link
+            className={isActive ? 'text-blue' : 'text-black'}
+            href={link.href}
+            key={link.name}
+          &gt;
+            {link.name}
+          &lt;/Link&gt;
+        )
+      })}
+    &lt;/&gt;
+  )
+}
+</code></pre>
+<h1 id="8-状态分享">8. 状态分享</h1>
+<h1 id="9-其他">9. 其他</h1>
+<h2 id="9-1-使用src目录">9-1. <a href="https://nextjs.org/docs/app/building-your-application/configuring/src-directory">使用src目录</a></h2>
+<blockquote>
+<p>若要使用该目录，请将“路由器”文件夹或“路由器”文件夹分别移动到 或。srcapppagessrc/appsrc/pages</p>
+</blockquote>
+<h1 id="10-参考文档">10. 参考文档</h1>
+<p><a href="https://www.nextjs.cn/docs">中文官网</a></p>
+<p><a href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts">英文官网</a></p>
+<h1 id="开发经验">开发经验</h1>
+<h2 id="1-项目中使用tailwindcss">1. 项目中使用tailwindcss</h2>
+<p>https://v2.tailwindcss.tw/docs/guides/nextjs<br>
+在Css中引入</p>
+<pre><code>@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</code></pre>
+<p>或者在入口文件中使用<br>
+<code>layout.tsx</code></p>
+<pre><code> import 'tailwindcss/tailwind.css'
+</code></pre>
+<h2 id="2-设置首次跳转的根路径">2. 设置首次跳转的根路径</h2>
+<p><code>nextConfig.ts</code>中设置source</p>
+<pre><code>/** 
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+    async redirects() {
+        return [{
+            source: '/',
+            destination: '/welcome',
+            permanent: true,
+        }]
+    },
+}
+module.exports = nextConfig
+</code></pre>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E5%88%9B%E5%BB%BA%E9%A1%B5%E9%9D%A2">1. 创建页面</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8%E7%BB%84%E4%BB%B6">2. 使用组件</a></li>
+<li><a href="#3-%E5%88%9B%E5%BB%BAlayout%E5%B8%83%E5%B1%80">3. 创建layout布局</a></li>
+<li><a href="#4-%E4%BD%BF%E7%94%A8css%E6%A0%B7%E5%BC%8F">4. 使用css样式</a>
+<ul>
+<li><a href="#4-1-css%E6%A8%A1%E5%9D%97">4-1. css模块</a></li>
+<li><a href="#4-2-%E4%BD%BF%E7%94%A8scss">4-2. 使用scss</a></li>
+</ul>
+</li>
+<li><a href="#5-%E4%BD%BF%E7%94%A8ui%E6%8F%92%E4%BB%B6">5. 使用ui插件</a></li>
+<li><a href="#6-%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%B0%81%E8%A3%85">6. 接口请求封装</a></li>
+<li><a href="#7-%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC">7. 页面跳转</a>
+<ul>
+<li><a href="#7-1-%E4%BD%BF%E7%94%A8userouter%E9%92%A9%E5%AD%90">7-1. 使用useRouter钩子</a></li>
+<li><a href="#7-2-%E4%BD%BF%E7%94%A8link%E7%BB%84%E4%BB%B6">7-2. 使用Link组件</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8usepathname%E6%A3%80%E6%9F%A5%E7%94%A8%E6%88%B7%E5%BD%93%E5%89%8D%E6%B4%BB%E5%8A%A8%E7%9A%84%E8%B7%AF%E7%94%B1">使用usePathname()检查用户当前活动的路由</a></li>
+</ul>
+</li>
+<li><a href="#8-%E7%8A%B6%E6%80%81%E5%88%86%E4%BA%AB">8. 状态分享</a></li>
+<li><a href="#9-%E5%85%B6%E4%BB%96">9. 其他</a>
+<ul>
+<li><a href="#9-1-%E4%BD%BF%E7%94%A8src%E7%9B%AE%E5%BD%95">9-1. 使用src目录</a></li>
+</ul>
+</li>
+<li><a href="#10-%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">10. 参考文档</a></li>
+<li><a href="#%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C">开发经验</a>
+<ul>
+<li><a href="#1-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8tailwindcss">1. 项目中使用tailwindcss</a></li>
+<li><a href="#2-%E8%AE%BE%E7%BD%AE%E9%A6%96%E6%AC%A1%E8%B7%B3%E8%BD%AC%E7%9A%84%E6%A0%B9%E8%B7%AF%E5%BE%84">2. 设置首次跳转的根路径</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/bu-shu-nginx-bu-shu-react-xiang-mu/">
+          <h3 class="post-title">
+            部署 - nginx部署react项目
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

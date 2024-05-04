@@ -1,0 +1,957 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Typescript简述 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Typescript简述 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="1. 理解
+
+TypeScript是JavaScript的超集，具有可选的类型并可以编译为纯JavaScript。
+从技术上讲TypeScript就是具有静态类型的JavaScript 。
+
+2. 安装环境
+1. 安装node
+在node官..." />
+  <meta name="keywords" content="es6" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            Typescript简述
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-22
+            </span>
+            <span>
+              15 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/YEr5SsLJh/" class="post-tag">
+              # es6
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="1-理解">1. 理解</h1>
+<blockquote>
+<p>TypeScript是JavaScript的超集，具有可选的类型并可以编译为纯JavaScript。<br>
+从技术上讲TypeScript就是具有静态类型的JavaScript 。</p>
+</blockquote>
+<h1 id="2-安装环境">2. 安装环境</h1>
+<h2 id="1-安装node">1. 安装node</h2>
+<p>在<a href="https://nodejs.org/zh-cn/">node官网</a>下载包<br>
+通过<code>node -v</code>命令查看是否安装成功，</p>
+<h2 id="2-下载typescript">2. 下载typescript</h2>
+<pre><code>npm i typescript -g
+tsc --version
+</code></pre>
+<p>如果是Mac上面使用<code>sudo npm install typescript -g</code>指令进行安装</p>
+<h2 id="3-编写helloworld程序">3. 编写helloworld程序</h2>
+<ol>
+<li>创建一个项目目录，并使用<code>npm init</code>初始化</li>
+<li>初始化<code>Typescript</code>配置文件，在终端输入<code>tsc --init</code>生成<code>tsconfig.json</code>文件</li>
+<li>安装@types/node,使用<code>npm install @types/node --dev-save</code>进行安装。这个主要是解决模块的声明文件问题。</li>
+<li>编写<code>HelloWorld.ts</code>文件，并通过vscode运行任务项</li>
+</ol>
+<pre><code>var a:string=&quot;hellowrold&quot;
+console.log(a)
+</code></pre>
+<ol start="5">
+<li>在终端使用<code>tsc HelloWorld.ts</code>命令运行<code>HelloWorld.ts</code>文件， 这时候就会生成一个<code>helloWorld.js</code>文件</li>
+<li>在终端中输入<code>node helloWorld.js</code>就可以看到结果了。</li>
+</ol>
+<h1 id="3-变量类型">3. 变量类型</h1>
+<p>列举一下ts的类型：</p>
+<blockquote>
+<p>Undefined : 未赋值类型<br>
+Number:数值类型;<br>
+string : 字符串类型;<br>
+Boolean: 布尔类型；<br>
+enum：枚举类型；<br>
+any : 任意类型，一个牛X的类型；<br>
+void：空类型；//函数无返回值时<br>
+Array : 数组类型;<br>
+Tuple : 元祖类型；<br>
+Null ：空类型。</p>
+</blockquote>
+<pre><code>//@ undefined
+let a1:string;   //声明变量未赋值
+//@ number
+let a2:number=12
+let a3:number=12.23
+console.log(a2,a3)  //12,12.23
+let a4:number=a2-a3 
+console.log(a4) //-0.23000000000000043 精度
+let a5:number=Infinity
+let a6:number=-Infinity
+console.log(a5,a6) //正无穷Infinity 负无穷-Infinity
+let a7:number=NaN;
+console.log(a7) //NaN 非数值
+//@ string
+let s1:string=&quot;123&quot;
+let s2:string='TTT'
+console.log(s1,s2)//123 TTT
+//@ boolean
+let b1:boolean=true
+let b2:boolean=false
+console.log(b1,b2)//true false
+//@ enum
+enum Name1{
+    xiaoming,
+    xiaohei,
+    xiaohong
+}
+console.log(Name1.xiaohei,Name1.xiaohong) //没有值返回索引
+enum Name2{
+    xiaoming=12,
+    xiaohei=15,
+    xiaohong=17
+}
+console.log(Name2.xiaoming,Name2.xiaohong)//有值返回值
+//@ any 当不知道结果值类型时
+let n1:any=1
+console.log(n1) //1
+n1=&quot;to string&quot;
+console.log(n1) //to string
+</code></pre>
+<h1 id="4-函数">4. 函数</h1>
+<blockquote>
+<p>函数功能：把功能相近的需求封装成一个独立的代码块，每次传入不同的变量或参数，就可以实现不同的结果。</p>
+</blockquote>
+<h2 id="1-函数的表达方式">1. 函数的表达方式</h2>
+<p>定义函数注意点：</p>
+<ol>
+<li>声明（定义）函数必须加 function 关键字；</li>
+<li>函数名与变量名一样，命名规则按照标识符规则；<br>
+函数参数可有可无，多个参数之间用逗号隔开；</li>
+<li>每个参数参数由名字与类型组成，之间用逗号隔开；</li>
+<li>函数的返回值可有可无，没有时，返回类型为 void；<br>
+大括号中是函数体。</li>
+</ol>
+<h3 id="1-函数声明式">1. 函数声明式</h3>
+<pre><code>function addNum(num:number):number{ //加1方法
+    return ++num
+}
+console.log(addNum(1))//2
+function addCount(num1:number,num2:number):number{
+    return num1+num2
+}
+console.log(addCount(1,3))//4
+</code></pre>
+<h3 id="2-函数表达式">2. 函数表达式</h3>
+<pre><code>const getAge=function(age:number):string{
+    return `你今天${age}岁了！`
+}
+</code></pre>
+<h3 id="3-箭头函数">3. 箭头函数</h3>
+<pre><code>const getAge=(age:number):string=&gt;{
+    return `你今天${age}岁了！`
+}
+console.log(getAge(17)) //你今天17岁了！
+</code></pre>
+<h2 id="2-形参和实参">2. 形参和实参</h2>
+<blockquote>
+<p>函数定义时写的参数是形参。在这里规范参数传参类型<br>
+调用函数时传入的参数称为实参。实参类型对应形参的类型。</p>
+</blockquote>
+<h2 id="3-typescript中的参数">3. typescript中的参数</h2>
+<h3 id="1-可选参数">1. 可选参数</h3>
+<blockquote>
+<p>使用<code>?</code>符合定义可选参数，没有传参时可选参是undefined</p>
+</blockquote>
+<pre><code>const getContent = (id: number, keyworld?: string): string =&gt; {
+    switch (id) {
+        case 1:
+            return `xiaoming search ${keyworld}`
+            break;
+        case 2:
+            return &quot;xiaohong&quot; + ` search ${keyworld}`
+            break;
+        case 3:
+            return &quot;xiaobai&quot; + ` search ${keyworld}`
+            break;
+        default:
+            return &quot;no content&quot;
+            break;
+    }
+}
+console.log(getContent(2))  //xiaoming search undefined
+console.log(getContent(2, 'nihao'))  //xiaoming search nihao
+</code></pre>
+<h3 id="2-默认参">2. 默认参</h3>
+<blockquote>
+<p>形参中直接赋值默认值，不传递参数时参数是默认值</p>
+</blockquote>
+<pre><code>const add = (n1: number, n2: number = 3): number =&gt; {
+    return n1 + n2
+}
+console.log(add(4)) //7
+</code></pre>
+<h3 id="3-剩余参">3. 剩余参</h3>
+<blockquote>
+<p>有多个参数时使用数组接收</p>
+</blockquote>
+<pre><code>const getValue=(val1:string,val2:string,...moreVal:string[]):string=&gt;{
+    moreVal.forEach(item=&gt;{
+        console.log(item)   //打印多余参数值//3,4
+    })
+    return `${val1},${val2},${
+        moreVal
+    }`
+}
+console.log(getValue('1','2','3','4'))  //1,2,3,4
+</code></pre>
+<h2 id="4-函数作用域">4. 函数作用域</h2>
+<ol>
+<li>理解：</li>
+</ol>
+<blockquote>
+<p>每个变量都有一个起作用的范围，这个范围就是变量的作用域。在TypeScript语言中变量作用域划分是以函数为标准的。</p>
+</blockquote>
+<ol start="2">
+<li>全局变量和局部变量：</li>
+</ol>
+<blockquote>
+<p>局部变量：函数体内定义的变量就是局部变量。<br>
+全局变量: 函数体外 定义的变量就是全局变量。</p>
+</blockquote>
+<pre><code>var a:number=2  //全局变量
+const testFun=()=&gt;{
+    var b:number=1//局部变量
+    return b
+}
+console.log(testFun())  //1
+</code></pre>
+<ol start="3">
+<li>变量提升：<br>
+当局部变量与全局变量重名时，局部变量会生效；在没有声明变量之前使用变量会出现变量提升</li>
+</ol>
+<pre><code>const testFun=()=&gt;{
+    console.log(b)  //undefined
+    var b:number=1
+    return b
+}
+</code></pre>
+<p>变量提升后的代码：</p>
+<pre><code>const testFun=()=&gt;{
+    var b:number;  
+    console.log(b)  //undefined
+    b=1
+    return b
+}
+</code></pre>
+<ol start="4">
+<li>在局部作用域中使用let关键字</li>
+</ol>
+<blockquote>
+<p>let关键字不存在变量提升，在没有声明变量之前使用变量会报错。</p>
+</blockquote>
+<pre><code>const testFun=()=&gt;{
+    let b:number=1
+    return b
+}
+</code></pre>
+<h1 id="5-引用类型">5. 引用类型</h1>
+<blockquote>
+<p>ts中的引用类型：Array（数组）、String（字符串）、Date（日期对象）、RegExp（正则表达式）</p>
+</blockquote>
+<h2 id="1-数组">1. 数组</h2>
+<h3 id="1-定义数组">1. 定义数组</h3>
+<ul>
+<li>声明一个数组的两种方法：</li>
+</ul>
+<pre><code>let arr1:number[ ]     //声明一个数值类型的数组
+let arr2:Array&lt;string&gt;  //声明一个字符串类型的数组
+</code></pre>
+<ul>
+<li>变量赋值的两种方式</li>
+</ul>
+<blockquote>
+<p>字面量赋值法：</p>
+</blockquote>
+<pre><code>let arr:number[]=[1,2,3]    //number类型数组
+console.log(arr)//[1,2,3] 
+let arr1:Array&lt;string&gt;=['1']//string类型数组
+console.log(arr1)//['1']
+</code></pre>
+<blockquote>
+<p>构造函数赋值</p>
+</blockquote>
+<pre><code>let arr2:Array&lt;string&gt;=new Array('1','2','3')
+console.log(arr2)//['1','2','3']
+</code></pre>
+<h3 id="2-特殊的数组-元组可以指定类型">2.  特殊的数组--元组：可以指定类型</h3>
+<pre><code>let arr3:[number,string]=[2,'12']   
+console.log(arr3)//[2,'12']   
+</code></pre>
+<h2 id="2-引用类型字符串">2. 引用类型字符串</h2>
+<p>ts中的两种字符串类型：</p>
+<ul>
+<li>基本类型字符串：由单引号或者双引号括起来的一串字符串。</li>
+</ul>
+<pre><code>let ss1:string='12321'//基本类型字符串
+console.log(ss1,ss1.length)    //12321 5
+</code></pre>
+<ul>
+<li>引用类型字符串：用new 实例化的 String类型。</li>
+</ul>
+<pre><code>let ss2:String=new String(&quot;123213213&quot;)  //使用new String 
+console.log(ss2,ss1.length)    //[String: '123213213'] 5
+</code></pre>
+<blockquote>
+<p>两者创建的字符串没什么区别</p>
+</blockquote>
+<h2 id="3-日期对象">3. 日期对象</h2>
+<ol>
+<li>创建日期对象</li>
+</ol>
+<pre><code>let d:Date = new Date()
+</code></pre>
+<ol start="2">
+<li>传递一个整数</li>
+</ol>
+<pre><code>let d:Date = new Date(1000)
+let da:Date = new Date(2000)
+console.log(d)  //1970-01-01T00:00:01.000Z
+console.log(da) //1970-01-01T00:00:02.000Z
+</code></pre>
+<ol start="3">
+<li>传递一个表示日期的字符串<br>
+字符串的格式常用:<code>yyyy/MM/dd hh:mm:ss</code>，<code>yyyy-MM-dd hh:mm:ss</code>，<code>yyyy-MM-ddThh:mm:ss</code></li>
+</ol>
+<pre><code>let d1:Date = new Date('2018/09/06 05:30:00')
+let d2:Date = new Date('2018-09-06 05:30:00')
+let d3:Date = new Date('2018-09-06T05:30:00')
+</code></pre>
+<ol start="4">
+<li>传递表示年月日分秒的变量</li>
+</ol>
+<pre><code>let d:Date = new Date(year,month,day,hours,minutes,seconds,ms);
+</code></pre>
+<h2 id="4-正则类型">4. 正则类型</h2>
+<blockquote>
+<p>用于字段验证</p>
+</blockquote>
+<ol>
+<li>字面量法</li>
+</ol>
+<pre><code>let reg1:RegExp = /test/
+let reg2:RegExp = /test/gi
+</code></pre>
+<ol start="2">
+<li>构造函数创建</li>
+</ol>
+<pre><code>let reg1:RegExp = new RegExp(&quot;test&quot;)
+let reg2:RegExp = new RegExp(&quot;test&quot;,&quot;gi&quot;)//参数1：字符串函数，参数2：修饰符
+</code></pre>
+<h1 id="6-面向对象编程-类">6. 面向对象编程-类</h1>
+<h2 id="1-理解类">1. 理解类</h2>
+<p>类是对象具体事务的一个抽象，对象是类的具体表现。<br>
+类中有属性，构造函数，方法三个部分；构造函数用来给类中封装的属性赋值。</p>
+<h2 id="2-定义一个类">2. 定义一个类</h2>
+<p>假设对象是外国人‘Apple’，我要介绍他的中文名称和年龄，并且让他进行自我介绍</p>
+<pre><code>class Apple {
+//属性
+    chinaName: string;
+    age: number;
+//构造函数    
+constructor(chinaName: string, age: number) {
+        this.chinaName = chinaName
+        this.age = age
+    }
+//方法
+    getMyCity(){
+        console.log(`我来自非洲,今年${this.age}岁!`)
+    }
+}
+const xa:Apple=new Apple('xiaoie',14)//实例化，构造对象
+console.log(xa.getMyCity())//我来自非洲,今年14岁!
+console.log(xa)//Apple { chinaName: 'xiaoie', age: 14 }
+</code></pre>
+<h1 id="7-面向对象编程-修饰符">7. 面向对象编程-修饰符</h1>
+<h2 id="1访问修饰符">1.访问修饰符</h2>
+<ol>
+<li><code>private</code>:私有修饰符，只可以在类内使用private修饰的属性和行为。es6中使用<code>#</code>声明私有修饰符</li>
+<li><code>public</code>:公有修饰符，可以在类内或者类外使用public修饰的属性或者行为，默认修饰符。</li>
+<li><code>protected</code>::受保护的修饰符，可以本类和子类中使用protected修饰的属性和行为。</li>
+</ol>
+<pre><code>class Student {
+  public name: string; //公共成员属性
+  protected age: number; //当前类或者子类使用
+  private achievement: number; //私有成员属性
+  constructor(name: string, age: number, achievement: number) {
+    this.name = name;
+    this.age = age;
+    this.achievement = achievement;
+  }
+  sayBey() {
+    console.log(`beybey`);
+  }
+  seeAchievement() {
+    console.log(`我的成绩是${this.achievement}`);
+  }
+}
+let self: Student = new Student(&quot;小明&quot;, 18, 90);
+console.log(self.sayBey());
+console.log(self.seeAchievement());
+// console.log(self.achievement); //报错
+// console.log(self.age); //报错
+console.log(self.name);//小明
+
+</code></pre>
+<h2 id="2只读属性修饰符">2.只读属性修饰符</h2>
+<p><code>readonly</code>:只读，在class类中用来防止除构造函数之外的属性进行赋值</p>
+<pre><code>class Man {
+  public readonly sex: string = &quot;男&quot;; //设置只读
+}
+let p: Man = new Man();
+console.log(p); //Man {sex: &quot;男&quot;, constructor: Object}
+// p.sex = &quot;324&quot;; //报错提示
+</code></pre>
+<h2 id="3-静态属性修饰符">3. 静态属性修饰符</h2>
+<ol>
+<li>
+<p>使用<code>static</code>关键字声明静态属性。</p>
+</li>
+<li>
+<p>凡是被static修饰的属性和方法都是静态方法和属性,只能被类名调用,不能被实例化对象调用.同时也不能被子类继承,换句话说它属于当前这个类的.</p>
+</li>
+<li>
+<p>类中的<code>this</code>不能访问到<code>static</code>声明的静态属性</p>
+</li>
+<li>
+<p>子类没有继承父类的静态属性。</p>
+</li>
+</ol>
+<pre><code>export class Student {
+  static msg: string = &quot;我是小学生&quot;;  //静态属性
+  public name: string; //公共成员属性
+  protected age: number; //当前类或者子类使用
+  private achievement: number; //私有成员属性
+  constructor(name: string, age: number, achievement: number) {
+    this.name = name;
+    this.age = age;
+    this.achievement = achievement;
+  }
+}
+let self: Student = new Student(&quot;小明&quot;, 18, 90);
+// console.log(self.msg) //引用报错，静态属性不能被实例化对象调用
+console.log(Student.msg); //我是小学生         只能通过类名访问
+</code></pre>
+<h1 id="8面向对象编程-继承和重写">8.面向对象编程-继承和重写</h1>
+<h2 id="继承">继承</h2>
+<blockquote>
+<p>允许我们创建一个类（子类），从已有的类（父类）上继承所有的属性和方法，子类可以新建父类中没有的属性和方法。实用<code>extends</code>关键字。</p>
+</blockquote>
+<pre><code>export class Television {
+  public width: number;
+  public height: number;
+  protected price: number;
+  public fun: string;
+  public msg: string = &quot;我是电视&quot;;
+  constructor(width: number, height: number, fun: string) {
+    this.width = width;
+    this.height = height;
+    this.fun = fun;
+  }
+  characteristic() {
+    console.log(&quot;优惠实用&quot;);
+  }
+}
+export class Mobile extends Television {
+  //继承了Television的属性和方法
+  public msg: string = &quot;我是手机&quot;;
+}
+let bbb: Mobile = new Mobile(100, 50, &quot;看视频&quot;);
+console.log(bbb);//Mobile {msg: &quot;我是手机&quot;, width: 100, height: 50, fun: &quot;看视频&quot;, constructor: Object…}
+</code></pre>
+<h2 id="重写">重写</h2>
+<blockquote>
+<p>重写就是在子类中重写父类的方法。</p>
+</blockquote>
+<p>使用<code>super</code>继承父类属性或者方法，然后添加功能</p>
+<pre><code>export class Television {
+  public width: number;
+  public height: number;
+  protected price: number;
+  public fun: string;
+  public msg: string = &quot;我是电视&quot;;
+  constructor(width: number, height: number, fun: string) {
+    this.width = width;
+    this.height = height;
+    this.fun = fun;
+  }
+  characteristic() {
+    console.log(&quot;优惠实用&quot;);
+  }
+}
+export class Mobile extends Television {
+  //继承了Television的属性和方法
+  public msg: string = &quot;我是手机&quot;;
+  characteristic() {
+    super.characteristic(); //继承父类
+    console.log(&quot;拍照清晰&quot;); //添加功能
+  }
+}
+let aaa: Television = new Television(100, 50, &quot;看视频&quot;);
+console.log(aaa.characteristic()); //优惠实用
+let bbb: Mobile = new Mobile(100, 50, &quot;看视频&quot;);
+console.log(bbb.characteristic()); //优惠实用  拍照清晰
+
+</code></pre>
+<h1 id="9-接口">9. 接口</h1>
+<blockquote>
+<p>接口只定义对象的结构，而不考虑实际值</p>
+</blockquote>
+<blockquote>
+<p>定义接口的关键字是<code>interface</code>。接口是用来定义一些规范，使用这些接口，就必须实现按照接口中的规范来走。</p>
+</blockquote>
+<ul>
+<li>定义对象类型规范</li>
+</ul>
+<pre><code>interface Mobile {
+  width: number;
+  height: number;
+  name: string;
+}
+//定义对象
+let m: Mobile = {
+  width: 120,
+  height: 500,
+  name: &quot;手机&quot;
+};
+console.log(m);
+</code></pre>
+<ul>
+<li>定义函数类型规范</li>
+</ul>
+<pre><code>interface MobileType {
+  (width: number, height: number, name: string): string;
+}
+let getMobile: MobileType = (
+  width: number,
+  height: number,
+  name: string
+): string =&gt; {
+  return `width:${width} height:${height} name:${name}`;
+};
+</code></pre>
+<ul>
+<li>定义类的类型规范</li>
+</ul>
+<blockquote>
+<p>类中要使用两个接口来规范类型，一个规范'构造函数属性'和'静态属性方法';一个规范类的‘方法’。</p>
+</blockquote>
+<p>在类中使用<code>implements</code>关键字接收规范方法的接口</p>
+<pre><code>interface TypeConstructor {
+  new (name: string, age: number); //检查构造函数
+  typename: string; //检查静态属性
+  logname(): string; //检查静态方法
+}
+interface TypeInterface {
+  loga(): string;
+}
+const Person1:TypeConstructor=class Person implements TypeInterface{
+    name:string;
+    age:number;
+    static typename:string=&quot;我的名字&quot;
+    static logname(){
+        console.log(this.name)
+    }
+    constructor(name:string,age:number){
+      this.name=name
+      this.age=age
+    }
+    loga(){
+      console.log(this.name,this.age)
+    }
+}
+const p=new Person1('小明',20)
+</code></pre>
+<p><a href="https://juejin.cn/post/6844903799459414029#heading-0">点击查看接口详细描述文章</a></p>
+<h1 id="10命名空间">10.命名空间</h1>
+<p>在命名空间中，有他自己的作用域，外部无法访问到，要想访问需使用export将访问的部分暴露出去</p>
+<pre><code>namespace moduleOne {
+  export class Liu {
+    name: string;
+    age: number;
+    constructor(name: string, age: number) {
+      this.name = name;
+      this.age = age;
+    }
+  }
+}
+namespace moduleTwo {
+  export class Liu {
+    name: string;
+    age: number;
+    constructor(name: string, age: number) {
+      this.name = name;
+      this.age = age;
+    }
+  }
+}
+let n1: moduleOne.Liu = new moduleOne.Liu(&quot;xm&quot;, 14);
+let n2: moduleTwo.Liu = new moduleOne.Liu(&quot;xh&quot;, 16);
+console.log(n2);
+console.log(n1.name, n1.age); //xm 14
+console.log(n2.name, n2.age); //xm 16
+
+</code></pre>
+<h1 id="11泛型">11.泛型</h1>
+<p>泛型的语法是 <code>&lt;&gt;</code> 里写类型参数，一般可以用 <code>T</code> 来表示。主要解决输入输出类型要一致的问题。</p>
+<pre><code>//简单的泛型使用
+function print&lt;T&gt;(arg: T): T {
+  console.log(arg);
+  return arg;
+}
+// print&lt;boolean&gt;(true);//定义要使用的类型
+print(true); //TS 类型推断，自动推导出类型
+</code></pre>
+<h1 id="学习参考链接">学习参考链接</h1>
+<ul>
+<li>技术胖--https://jspang.com/article/38#top</li>
+<li>掘金文章--2022年了，我才开始学 typescript ，晚吗？（7.5k字总结）<br>
+https://juejin.cn/post/7124117404187099172#heading-1<br>
+https://juejin.cn/post/6844903799459414029#heading-0 --- 接口<br>
+https://juejin.cn/post/6903329234068963342#heading-0 --- static<br>
+https://juejin.cn/post/7064351631072526350#heading-1 --- 泛型</li>
+<li>文档<br>
+https://www.tslang.cn/docs/home.html</li>
+</ul>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E7%90%86%E8%A7%A3">1. 理解</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83">2. 安装环境</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85node">1. 安装node</a></li>
+<li><a href="#2-%E4%B8%8B%E8%BD%BDtypescript">2. 下载typescript</a></li>
+<li><a href="#3-%E7%BC%96%E5%86%99helloworld%E7%A8%8B%E5%BA%8F">3. 编写helloworld程序</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B">3. 变量类型</a></li>
+<li><a href="#4-%E5%87%BD%E6%95%B0">4. 函数</a>
+<ul>
+<li><a href="#1-%E5%87%BD%E6%95%B0%E7%9A%84%E8%A1%A8%E8%BE%BE%E6%96%B9%E5%BC%8F">1. 函数的表达方式</a>
+<ul>
+<li><a href="#1-%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E%E5%BC%8F">1. 函数声明式</a></li>
+<li><a href="#2-%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F">2. 函数表达式</a></li>
+<li><a href="#3-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0">3. 箭头函数</a></li>
+</ul>
+</li>
+<li><a href="#2-%E5%BD%A2%E5%8F%82%E5%92%8C%E5%AE%9E%E5%8F%82">2. 形参和实参</a></li>
+<li><a href="#3-typescript%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0">3. typescript中的参数</a>
+<ul>
+<li><a href="#1-%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0">1. 可选参数</a></li>
+<li><a href="#2-%E9%BB%98%E8%AE%A4%E5%8F%82">2. 默认参</a></li>
+<li><a href="#3-%E5%89%A9%E4%BD%99%E5%8F%82">3. 剩余参</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F">4. 函数作用域</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B">5. 引用类型</a>
+<ul>
+<li><a href="#1-%E6%95%B0%E7%BB%84">1. 数组</a>
+<ul>
+<li><a href="#1-%E5%AE%9A%E4%B9%89%E6%95%B0%E7%BB%84">1. 定义数组</a></li>
+<li><a href="#2-%E7%89%B9%E6%AE%8A%E7%9A%84%E6%95%B0%E7%BB%84-%E5%85%83%E7%BB%84%E5%8F%AF%E4%BB%A5%E6%8C%87%E5%AE%9A%E7%B1%BB%E5%9E%8B">2.  特殊的数组--元组：可以指定类型</a></li>
+</ul>
+</li>
+<li><a href="#2-%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%AD%97%E7%AC%A6%E4%B8%B2">2. 引用类型字符串</a></li>
+<li><a href="#3-%E6%97%A5%E6%9C%9F%E5%AF%B9%E8%B1%A1">3. 日期对象</a></li>
+<li><a href="#4-%E6%AD%A3%E5%88%99%E7%B1%BB%E5%9E%8B">4. 正则类型</a></li>
+</ul>
+</li>
+<li><a href="#6-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-%E7%B1%BB">6. 面向对象编程-类</a>
+<ul>
+<li><a href="#1-%E7%90%86%E8%A7%A3%E7%B1%BB">1. 理解类</a></li>
+<li><a href="#2-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%B1%BB">2. 定义一个类</a></li>
+</ul>
+</li>
+<li><a href="#7-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-%E4%BF%AE%E9%A5%B0%E7%AC%A6">7. 面向对象编程-修饰符</a>
+<ul>
+<li><a href="#1%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6">1.访问修饰符</a></li>
+<li><a href="#2%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6">2.只读属性修饰符</a></li>
+<li><a href="#3-%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6">3. 静态属性修饰符</a></li>
+</ul>
+</li>
+<li><a href="#8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-%E7%BB%A7%E6%89%BF%E5%92%8C%E9%87%8D%E5%86%99">8.面向对象编程-继承和重写</a>
+<ul>
+<li><a href="#%E7%BB%A7%E6%89%BF">继承</a></li>
+<li><a href="#%E9%87%8D%E5%86%99">重写</a></li>
+</ul>
+</li>
+<li><a href="#9-%E6%8E%A5%E5%8F%A3">9. 接口</a></li>
+<li><a href="#10%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">10.命名空间</a></li>
+<li><a href="#11%E6%B3%9B%E5%9E%8B">11.泛型</a></li>
+<li><a href="#%E5%AD%A6%E4%B9%A0%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">学习参考链接</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/web3-xiang-mu-kai-fa-de-yi-xie-jing-yan/">
+          <h3 class="post-title">
+            Web3项目开发的一些经验
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

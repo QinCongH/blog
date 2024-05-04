@@ -1,0 +1,1157 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>常用工具方法，Dom节点操作 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="常用工具方法，Dom节点操作 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="工具方法
+1.随机获取数组元素
+  const randomIndex=(arr)=&gt;{
+      return arr[Math.floor((Math.random() * arr.length))]
+  }
+//使用
+let ..." />
+  <meta name="keywords" content="es6" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            常用工具方法，Dom节点操作
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-11
+            </span>
+            <span>
+              22 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/YEr5SsLJh/" class="post-tag">
+              # es6
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="工具方法">工具方法</h1>
+<h2 id="1随机获取数组元素">1.随机获取数组元素</h2>
+<pre><code>  const randomIndex=(arr)=&gt;{
+      return arr[Math.floor((Math.random() * arr.length))]
+  }
+//使用
+let arr=[1,2,3,4,5]
+console.log(randomIndex(arr))
+</code></pre>
+<h2 id="2获取olson时区">2.获取Olson时区</h2>
+<pre><code>function getTimeZone() {
+		let time = new Date();
+		let timeZone = time.toLocaleTimeString('en-us', {
+			timeZoneName: 'short'
+		}); //'1:12:38 PM GMT+8'
+		return Intl.DateTimeFormat().resolvedOptions().timeZone; //'Asia/Shanghai'
+	}
+</code></pre>
+<h2 id="3获取未来日期详情">3.获取未来日期详情</h2>
+<pre><code>      const getTimeList=(num)=&gt; { //num为未来的第几天
+                let time = new Date()
+                let date = new Date(time.setDate(time.getDate() + num)).getDate()
+                let month = time.getMonth() + 1 // 获取月份
+                let day = time.getDay() //  获取星期
+                switch (day) { //  格式化
+                    case 0:
+                        day = &quot;星期日&quot;
+                        break
+                    case 1:
+                        day = &quot;星期一&quot;
+                        break
+                    case 2:
+                        day = &quot;星期二&quot;
+                        break
+                    case 3:
+                        day = &quot;星期三&quot;
+                        break
+                    case 4:
+                        day = &quot;星期四&quot;
+                        break
+                    case 5:
+                        day = &quot;星期五&quot;
+                        break
+                    case 6:
+                        day = &quot;星期六&quot;
+                        break
+                }
+                let obj = {
+                    date,
+                    day,
+                    month
+                }
+                return obj
+            }
+      for(let i=0;i&lt;7;i++){ //获取往后的7天
+         console.log(getTimeList(i))
+      }
+
+</code></pre>
+<h2 id="4根据时间戳获取24进制的时分">4.根据时间戳获取24进制的时分</h2>
+<pre><code>	const timeConversion=(getTime)=&gt; { //接收一个时间戳
+				const date = new Date()
+				let t = new Date(getTime)
+				let res =`${t.getHours()&lt;10?'0'+t.getHours():t.getHours()}:${t.getMinutes()&lt;10?'0'+t.getMinutes():t.getMinutes()}`
+				return res
+			}
+console.log(timeConversion(1658932196000))
+</code></pre>
+<h2 id="5比较两个时间大小">5.比较两个时间大小</h2>
+<pre><code>		const compareTime=(date1, date2)=&gt; {
+				var oDate1 = new Date(date1);
+				var oDate2 = new Date(date2);
+				if (oDate1.getTime() &gt; oDate2.getTime()) {
+					return 1; //第一个大
+				} else if (oDate1.getTime() &lt; oDate2.getTime()) {
+					return 2; //第二个大
+				} else if (oDate1.getTime() == oDate2.getTime()) {
+					return 3; //相等
+				}
+			}
+
+console.log(compareTime('2015-1-1', '2015-1-11'))
+console.log(compareTime('2015-10-12 00:00:00', '2015-09-11 11:23:12'))
+</code></pre>
+<h2 id="6根据富文本拿到img的src标签内容">6.根据富文本拿到img的src标签内容</h2>
+<pre><code>function getExecStrs1(content){
+        let data = [];
+      content.replace(/&lt;img [^&gt;]*src=['&quot;]([^'&quot;]+)[^&gt;]*&gt;/g, function (match, capture) {
+        let index = capture.lastIndexOf(&quot;/&quot;);
+        capture = capture.substring(index + 1);
+        data.push(capture);
+      });
+      return data;
+}
+ console.log(getExecStrs1(&quot;&lt;img src='fsadfsdfsdfsdfsdfsd.jpg'&gt;&quot;))
+// 方法2
+function getExecStrs2(content){
+      let imgReg = /&lt;img.*?(?:&gt;|\/&gt;)/gi; //匹配图片中的img标签
+      let srcReg = /src=[\'\&quot;]?([^\'\&quot;]*)[\'\&quot;]?/i; // 匹配图片中的src
+      let arr = content.match(imgReg); //筛选出所有的img
+      let srcArr = [];
+      for (let i = 0; i &lt; arr?.length; i++) {
+        let src = arr[i].match(srcReg);
+        // 获取图片地址
+        srcArr.push(src[1]);
+      }
+      return srcArr;
+}
+</code></pre>
+<h2 id="7根据年月日获取时间戳">7.根据年月日获取时间戳</h2>
+<pre><code>		function getTimeStamp({ //接受 month: 1-12 ； day :1-31 ; year: 1000-9999
+				monthVal,
+				dayVal,
+				yearVal
+			}) {
+				let sm = monthVal.length == 1 ?
+					`0${monthVal}` :
+					monthVal
+				let sd = dayVal.length == 1 ? `0${dayVal}` :
+					dayVal
+				let sT = `${yearVal}/${sm}/${sd}`
+				return Date.parse(sT)
+			}
+console.log(getTimeStamp({monthVal:11,dayVal:23,yearVal:2022}))
+
+</code></pre>
+<h2 id="8将html代码转换未纯文本">8.将html代码转换未纯文本</h2>
+<pre><code>    const toText = (html) =&gt; {
+      //将html代码转换未纯文本
+      return html
+        .replace(/&lt;(style|script|iframe)[^&gt;]*?&gt;[\s\S]+?&lt;\/\1\s*&gt;/gi, &quot;&quot;)
+        .replace(/&lt;[^&gt;]+?&gt;/g, &quot;&quot;)
+        .replace(/\s+/g, &quot; &quot;)
+        .replace(/ /g, &quot; &quot;)
+        .replace(/&gt;/g, &quot; &quot;);
+    };
+console.log(toText('&lt;h1&gt;fsdfsdfsdf&lt;/h1&gt;'))
+</code></pre>
+<h2 id="9计算两个时间相差的天数-小时">9.计算两个时间相差的天数、小时</h2>
+<pre><code>		const timediff=(begin_time, end_time) =&gt;{//计算时间差（分/秒）穿时间戳
+				//年月日时分秒转换为时间戳
+				let beginTime = (new Date(begin_time).getTime()) / 1000;
+				let endTime = (new Date(end_time).getTime()) / 1000;
+				var starttime = ''
+				var endtime = ''
+				if (beginTime &lt; endTime) {
+					starttime = beginTime;
+					endtime = endTime;
+				} else {
+					starttime = endTime;
+					endtime = beginTime;
+				}
+				//计算天数
+				var timediff = endtime - starttime;
+				var days = parseInt(timediff / 86400);
+			 //计算小时数
+				var remain = timediff % 86400;
+				var hours = parseInt(remain / 3600);
+				//计算分钟数
+				var remain = remain % 3600;
+				var mins = parseInt(remain / 60);
+				var res = days + '天' + hours + '小时' + mins + '分';
+				// &quot;相差&quot; + day + &quot;天&quot; + hour + &quot;小时&quot; + minute + &quot;分&quot;;
+				return res
+			}
+</code></pre>
+<h2 id="10根据天数得到日期描述格式">10.根据天数,得到日期描述格式</h2>
+<pre><code>   const getDateFormatText = (num) =&gt; { //根据天数,得到日期描述格式
+       if (num &gt;= 365) {
+        if (Math.floor(num / 365) == 1) {
+         return `${(num/365).toFixed(0)} year`
+        } else {
+         return `${(num/365).toFixed(0)} years`
+        }
+       }
+       if (num &gt; 90 &amp;&amp; num &lt; 365) {
+        if (Math.floor(num / 30) == 1) {
+         return `${(num/30).toFixed(0)} month`
+        } else {
+         return `${(num/30).toFixed(0)} months`
+        }
+       }
+     if (num &lt;= 90) {
+        if (num == 1) {
+         return `${num} day`
+        } else {
+         return `${num} days`
+        }
+       }
+
+      }
+      console.log(getDateFormatText(1))
+				/*
+				// 数字为 1 时，用单数
+				// day/month/year
+				//  数字大于 1 时，用复数
+				// days/months/years
+				//  相差多少天（90 天以内): 用
+				// 天数 day(s)
+				//  相差几个月（超过 90 天):
+				// 用月数 month(s)
+				//  相差几年（超过 11 个月):
+				// 用年数 year(s)
+				*/
+</code></pre>
+<h2 id="11获取随机id">11.获取随机id</h2>
+<pre><code>				const generateId = () =&gt; { //获取随机id
+						const s = [];
+						const hexDigits = '0123456789abcdef';
+						for (let i = 0; i &lt; 36; i++) {
+							s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+						}
+						// bits 12-15 of the time_hi_and_version field to 0010
+						s[14] = '4';
+						// bits 6-7 of the clock_seq_hi_and_reserved to 01
+						s[19] = hexDigits.substr((s[19] &amp; 0x3) | 0x8, 1);
+						s[8] = s[13] = s[18] = s[23] = '-';
+						const uuid = s.join('');
+						return uuid;
+					}
+</code></pre>
+<h2 id="12获取时间选择list年月日">12.获取时间选择list（年月日）</h2>
+<pre><code>// 获取前后年数列表
+				const getYearsToNow = (sNum, eNum) =&gt; {
+					//设置年份的选择 
+
+					let myDate = new Date();
+					let startYear = myDate.getFullYear() - sNum; //起始年份 
+					let endYear = myDate.getFullYear() + eNum; //结束年份
+					let yearList = []
+					for (let i = startYear; i &lt;= endYear; i++) {
+						yearList.push(i)
+					}
+					return yearList
+				}
+
+				const getMonthList = () =&gt; {
+					let monthList = []
+					for (let i = 1; i &lt;= 12; i++) {
+						monthList.push(i)
+					}
+					return monthList
+				}
+
+				const getDayList = (year, month) =&gt; {
+					let myDate = new Date()
+					if (year == undefined || year == null || year=='') {
+						year = myDate.getFullYear()
+					}
+					if (month == undefined || month == null || month=='') {
+						month = 1
+					}
+					let time = new Date(year, month, 0)
+					let dayList = []
+					for (let i = 1; i &lt;= time.getDate(); i++) {
+						dayList.push(i)
+					}
+					return dayList
+				}
+</code></pre>
+<h2 id="13判断一个数组中元素是否在另一个数组中都存在">13.判断一个数组中元素是否在另一个数组中都存在</h2>
+<pre><code>const compareArr=(arr1,arr2)=&gt;{
+  //@ arr2中是否有arr1的元素
+  //@　接收数组或者数组变量
+  if(arr1.length&lt;=arr2.length){
+    let i=null;
+    i=arr1;
+    arr1=arr2;
+    arr2=i;
+  }
+  let isVal=null;
+  let idx=arr2.length
+  let a=0
+  arr2.forEach(item=&gt;{
+    if(Object.prototype.toString.call(item) === '[object Object]'){
+      arr1.forEach(val=&gt;{
+        if(Object.keys(val)[0]==Object.keys(item)[0]&amp;&amp;Object.values(val)[0]==Object.values(item)[0]){
+          a++
+        }
+      })
+
+    }else{
+      if(arr1.includes(item)){
+        a++
+      }
+    }
+  })
+    if(idx!==a){
+        return 0
+      }else{
+        return 1
+      }
+}
+console.log(compareArr([{a:2},{a:1}],[{a:2},{a:1},{a:3}]))  //1
+console.log(compareArr([4,23],[2,3,4]))  //0
+</code></pre>
+<h2 id="14深度拷贝和浅拷贝">14.深度拷贝和浅拷贝</h2>
+<pre><code>/*@1.实现浅拷贝
+浅拷贝，指的是创建新的数据，这个数据有着原始数据属性值的一份精确拷贝
+如果属性是基本类型，拷贝的就是基本类型的值。如果属性是引用类型，拷贝的就是内存地址
+引用类型，拷贝的就是内存地址会修改原始对象的值 
+Object.assign
+*/
+const shallowClone=(obj)=&gt;{
+  return Object.assign({},obj)
+}
+/*
+@2.深度拷贝
+深拷贝开辟一个新的栈，两个对象属完成相同，但是对应两个不同的地址，修改一个对象的属性，不会改变另一个对象的属性
+*/
+const deepClone=(obj, hash = new WeakMap())=&gt; {
+  if (obj === null) return obj; // 如果是null或者undefined我就不进行拷贝操作
+  if (obj instanceof Date) return new Date(obj);
+  if (obj instanceof RegExp) return new RegExp(obj);
+  // 可能是对象或者普通的值  如果是函数的话是不需要深拷贝
+  if (typeof obj !== &quot;object&quot;) return obj;
+  // 是对象的话就要进行深拷贝
+  if (hash.get(obj)) return hash.get(obj);
+  let cloneObj = new obj.constructor();
+  // 找到的是所属类原型上的constructor,而原型上的 constructor指向的是当前类本身
+  hash.set(obj, cloneObj);
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      // 实现一个递归拷贝
+      cloneObj[key] = deepClone(obj[key], hash);
+    }
+  }
+  return cloneObj;
+}
+let obj={
+  a:1,
+  b:[1,2,3]
+}
+let shallowObj=shallowClone(obj)  //浅拷贝
+let deepObj=deepClone(obj)  //深度拷贝  V
+console.log(shallowObj)
+console.log(deepObj)
+</code></pre>
+<h2 id="15判断数据类型">15.判断数据类型</h2>
+<pre><code>function getType(obj){
+  let type  = typeof obj;
+  if (type !== &quot;object&quot;) {    // 先进行typeof判断，如果是基础数据类型，直接返回
+    return type;
+  }
+  // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
+  return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1'); 
+}
+console.log(getType(null)) //&quot;Null&quot;
+console.log(getType(1)) //&quot;number&quot;
+console.log(getType(&quot;as&quot;)) //&quot;string&quot;
+console.log(getType(true)) //&quot;boolean&quot;
+console.log(getType([])) //&quot;Array&quot;
+console.log(getType({})) //&quot;Object&quot;
+console.log(getType(undefined)) //&quot;undefined&quot;
+console.log(getType(NaN))//&quot;number&quot;
+</code></pre>
+<h2 id="16删除字符串末尾逗号">16.删除字符串末尾逗号</h2>
+<pre><code>	const checkEnd=(msg)=&gt; {//接收格式: '1,1,1'
+				return parseFloat(msg).toString()
+				}
+  
+  console.log(checkEnd('1,1'))//&quot;1&quot;
+ console.log(checkEnd('1.1,,,,,'))//&quot;1.1&quot;
+</code></pre>
+<h2 id="17数组对象排序">17.数组对象排序</h2>
+<pre><code>const bubbleSort=(array, val,type='asc') =&gt;{  //asc升序 desc降序
+  if(type == &quot;asc&quot;){
+    // 升序
+    for (var i = 0; i &lt; array.length - 1; i++) {
+      //每一轮比较要比多少次
+      for (var j = 0; j &lt; array.length - 1 - i; j++) {
+        //如果第一个比第二个大，就交换他们两个位置
+        if (array[j][val] &gt; array[j + 1][val]) {
+          // 临时存储比较大的那一位数
+          var temp = array[j]
+          array[j] = array[j + 1]
+          array[j + 1] = temp
+        }
+      }
+    }
+  }else{
+    // 降序
+    for (var i = 0; i &lt; array.length - 1; i++) {
+      //每一轮比较要比多少次
+      for (var j = 0; j &lt; array.length - 1 - i; j++) {
+        //如果第一个比第二个大，就交换他们两个位置
+        if (array[j][val] &lt; array[j + 1][val]) {
+          // 临时存储比较大的那一位数
+          var temp = array[j]
+          array[j] = array[j + 1]
+          array[j + 1] = temp
+        }
+      }
+    }
+  }
+  return array;
+}
+
+let arr=[{id:4,name:'aa'},{id:3,name:'bb'},{id:1,name:'cc'},{id:2,name:'dd'}]
+console.log(bubbleSort(arr,'id','asc')) 
+</code></pre>
+<h2 id="18获取范围内的随机数">18.获取范围内的随机数</h2>
+<pre><code>function random(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+console.log(random(1, 8))
+</code></pre>
+<h2 id="19常用正则">19.常用正则</h2>
+<pre><code>export const myRegExp = {
+    // 检查字符串是否为合法QQ号码
+    isQQ: function (str) {
+        // 1 首位不能是0  ^[1-9]
+        // 2 必须是 [5, 11] 位的数字  \d{4, 9}
+        var reg = /^[1-9][0-9]{4,9}$/gim;
+        if (reg.test(str)) {
+            console.log(&quot;QQ号码格式输入正确&quot;);
+            return true;
+        } else {
+            console.log(&quot;请输入正确格式的QQ号码&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否为合法手机号码
+    isPhone: function (str) {
+        var reg = /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/;
+        if (reg.test(str)) {
+            console.log(&quot;手机号码格式输入正确&quot;);
+            return true;
+        } else {
+            console.log(&quot;请输入正确格式的手机号码&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否为合法Email地址
+    isEmail: function (str) {
+        var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        // var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+        if (reg.test(str)) {
+            console.log(&quot;Email格式输入正确&quot;);
+            return true;
+        } else {
+            console.log(&quot;请输入正确格式的Email&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否是数字
+    isNumber: function (str) {
+        var reg = /^\d+$/;
+        if (reg.test(str)) {
+            console.log(str + &quot;是数字&quot;);
+            return true;
+        } else {
+            console.log(str + &quot;不是数字&quot;);
+            return false;
+        }
+    },
+    // 去掉前后空格
+    trim: function (str) {
+        var reg = /^\s+|\s+$/g;
+        return str.replace(reg, &quot;&quot;);
+    },
+    // 检查字符串是否存在中文
+    isChinese: function (str) {
+        var reg = /[\u4e00-\u9fa5]/gm;
+        if (reg.test(str)) {
+            console.log(str + &quot; 中存在中文&quot;);
+            return true;
+        } else {
+            console.log(str + &quot; 中不存在中文&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否为合法邮政编码
+    isPostcode: function (str) {
+        // 起始数字不能为0，然后是5个数字  [1-9]\d{5}
+        var reg = /^[1-9]\d{5}$/g;
+        // var reg = /^[1-9]\d{5}(?!\d)$/;
+        if (reg.test(str)) {
+            console.log(str + &quot; 是合法的邮编格式&quot;);
+            return true;
+        } else {
+            console.log(str + &quot; 是不合法的邮编格式&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否为合法身份证号码
+    isIDcard: function (str) {
+        var reg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+        if (reg.test(str)) {
+            console.log(str + &quot; 是合法的身份证号码&quot;);
+            return true;
+        } else {
+            console.log(str + &quot; 是不合法的身份证号码&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否为合法URL
+    isURL: function (str) {
+        var reg = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&amp;?[a-zA-Z0-9_-](\?)?)*)*$/i;
+        if (reg.test(str)) {
+            console.log(str + &quot; 是合法的URL&quot;);
+            return true;
+        } else {
+            console.log(str + &quot; 是不合法的URL&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否为合法日期格式 yyyy-mm-dd
+    isDate: function (str) {
+        var reg = /^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/;
+        if (reg.test(str)) {
+            console.log(str + &quot; 是合法的日期格式&quot;);
+            return true;
+        } else {
+            console.log(str + &quot; 是不合法的日期格式，yyyy-mm-dd&quot;);
+            return false;
+        }
+    },
+    // 检查字符串是否为合法IP地址
+    isIP: function (str) {
+        // 1.1.1.1  四段  [0 , 255]
+        // 第一段不能为0
+        // 每个段不能以0开头
+        //
+        // 本机IP: 58.50.120.18 湖北省荆州市 电信
+        var reg = /^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/gi;
+        if (reg.test(str)) {
+            console.log(str + &quot; 是合法的IP地址&quot;);
+            return true;
+        } else {
+            console.log(str + &quot; 是不合法的IP地址&quot;);
+            return false;
+        }
+    },
+};
+</code></pre>
+<h2 id="20根据时间列表得到总时间">20.根据时间列表得到总时间</h2>
+<pre><code>	async function getRequestTime(list) { //获取所需时间
+				// list = ['12h14min', '23h55min']
+				if (list.length) {
+					let getS = 0
+					list.forEach(el =&gt; {
+						// 转换为秒
+						let hour = parseInt(el.replace('min', '').replace('h', '-').slice(0, 2))
+						let min = parseInt(el.replace('min', '').replace('h', '-').slice(-2))
+						let se = hour * 60 * 60 + min * 60
+						getS += se
+					})
+					return {
+						h: Math.floor(getS / 3600),
+						min: Math.floor((getS % 3600) / 60)
+					}
+				}
+</code></pre>
+<h2 id="21数组对象去重">21.数组对象去重</h2>
+<pre><code>let arrRemoval = (list) =&gt; {
+    const set = new Set(list.map(JSON.stringify));
+    const uniqueArr = Array.from(set).map(JSON.parse);
+    return uniqueArr
+}
+     
+</code></pre>
+<h2 id="22-自动触发点击事件">22. 自动触发点击事件</h2>
+<pre><code>setTimeout(function() { //自动点击
+						//  IE浏览器
+						if (document.all) {
+							document.querySelector('.tosign .btns-confirm').click();
+						}
+						//  其它浏览器
+						else {
+							var e = document.createEvent(&quot;MouseEvents&quot;);
+							e.initEvent(&quot;click&quot;, true, true);
+							document.querySelector('.tosign .btns-confirm').dispatchEvent(
+							e);
+						}
+						// let btnsDom= document.querySelector('.tosign .btns-confirm')
+		// console.log(btnsDom)
+			}, 3000);
+</code></pre>
+<h2 id="23-最多保留n位小数动态正则">23. 最多保留n位小数,动态正则</h2>
+<pre><code>let maxDecimal = (number,n) =&gt; { 
+  return parseFloat(String(number).replace(new RegExp(`^(\\-)*(\\d+)\\.(\\d{${n}}).*$`),  '$1$2.$3'))
+}
+</code></pre>
+<h2 id="24-判断元素是否在可视区">24. 判断元素是否在可视区</h2>
+<pre><code>				function isContain(dom) {
+					// 获取可视窗口的盖度。
+					const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body
+						.clientHeight;
+					// 获取滚动条滚动的高度
+					const scrollTop = document.documentElement.scrollTop;
+					// 获取元素偏移的高度。就是距离可视窗口的偏移量。
+					const offsetTop = dom.offsetTop;
+					return offsetTop - scrollTop &lt;= screenHeight;
+				}
+</code></pre>
+<h2 id="25-js统计数组中重复和不重复值的数量">25. js统计数组中重复和不重复值的数量</h2>
+<ul>
+<li>基本数组</li>
+</ul>
+<pre><code>const arr = [1, 2, 3, 2, 1, 1];
+const count = arr.reduce((obj, val) =&gt; {
+  obj[val] = (obj[val] || 0) + 1;
+  return obj;
+}, {});
+
+console.log(count); // {1: 3, 2: 2, 3: 1}
+
+</code></pre>
+<h2 id="26-判断元素是否在可视区">26. 判断元素是否在可视区</h2>
+<pre><code>function isInViewPortOfOne (el) {
+    // viewPortHeight 兼容所有浏览器写法
+    const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight 
+    const offsetTop = el.offsetTop
+    const scrollTop = document.documentElement.scrollTop
+    const top = offsetTop - scrollTop
+    return top &lt;= viewPortHeight
+}
+
+</code></pre>
+<h2 id="27-js将时间戳转化为yyyy-mm-dd-hhmmss">27. js将时间戳转化为YYYY-MM-DD hh:mm:ss</h2>
+<pre><code>function formatDate(date) {
+		  var date = new Date(date);
+		  var YY = date.getFullYear() + '-';
+		  var MM = (date.getMonth() + 1 &lt; 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+		  var DD = (date.getDate() &lt; 10 ? '0' + (date.getDate()) : date.getDate());
+		  var hh = (date.getHours() &lt; 10 ? '0' + date.getHours() : date.getHours()) + ':';
+		  var mm = (date.getMinutes() &lt; 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+		  var ss = (date.getSeconds() &lt; 10 ? '0' + date.getSeconds() : date.getSeconds());
+		  return YY + MM + DD +&quot; &quot;+hh + mm + ss;
+		}
+</code></pre>
+<h2 id="28-条件删除数组对象中值">28. 条件删除数组对象中值</h2>
+<pre><code>list.splice(list.findIndex(item =&gt; item.id === resp.id), 1)
+</code></pre>
+<h2 id="29-replace方法代替replaceall">29. replace方法代替replaceAll</h2>
+<blockquote>
+<p>repalceAll的浏览器兼容性不好</p>
+</blockquote>
+<pre><code>fuction replacGm(l,m,n){//参数：替换的字符串,替换选择内容,替换对象
+  return l.replace(new RegExp(m,'gm'),n)
+}
+replacGm(&quot;aaa_b_&quot;,&quot;_b_&quot;,&quot;ccc&quot;)  //aaaccc
+</code></pre>
+<h2 id="30数字转化为千位表示格式">30.数字转化为千位表示格式</h2>
+<pre><code>function log(t) {
+  console.log(t);
+}
+export default function toThousands(num, reservedBit = 0, isDeZero = true) {
+  //传数，保留位数,是否去掉末尾的0
+  num = parseFloat(num);
+  let m = null;
+  m = num.toFixed(reservedBit);
+  if (isDeZero) {
+    m = String(
+      Math.round(num * Math.pow(10, reservedBit)) / Math.pow(10, reservedBit)
+    );
+    let str = &quot;&quot;;
+    if (m.includes(&quot;.&quot;)) {
+      for (let i of m.split(&quot;.&quot;)[1]) {
+        if (i !== &quot;0&quot;) {
+          str += i;
+        }
+      }
+    }
+    m = m.includes(&quot;.&quot;) ? `${m.split(&quot;.&quot;)[0]}.${str}` : m;
+  }
+  return m.toString().replace(/\d+/, function (n) {
+    return n.replace(/(\d)(?=(?:\d{3})+$)/g, &quot;$1,&quot;);
+  });
+}
+log(toThousands(&quot;123123.120&quot;, 4, false));
+
+
+
+</code></pre>
+<h2 id="31隐藏中间文字">31.隐藏中间文字</h2>
+<pre><code>export const centerEllipsis = (text, num = 3) =&gt; {
+  //参数：文字，指定前后留几个单词
+  let t = text.substring(num, text.length - num);
+  return text.replace(new RegExp(t, &quot;gm&quot;), `${&quot;.&quot;.repeat(num)}`);
+};
+
+</code></pre>
+<h2 id="32-精准四舍五入保留两位小数">32. 精准四舍五入保留两位小数</h2>
+<pre><code>function roundToTwo(num) {
+    return +(Math.round(num + &quot;e+2&quot;)  + &quot;e-2&quot;);
+}
+roundToTwo(123.1234)
+</code></pre>
+<h2 id="33-实现f11全屏">33. 实现F11全屏</h2>
+<pre><code>const fullScreen=()=&gt;{
+      if(document.documentElement.RequestFullScreen){
+        document.documentElement.RequestFullScreen();
+      }
+      //兼容火狐
+      console.log(document.documentElement.mozRequestFullScreen)
+      if(document.documentElement.mozRequestFullScreen){
+        document.documentElement.mozRequestFullScreen();
+      }
+      //兼容谷歌等可以webkitRequestFullScreen也可以webkitRequestFullscreen
+      if(document.documentElement.webkitRequestFullScreen){
+        document.documentElement.webkitRequestFullScreen();
+      }
+      //兼容IE,只能写msRequestFullscreen
+      if(document.documentElement.msRequestFullscreen){
+        document.documentElement.msRequestFullscreen();
+      }
+      }
+        document.getElementById(&quot;noFullScreen&quot;).onclick=function(){
+      if(document.exitFullScreen){
+        document.exitFullscreen()
+      }
+      //兼容火狐
+        console.log(document.mozExitFullScreen)
+      if(document.mozCancelFullScreen){
+        document.mozCancelFullScreen()
+      }
+      //兼容谷歌等
+      if(document.webkitExitFullscreen){
+        document.webkitExitFullscreen()
+      }
+      //兼容IE
+      if(document.msExitFullscreen){
+        document.msExitFullscreen()
+      }
+}
+</code></pre>
+<h2 id="34-es6动态导入模块">34. es6动态导入模块</h2>
+<pre><code>const dynamicImport = async (moduleUrl: string) =&gt; {
+    const module = await import(moduleUrl);
+    return module.default;
+}
+</code></pre>
+<h2 id="学习网址">学习网址</h2>
+<p>https://juejin.cn/post/6844903873048477709##heading-64<br>
+https://juejin.cn/post/6844903650586787848##heading-8</p>
+<h1 id="dom节点操作">Dom节点操作</h1>
+<h2 id="1-读取shadow-root里面的内容">1. 读取shadow-root里面的内容</h2>
+<pre><code>//先获取宿主dom节点，再获取shadow-root里面的内容
+document.querySelector('w3m-modal-backcard').shadowRoot.querySelector('.w3maction') 
+</code></pre>
+<h2 id="2-获取video时长">2. 获取video时长</h2>
+<pre><code>  // 秒转换分钟00:00:00格式
+  function timeToMinute(times) {
+    console.log('zyc11122');
+    console.log('zyc111');
+    var t;
+    if (times &gt; -1) {
+      var hour = Math.floor(times / 3600);
+      var min = Math.floor(times / 60) % 60;
+      var sec = times % 60;
+      if (hour &lt; 10) {
+        t = '0' + hour + &quot;:&quot;;
+      } else {
+        t = hour + &quot;:&quot;;
+      }
+      if (min &lt; 10) { t += &quot;0&quot;; }
+      t += min + &quot;:&quot;;
+      if (sec &lt; 10) { t += &quot;0&quot;; }
+      t += sec.toFixed(2);
+    }
+    t = t.substring(0, t.length - 3);
+    return t;
+  }
+</code></pre>
+<p>使用</p>
+<pre><code>  let video: {
+    [key: string]: any
+  } = document.querySelector(&quot;#video&quot;)
+  video.oncanplay = () =&gt; {
+    console.log(timeToMinute(video.duration))
+  }
+</code></pre>
+<h2 id="3-获取页面路径参数">3. 获取页面路径参数</h2>
+<p>例如：www.baidu.com?a=1<br>
+调用<code>getQueryVariable('a')</code>可以拿到值。</p>
+<pre><code>function getQueryVariable(variable:string) {
+        var query = window.location.href;
+        var rooms = query.split('?');
+        for (var i = 0; i &lt; rooms.length; i++) {
+            var pair = rooms[i].split('=');
+            if (pair[0] == variable) {
+                return (pair[1].split('&amp;'))[0]
+            }
+        }
+        //或者拼接&amp;后面的值
+        var vars = query.split('&amp;')
+        for (var i = 0; i &lt; vars.length; i++) {
+            var pair = vars[i].split('=')
+            if (pair[0] == variable) {
+                return pair[1]
+            }
+        }
+    }
+</code></pre>
+<h2 id="4-实现复制">4. 实现复制</h2>
+<pre><code>function copy(data){
+    const inputDom=document.createElement('input')
+    input.value=data
+    document.body.appendChild(inputDom);
+    inputDom.select()
+    document.execCommand('Copy')
+    document.body.removeChild(inputDom)
+}
+</code></pre>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#%E5%B7%A5%E5%85%B7%E6%96%B9%E6%B3%95">工具方法</a>
+<ul>
+<li><a href="#1%E9%9A%8F%E6%9C%BA%E8%8E%B7%E5%8F%96%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0">1.随机获取数组元素</a></li>
+<li><a href="#2%E8%8E%B7%E5%8F%96olson%E6%97%B6%E5%8C%BA">2.获取Olson时区</a></li>
+<li><a href="#3%E8%8E%B7%E5%8F%96%E6%9C%AA%E6%9D%A5%E6%97%A5%E6%9C%9F%E8%AF%A6%E6%83%85">3.获取未来日期详情</a></li>
+<li><a href="#4%E6%A0%B9%E6%8D%AE%E6%97%B6%E9%97%B4%E6%88%B3%E8%8E%B7%E5%8F%9624%E8%BF%9B%E5%88%B6%E7%9A%84%E6%97%B6%E5%88%86">4.根据时间戳获取24进制的时分</a></li>
+<li><a href="#5%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E5%A4%A7%E5%B0%8F">5.比较两个时间大小</a></li>
+<li><a href="#6%E6%A0%B9%E6%8D%AE%E5%AF%8C%E6%96%87%E6%9C%AC%E6%8B%BF%E5%88%B0img%E7%9A%84src%E6%A0%87%E7%AD%BE%E5%86%85%E5%AE%B9">6.根据富文本拿到img的src标签内容</a></li>
+<li><a href="#7%E6%A0%B9%E6%8D%AE%E5%B9%B4%E6%9C%88%E6%97%A5%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4%E6%88%B3">7.根据年月日获取时间戳</a></li>
+<li><a href="#8%E5%B0%86html%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E6%9C%AA%E7%BA%AF%E6%96%87%E6%9C%AC">8.将html代码转换未纯文本</a></li>
+<li><a href="#9%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9B%B8%E5%B7%AE%E7%9A%84%E5%A4%A9%E6%95%B0-%E5%B0%8F%E6%97%B6">9.计算两个时间相差的天数、小时</a></li>
+<li><a href="#10%E6%A0%B9%E6%8D%AE%E5%A4%A9%E6%95%B0%E5%BE%97%E5%88%B0%E6%97%A5%E6%9C%9F%E6%8F%8F%E8%BF%B0%E6%A0%BC%E5%BC%8F">10.根据天数,得到日期描述格式</a></li>
+<li><a href="#11%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BAid">11.获取随机id</a></li>
+<li><a href="#12%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9list%E5%B9%B4%E6%9C%88%E6%97%A5">12.获取时间选择list（年月日）</a></li>
+<li><a href="#13%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E6%98%AF%E5%90%A6%E5%9C%A8%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%E4%B8%AD%E9%83%BD%E5%AD%98%E5%9C%A8">13.判断一个数组中元素是否在另一个数组中都存在</a></li>
+<li><a href="#14%E6%B7%B1%E5%BA%A6%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D">14.深度拷贝和浅拷贝</a></li>
+<li><a href="#15%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">15.判断数据类型</a></li>
+<li><a href="#16%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%AB%E5%B0%BE%E9%80%97%E5%8F%B7">16.删除字符串末尾逗号</a></li>
+<li><a href="#17%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E6%8E%92%E5%BA%8F">17.数组对象排序</a></li>
+<li><a href="#18%E8%8E%B7%E5%8F%96%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0">18.获取范围内的随机数</a></li>
+<li><a href="#19%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99">19.常用正则</a></li>
+<li><a href="#20%E6%A0%B9%E6%8D%AE%E6%97%B6%E9%97%B4%E5%88%97%E8%A1%A8%E5%BE%97%E5%88%B0%E6%80%BB%E6%97%B6%E9%97%B4">20.根据时间列表得到总时间</a></li>
+<li><a href="#21%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%8E%BB%E9%87%8D">21.数组对象去重</a></li>
+<li><a href="#22-%E8%87%AA%E5%8A%A8%E8%A7%A6%E5%8F%91%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6">22. 自动触发点击事件</a></li>
+<li><a href="#23-%E6%9C%80%E5%A4%9A%E4%BF%9D%E7%95%99n%E4%BD%8D%E5%B0%8F%E6%95%B0%E5%8A%A8%E6%80%81%E6%AD%A3%E5%88%99">23. 最多保留n位小数,动态正则</a></li>
+<li><a href="#24-%E5%88%A4%E6%96%AD%E5%85%83%E7%B4%A0%E6%98%AF%E5%90%A6%E5%9C%A8%E5%8F%AF%E8%A7%86%E5%8C%BA">24. 判断元素是否在可视区</a></li>
+<li><a href="#25-js%E7%BB%9F%E8%AE%A1%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E5%92%8C%E4%B8%8D%E9%87%8D%E5%A4%8D%E5%80%BC%E7%9A%84%E6%95%B0%E9%87%8F">25. js统计数组中重复和不重复值的数量</a></li>
+<li><a href="#26-%E5%88%A4%E6%96%AD%E5%85%83%E7%B4%A0%E6%98%AF%E5%90%A6%E5%9C%A8%E5%8F%AF%E8%A7%86%E5%8C%BA">26. 判断元素是否在可视区</a></li>
+<li><a href="#27-js%E5%B0%86%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%AC%E5%8C%96%E4%B8%BAyyyy-mm-dd-hhmmss">27. js将时间戳转化为YYYY-MM-DD hh:mm:ss</a></li>
+<li><a href="#28-%E6%9D%A1%E4%BB%B6%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E4%B8%AD%E5%80%BC">28. 条件删除数组对象中值</a></li>
+<li><a href="#29-replace%E6%96%B9%E6%B3%95%E4%BB%A3%E6%9B%BFreplaceall">29. replace方法代替replaceAll</a></li>
+<li><a href="#30%E6%95%B0%E5%AD%97%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%8D%83%E4%BD%8D%E8%A1%A8%E7%A4%BA%E6%A0%BC%E5%BC%8F">30.数字转化为千位表示格式</a></li>
+<li><a href="#31%E9%9A%90%E8%97%8F%E4%B8%AD%E9%97%B4%E6%96%87%E5%AD%97">31.隐藏中间文字</a></li>
+<li><a href="#32-%E7%B2%BE%E5%87%86%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5%E4%BF%9D%E7%95%99%E4%B8%A4%E4%BD%8D%E5%B0%8F%E6%95%B0">32. 精准四舍五入保留两位小数</a></li>
+<li><a href="#33-%E5%AE%9E%E7%8E%B0f11%E5%85%A8%E5%B1%8F">33. 实现F11全屏</a></li>
+<li><a href="#34-es6%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97">34. es6动态导入模块</a></li>
+<li><a href="#%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80">学习网址</a></li>
+</ul>
+</li>
+<li><a href="#dom%E8%8A%82%E7%82%B9%E6%93%8D%E4%BD%9C">Dom节点操作</a>
+<ul>
+<li><a href="#1-%E8%AF%BB%E5%8F%96shadow-root%E9%87%8C%E9%9D%A2%E7%9A%84%E5%86%85%E5%AE%B9">1. 读取shadow-root里面的内容</a></li>
+<li><a href="#2-%E8%8E%B7%E5%8F%96video%E6%97%B6%E9%95%BF">2. 获取video时长</a></li>
+<li><a href="#3-%E8%8E%B7%E5%8F%96%E9%A1%B5%E9%9D%A2%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0">3. 获取页面路径参数</a></li>
+<li><a href="#4-%E5%AE%9E%E7%8E%B0%E5%A4%8D%E5%88%B6">4. 实现复制</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/jie-kou-qing-qiu-he-xiang-ying-shi-yong-sm2-jia-mi/">
+          <h3 class="post-title">
+            接口请求和响应使用SM2加密
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

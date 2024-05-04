@@ -1,0 +1,864 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>业务 - 注册和登录 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="业务 - 注册和登录 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="准备
+技术栈
+
+node,express, nodemon,bcrypt,joi
+
+1.注册
+(1)添加注册路由及注册页面展示
+//用户注册页面
+router.get('/admin/register', (req, res) =&gt; ..." />
+  <meta name="keywords" content="nodeJs" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            业务 - 注册和登录
+          </h2>
+          <div class="post-info">
+            <span>
+              2024-01-09
+            </span>
+            <span>
+              15 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/E7wJE8AQv/" class="post-tag">
+              # nodeJs
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="准备">准备</h1>
+<h2 id="技术栈">技术栈</h2>
+<blockquote>
+<p>node,express, nodemon,bcrypt,joi</p>
+</blockquote>
+<h1 id="1注册">1.注册</h1>
+<h2 id="1添加注册路由及注册页面展示">(1)添加注册路由及注册页面展示</h2>
+<pre><code>//用户注册页面
+router.get('/admin/register', (req, res) =&gt; {
+    const {
+        message
+    } = req.query
+    res.render(&quot;admin/user-edit.html&quot;, {
+        message
+    })
+})
+
+</code></pre>
+<h2 id="2视图层设置form提交数据服务端得到数据">(2)视图层设置form提交数据,服务端得到数据</h2>
+<pre><code>      &lt;form class=&quot;form-container&quot; method=&quot;post&quot; action=&quot;/admin/register&quot;&gt;
+            &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label&gt;用户名&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;username&quot; class=&quot;form-control&quot; placeholder=&quot;请输入用户名&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label&gt;邮箱&lt;/label&gt;
+                &lt;input type=&quot;email&quot; name=&quot;email&quot; class=&quot;form-control&quot; placeholder=&quot;请输入邮箱地址&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label&gt;密码&lt;/label&gt;
+                &lt;input type=&quot;password&quot; name=&quot;password&quot; class=&quot;form-control&quot; placeholder=&quot;请输入密码&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label&gt;角色&lt;/label&gt;
+                &lt;select class=&quot;form-control&quot; name=&quot;role&quot;&gt;
+                    &lt;option value=&quot;normal&quot;&gt;普通用户&lt;/option&gt;
+                    &lt;option value=&quot;admin&quot;&gt;超级管理员&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label&gt;状态&lt;/label&gt;
+                &lt;select class=&quot;form-control&quot; name=&quot;state&quot;&gt;
+                    &lt;option value=&quot;0&quot;&gt;启用&lt;/option&gt;
+                    &lt;option value=&quot;1&quot;&gt;禁用&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;buttons&quot;&gt;
+                &lt;input type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+</code></pre>
+<h2 id="3视图层验证-视图层验证表单内容是否填写">(3)视图层验证。 视图层验证表单内容是否填写</h2>
+<pre><code>//1.表单序列化
+function serializeToJson(form) {
+    var result={}
+    var f = form.serializeArray()
+    f.forEach(function (item) {
+        result[item.name] = item.value
+    })
+    return result
+}
+
+
+//2.判断表单字段
+    var result = serializeToJson(Form)//序列化获取表单
+       if (result.email.trim().length == 0) {
+            alert(&quot;请输入邮箱&quot;)
+            // 阻止表单默认提交
+            return false
+        }
+
+</code></pre>
+<h2 id="4服务端验证">(4)服务端验证。</h2>
+<ul>
+<li>验证表单内容是否符合格式 使用第三方模块 joi</li>
+</ul>
+<pre><code>    const schema = joi.object({
+        username: joi.string().min(3).max(20).required().error(new Error(&quot;用户名设置错误&quot;)),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required().error(new Error(&quot;密码设置错误&quot;)),
+        email: joi.string().required().email({
+            minDomainSegments: 2,
+            tlds: {
+                allow: ['com', 'net']
+            }
+        }),
+        role: joi.string().valid('normal', 'admin').required().error(new Error(&quot;角色值设置错误&quot;)),
+        state: joi.number().valid(0, 1).required().error(new Error(&quot;状态值设置错误&quot;)),
+    })
+
+    try { //验证通过执行
+        // 实现验证
+        await schema.validateAsync(req.body)
+
+    } catch (e) { // 验证错误执行
+        //重定向到编辑页，并将错误信息传过去
+        return res.redirect(`/admin/register?message=${e.message}`)
+    }
+
+
+</code></pre>
+<ul>
+<li>验证注册的邮箱地址是否注册过,使用mongoose查询方法</li>
+</ul>
+<pre><code>    // 2.验证用户（使用邮箱）是否被注册.如果找得到email说明数据库存在，否则不存在，不存在就实行添加
+    let user = await User.findOne({
+        email: req.body.email
+    })
+    if (user) { //查询到了，则不能注册，重定向到注册页面
+        return res.redirect(`/admin/register?message=邮箱已被注册`)
+    }
+</code></pre>
+<h2 id="5密码加密技术bcrypt">(5)密码加密技术bcrypt</h2>
+<pre><code>    // 3.对密码加密
+    // 3.1生成随机字符串
+    const salt = await bcrypt.genSalt(10)
+    // 3.2 加密替换代码
+    req.body.password = await bcrypt.hash(req.body.password, salt)
+</code></pre>
+<h2 id="6将信息添加到数据库">(6)将信息添加到数据库</h2>
+<pre><code>    await new User(req.body).save()
+    //或者 
+	//await User.create(req.body)
+
+</code></pre>
+<h2 id="7重定向到用户页面">(7)重定向到用户页面</h2>
+<pre><code> res.redirect('/admin/user')
+</code></pre>
+<h1 id="2登录">2.登录</h1>
+<h2 id="1创建用户集合登录用户">（1）创建用户集合，登录用户</h2>
+<ul>
+<li>连接数据库</li>
+<li>创建用户集合</li>
+<li>初始化用户</li>
+</ul>
+<blockquote>
+<p>user.js</p>
+</blockquote>
+<pre><code>// 创建用户集合
+var mongoose = require('mongoose')
+//2.连接并创建数据库
+mongoose.connect(&quot;mongodb://localhost/blog&quot;).then(() =&gt; {
+    console.log('连接成功');
+}).catch(() =&gt; {
+    console.log('连接失败');
+})
+const Schema = mongoose.Schema
+var userSchema = new Schema({
+    username: {
+        type: String,
+        required: true, //用户必须
+        minlength: 2,
+        maxlength: 20
+    },
+    email: {
+        type: String,
+        unique: true, //保证唯一性（不重复）
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    role: { //admin超级管理员
+        type: String,
+        required: true
+    },
+    state: { //0为启用，1为禁用
+        type: Number,
+        default: 0
+    }
+
+})
+
+
+// 插入数据检测（初始化用户）
+// User.create({
+//     username:'admin',
+//     email:'333@qq.com',
+//     password:'admin',
+//     role:'admin',
+//     state:0
+// }).then(()=&gt;{
+//     console.log('创建成功');
+// }).catch(()=&gt;{
+//     console.log('创建失败');
+// })
+//将用户集合作为模块成员导出
+// 实例化文档结构（将文档结构发布为模型）
+module.exports = mongoose.model('User', userSchema)
+</code></pre>
+<h2 id="2视图层设置form提交数据">（2）视图层设置form提交数据</h2>
+<blockquote>
+<p>login.html</p>
+</blockquote>
+<pre><code>     &lt;form id=&quot;loginForm&quot; action=&quot;/login&quot; method=&quot;post&quot;&gt;
+                    &lt;div class=&quot;form-group&quot;&gt;
+                        &lt;label&gt;邮件&lt;/label&gt;
+                        &lt;input type=&quot;email&quot; name=&quot;email&quot; class=&quot;form-control&quot; placeholder=&quot;请输入邮件地址&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;form-group&quot;&gt;
+                        &lt;label&gt;密码&lt;/label&gt;
+                        &lt;input type=&quot;password&quot; name=&quot;password&quot; class=&quot;form-control&quot; placeholder=&quot;请输入密码&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary loginForm&quot;&gt;登录&lt;/button&gt;
+                &lt;/form&gt;
+</code></pre>
+<h2 id="3视图层验证-视图层验证表单内容是否填写如果没填写完整则阻止登录">(3)视图层验证。 视图层验证表单内容是否填写，如果没填写完整则阻止登录</h2>
+<blockquote>
+<p>视图层js文件</p>
+</blockquote>
+<pre><code>//1.表单序列化
+function serializeToJson(form) {
+    var result={}
+    var f = form.serializeArray()
+    f.forEach(function (item) {
+        result[item.name] = item.value
+    })
+    return result
+}
+
+
+//2.判断表单字段
+    var result = serializeToJson(Form)//序列化获取表单
+       if (result.email.trim().length == 0) {
+            alert(&quot;请输入邮箱&quot;)
+            // 阻止表单默认提交
+            return false
+        }
+</code></pre>
+<h2 id="4服务端验证-2">(4)服务端验证。</h2>
+<ul>
+<li>验证邮箱和密码是否输入（错误状态码400）</li>
+<li>服务器接收数据，验证表单内容是否填写，如果没填写完整则阻止登录</li>
+</ul>
+<h3 id="41创建登录路由页面">（4.1）创建登录路由页面</h3>
+<pre><code>router.get('/login', function (req, res) {
+    // res.status(200).send(&quot;后台管理页面&quot;)
+    // res.send(&quot;后台管理页面&quot;)
+    res.render(&quot;admin/login.html&quot;)
+})
+
+</code></pre>
+<h3 id="42登录功能操作">（4.2）登录功能操作</h3>
+<pre><code>router.post('/login', async (req, res) =&gt; {
+
+    const {
+        email,
+        password
+    } = req.body //解构语法，把对象中的req.body.email的值赋值给了email，把对象中的req.body.password的值赋值给了password
+
+
+    // res.send('ok')
+    // 1.验证用户是否输入了邮箱和密码（验证form表单传过来的数据是否存在）
+    if (email.trim().length == 0 || password.trim().length == 0)
+        return res.status(400).render(&quot;admin/err.html&quot;, {
+            msg: '邮箱或者密码错误'
+        }) //状态码400 请求信息有问题
+
+    // 2.根据邮箱地址查询用户信息是否存在
+    // 查询到用户，则user表中有对象，否则为空
+    let user = await User.findOne({
+        email
+    })
+    if (user) { //查询到了
+        // 将form传递的密码和数据库中的进行比对
+		 let isValid = await bcrypt.compare(password, user.password)
+        if (isValid) {
+            req.session.username=user.username //将用户名存储到session对象
+            // res.send('登录成功')
+            req.app.locals.userInfo=user;//将用户信息存放到模板 req.app.locals.名称=变量
+            res.redirect('/user')
+        } else {
+            res.status(400).render(&quot;admin/err.html&quot;, {
+                msg: '邮箱或者密码错误'
+            }) //状态码400 请求信息有问题
+        }
+    } else { //没查询到
+        res.status(400).render(&quot;admin/err.html&quot;, {
+            msg: '邮箱或者密码错误'
+        }) //状态码400 请求信息有问题
+    }
+})
+
+</code></pre>
+<blockquote>
+<p>此处注意：需要另外希望一个err.html文件来显示错误页面</p>
+</blockquote>
+<h2 id="5密码比对成功才能登录密码加密技术bcrypt">(5)密码比对成功才能登录(密码加密技术bcrypt)</h2>
+<pre><code> let isValid = await bcrypt.compare(password, user.password)
+</code></pre>
+<h2 id="6cookie与session">(6)<a href="https://www.cnblogs.com/mywifeisMsHu/p/15741441.html">cookie与session</a></h2>
+<ul>
+<li>设置session</li>
+</ul>
+<blockquote>
+<p>app.js</p>
+</blockquote>
+<pre><code>const session = require('express-session') //导入express-session
+//配置session
+app.use(session({
+    secret: 'secret:key',
+    saveUninitialized:false,//退出登录不会存储cookie
+    cookie:{
+        maxAge:24*60*60*1000    //设置cookie过期时间为一天，如果不设置浏览器关闭则登录状态失效
+    }
+}))
+</code></pre>
+<ul>
+<li>使用session</li>
+</ul>
+<pre><code>   req.session.username = user.username //将用户名存储到session对象
+</code></pre>
+<h2 id="7用户退出">(7)用户退出</h2>
+<blockquote>
+<p>点击用户退出按钮删除cookie,重定向到登录页面</p>
+</blockquote>
+<pre><code>//3.用户登录退出
+router.get(&quot;/admin/logout&quot;, (req, res) =&gt; {
+    //删除cookie
+    req.session.destroy(function () {
+        //删除Cookie
+        res.clearCookie('connect.sid') // res.clearCookie(cookie名称)
+        //重定向到登录
+        res.redirect('/admin/login')
+    })
+    //删除session
+    //重定向到登录页面
+})
+
+</code></pre>
+<h2 id="8登录拦截">(8)登录拦截</h2>
+<ul>
+<li>1.判断是否为登录页面</li>
+</ul>
+<blockquote>
+<p>当页面不是登录的页面，使用拦截器将页面重定向到登录页面</p>
+</blockquote>
+<ul>
+<li>2.判断是否为登录状态</li>
+</ul>
+<blockquote>
+<p>判断session是否存在来判断是否为登录状态</p>
+</blockquote>
+<pre><code>//拦截器,拦截登录状态
+router.use('/admin', (req, res, next) =&gt; {
+    //1.判断用户是否是登录页面
+    // 2.判断用户登录状态
+    //如果登录，将请求放行
+    //如果未登录，重定向到登录
+    if (req.url != &quot;/login&quot; &amp;&amp; !req.session.username) { //如果未登录，重定向到登录
+        res.redirect(&quot;/admin/login&quot;)
+    } else { //如果登录，将请求放行
+
+        next()
+    }
+})
+</code></pre>
+<h1 id="代码">代码</h1>
+<hr>
+<blockquote>
+<p>register.js</p>
+</blockquote>
+<pre><code>const express = require('express')
+const User = require('../../model/user') //user数据表
+const joi = require('joi')
+const bcrypt = require('bcrypt')
+let router = express.Router() //创建router
+//用户首页
+router.get('/admin/user', (req, res) =&gt; {
+    res.render(&quot;admin/user.html&quot;, {
+        msg: req.session.username
+    })
+})
+
+//用户注册页面
+router.get('/admin/register', (req, res) =&gt; {
+    const {
+        message
+    } = req.query
+    res.render(&quot;admin/user-edit.html&quot;, {
+        message
+    })
+})
+
+// 用户注册处理
+router.post('/admin/register', async (req, res) =&gt; {
+    // 1.验证表单内容是否符合格式 
+    //创建验证规则
+    const schema = joi.object({
+        username: joi.string().min(3).max(20).required().error(new Error(&quot;用户名设置错误&quot;)),
+        password: joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required().error(new Error(&quot;密码设置错误&quot;)),
+        email: joi.string().required().email({
+            minDomainSegments: 2,
+            tlds: {
+                allow: ['com', 'net']
+            }
+        }),
+        role: joi.string().valid('normal', 'admin').required().error(new Error(&quot;角色值设置错误&quot;)),
+        state: joi.number().valid(0, 1).required().error(new Error(&quot;状态值设置错误&quot;)),
+    })
+
+    try { //验证通过执行
+        // 实现验证
+        await schema.validateAsync(req.body)
+
+    } catch (e) { // 验证错误执行
+        //重定向到编辑页，并将错误信息传过去
+        return res.redirect(`/admin/register?message=${e.message}`)
+    }
+
+    // 2.验证用户（使用邮箱）是否被注册.如果找得到email说明数据库存在，否则不存在，不存在就实行添加
+    let user = await User.findOne({
+        email: req.body.email
+    })
+    if (user) { //查询到了，则不能注册，重定向到注册页面
+        return res.redirect(`/admin/register?message=邮箱已被注册`)
+    }
+    // 3.对密码加密
+    // 3.1生成随机字符串
+    const salt = await bcrypt.genSalt(10)
+    // 3.2 加密替换代码
+    req.body.password = await bcrypt.hash(req.body.password, salt)
+    // 3.3
+    // req.body.password=password
+    //4.增加信息
+    await new User(req.body).save()
+    // await User.create(req.body)
+    res.redirect('/admin/user')
+})
+
+
+//404页面
+router.use('/', (req, res, next) =&gt; {
+    res.send('404')
+})
+module.exports = router //导出模块
+</code></pre>
+<hr>
+<blockquote>
+<p>login.js</p>
+</blockquote>
+<pre><code>const express = require('express')
+const User = require('../../model/user') //user数据表
+const bcrypt = require('bcrypt')
+let router = express.Router() //创建router
+//路由
+//拦截器,拦截登录状态
+router.use('/admin', (req, res, next) =&gt; {
+    //1.判断用户是否是登录页面
+    // 2.判断用户登录状态
+    //如果登录，将请求放行
+    //如果未登录，重定向到登录
+    if (req.url != &quot;/login&quot; &amp;&amp; !req.session.username) { //如果未登录，重定向到登录
+        res.redirect(&quot;/admin/login&quot;)
+    } else { //如果登录，将请求放行
+
+        next()
+    }
+})
+// 1.登录页面
+router.get('/admin/login', function (req, res) {
+    // res.status(200).send(&quot;后台管理页面&quot;)
+    // res.send(&quot;后台管理页面&quot;)
+    res.render(&quot;admin/login.html&quot;)
+})
+
+// 2.登录功能实现
+router.post('/admin/login', async (req, res) =&gt; {
+
+    const {
+        email,
+        password
+    } = req.body //解构语法，把对象中的req.body.email的值赋值给了email，把对象中的req.body.password的值赋值给了password
+
+
+    // res.send('ok')
+    // 1.验证用户是否输入了邮箱和密码（验证form表单传过来的数据是否存在）
+    if (email.trim().length == 0 || password.trim().length == 0)
+        return res.status(400).render(&quot;admin/err.html&quot;, {
+            msg: '邮箱或者密码错误'
+        }) //状态码400 请求信息有问题
+
+    // 2.根据邮箱地址查询用户信息是否存在
+    // 查询到用户，则user表中有对象，否则为空
+    let user = await User.findOne({
+        email
+    })
+    if (user) { //查询到了
+        // 将form传递的密码和数据库中的进行比对
+
+        let isValid = await bcrypt.compare(password, user.password)
+
+        if (isValid) {
+            req.session.username = user.username //将用户名存储到session对象
+            // res.send('登录成功')
+            req.app.locals.userInfo = user; //将用户信息存放到模板 req.app.locals.名称=变量
+            res.redirect('/admin/user')
+        } else {
+            res.status(400).render(&quot;admin/err.html&quot;, {
+                msg: '邮箱或者密码错误'
+            }) //状态码400 请求信息有问题
+        }
+    } else { //没查询到
+        res.status(400).render(&quot;admin/err.html&quot;, {
+            msg: '邮箱或者密码错误'
+        }) //状态码400 请求信息有问题
+    }
+})
+
+
+//3.用户登录退出
+router.get(&quot;/admin/logout&quot;, (req, res) =&gt; {
+    //删除cookie
+    req.session.destroy(function () {
+        //删除Cookie
+        res.clearCookie('connect.sid') // res.clearCookie(cookie名称)
+        //重定向到登录
+        res.redirect('/admin/login')
+    })
+    //删除session
+    //重定向到登录页面
+})
+
+module.exports = router //导出模块
+</code></pre>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#%E5%87%86%E5%A4%87">准备</a>
+<ul>
+<li><a href="#%E6%8A%80%E6%9C%AF%E6%A0%88">技术栈</a></li>
+</ul>
+</li>
+<li><a href="#1%E6%B3%A8%E5%86%8C">1.注册</a>
+<ul>
+<li><a href="#1%E6%B7%BB%E5%8A%A0%E6%B3%A8%E5%86%8C%E8%B7%AF%E7%94%B1%E5%8F%8A%E6%B3%A8%E5%86%8C%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA">(1)添加注册路由及注册页面展示</a></li>
+<li><a href="#2%E8%A7%86%E5%9B%BE%E5%B1%82%E8%AE%BE%E7%BD%AEform%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BE%97%E5%88%B0%E6%95%B0%E6%8D%AE">(2)视图层设置form提交数据,服务端得到数据</a></li>
+<li><a href="#3%E8%A7%86%E5%9B%BE%E5%B1%82%E9%AA%8C%E8%AF%81-%E8%A7%86%E5%9B%BE%E5%B1%82%E9%AA%8C%E8%AF%81%E8%A1%A8%E5%8D%95%E5%86%85%E5%AE%B9%E6%98%AF%E5%90%A6%E5%A1%AB%E5%86%99">(3)视图层验证。 视图层验证表单内容是否填写</a></li>
+<li><a href="#4%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%AA%8C%E8%AF%81">(4)服务端验证。</a></li>
+<li><a href="#5%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AFbcrypt">(5)密码加密技术bcrypt</a></li>
+<li><a href="#6%E5%B0%86%E4%BF%A1%E6%81%AF%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93">(6)将信息添加到数据库</a></li>
+<li><a href="#7%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0%E7%94%A8%E6%88%B7%E9%A1%B5%E9%9D%A2">(7)重定向到用户页面</a></li>
+</ul>
+</li>
+<li><a href="#2%E7%99%BB%E5%BD%95">2.登录</a>
+<ul>
+<li><a href="#1%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E9%9B%86%E5%90%88%E7%99%BB%E5%BD%95%E7%94%A8%E6%88%B7">（1）创建用户集合，登录用户</a></li>
+<li><a href="#2%E8%A7%86%E5%9B%BE%E5%B1%82%E8%AE%BE%E7%BD%AEform%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE">（2）视图层设置form提交数据</a></li>
+<li><a href="#3%E8%A7%86%E5%9B%BE%E5%B1%82%E9%AA%8C%E8%AF%81-%E8%A7%86%E5%9B%BE%E5%B1%82%E9%AA%8C%E8%AF%81%E8%A1%A8%E5%8D%95%E5%86%85%E5%AE%B9%E6%98%AF%E5%90%A6%E5%A1%AB%E5%86%99%E5%A6%82%E6%9E%9C%E6%B2%A1%E5%A1%AB%E5%86%99%E5%AE%8C%E6%95%B4%E5%88%99%E9%98%BB%E6%AD%A2%E7%99%BB%E5%BD%95">(3)视图层验证。 视图层验证表单内容是否填写，如果没填写完整则阻止登录</a></li>
+<li><a href="#4%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%AA%8C%E8%AF%81-2">(4)服务端验证。</a>
+<ul>
+<li><a href="#41%E5%88%9B%E5%BB%BA%E7%99%BB%E5%BD%95%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2">（4.1）创建登录路由页面</a></li>
+<li><a href="#42%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E6%93%8D%E4%BD%9C">（4.2）登录功能操作</a></li>
+</ul>
+</li>
+<li><a href="#5%E5%AF%86%E7%A0%81%E6%AF%94%E5%AF%B9%E6%88%90%E5%8A%9F%E6%89%8D%E8%83%BD%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AFbcrypt">(5)密码比对成功才能登录(密码加密技术bcrypt)</a></li>
+<li><a href="#6cookie%E4%B8%8Esession">(6)cookie与session</a></li>
+<li><a href="#7%E7%94%A8%E6%88%B7%E9%80%80%E5%87%BA">(7)用户退出</a></li>
+<li><a href="#8%E7%99%BB%E5%BD%95%E6%8B%A6%E6%88%AA">(8)登录拦截</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BB%A3%E7%A0%81">代码</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/nodejs-shi-yong-mysql/">
+          <h3 class="post-title">
+            数据库交互 - nodeJs使用mysql
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

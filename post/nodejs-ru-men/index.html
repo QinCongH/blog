@@ -1,0 +1,1296 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>nodeJs入门 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="nodeJs入门 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="1. 认识NodeJs
+认识
+
+是什么？ node.js是Javascript的运行环境
+能干嘛？前端脱离后端，直接通过Js写项目
+去哪下？node.js官网
+
+初体验(REPL)
+
+read 阅读（读取js代码）
+exec 执行（执行输出..." />
+  <meta name="keywords" content="nodeJs" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            nodeJs入门
+          </h2>
+          <div class="post-info">
+            <span>
+              2024-01-08
+            </span>
+            <span>
+              19 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/E7wJE8AQv/" class="post-tag">
+              # nodeJs
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="1-认识nodejs">1. 认识NodeJs</h1>
+<h2 id="认识">认识</h2>
+<ul>
+<li>是什么？ node.js是Javascript的运行环境</li>
+<li>能干嘛？前端脱离后端，直接通过Js写项目</li>
+<li>去哪下？<a href="https://nodejs.org/zh-cn/download/">node.js官网</a></li>
+</ul>
+<h2 id="初体验repl">初体验(REPL)</h2>
+<ul>
+<li>read 阅读（读取js代码）</li>
+<li>exec 执行（执行输出代码）</li>
+<li>print 打印 （打印输出代码）</li>
+<li>loop 循环（循环以上命令）</li>
+</ul>
+<h2 id="常用命令">常用命令</h2>
+<ul>
+<li>切换文件 cd 文件名</li>
+<li>运行js文件 node 文件名</li>
+<li>退出(按两下ctrl+c)</li>
+<li>清除 （cls）</li>
+<li>运行代码 (node 文件名)</li>
+</ul>
+<h2 id="练习">练习</h2>
+<ul>
+<li>输出Hello World</li>
+</ul>
+<h2 id="2-node模块系统">2. node模块系统</h2>
+<h3 id="2-1简介">2-1.简介</h3>
+<blockquote>
+<p>使用nodejs编写应用程序主要使用:</p>
+</blockquote>
+<h4 id="2-1-1-ecmascript语法变量判断循环等">2-1-1. ECMAscript语法：变量,判断,循环等。</h4>
+<blockquote>
+<p>JS三大组成部分（ECMA/DOM（document）/BOM（window,location等））</p>
+</blockquote>
+<h4 id="2-1-2-内置核心模块http模块fs文件操作url路径path路径模块os操作系统">2-1-2. 内置核心模块：HTTP模块,fs文件操作,url路径,path路径模块,os操作系统</h4>
+<p><a href="https://nodejs.org/api/">内置模块api体验</a></p>
+<h4 id="2-1-3-自定义模块自己创建的js">2-1-3. 自定义模块（自己创建的js）</h4>
+<blockquote>
+<p>CommonJS模块规范:<br>
+(1)一个文件就是一个模块<br>
+(2)通过export和modul.exports来导出模块中的成员<br>
+(3)通过require来加载模块</p>
+</blockquote>
+<h5 id="1-3-1自定义模块步骤">1-3-1.自定义模块步骤</h5>
+<ol>
+<li><strong>步骤1.导出成员（声明哪些方法可以被外部使用）</strong></li>
+</ol>
+<pre><code>//写法1
+exports.属性/方法=功能
+//写法2
+module.exports.属性/方法=变量名：
+</code></pre>
+<ol>
+<li><strong>步骤2.外部引入使用</strong></li>
+</ol>
+<pre><code>//使用 先引入再调用
+var 对象=require('路径文件名');
+//对象.属性或方法名
+</code></pre>
+<h3 id="2-1-4-第三方模块">2-1-4. 第三方模块</h3>
+<blockquote>
+<p>练习</p>
+</blockquote>
+<ul>
+<li>创建a.js和b.js文件，在a.js引入b.js模块</li>
+</ul>
+<h1 id="3常用内置模块">3.常用内置模块</h1>
+<h2 id="os">OS</h2>
+<h2 id="path">path</h2>
+<h3 id="输出文件名">输出文件名</h3>
+<blockquote>
+<p>path.basename(path[, ext])</p>
+</blockquote>
+<pre><code>console.log(path.basename(&quot;/node/base/path/xx/js/index.js&quot;));
+// 最后输出 index.js	
+</code></pre>
+<blockquote>
+<p>如果只想获取文件名，不要后缀</p>
+</blockquote>
+<pre><code>const path = require('path');
+console.log(path.basename(&quot;/node/base/path/xx/js/index.js&quot;, '.js')); 
+</code></pre>
+<h3 id="返回一个path的目录名">返回一个path的目录名</h3>
+<blockquote>
+<p>path.dirname(path)</p>
+</blockquote>
+<pre><code>const path = require('path');
+
+const filepath = '/node/base/path/index.js';
+
+console.log(path.dirname(filepath)); // 输出 /node/base/path
+</code></pre>
+<h3 id="返回一个对象对象的属性表示path的元素">返回一个对象，对象的属性表示path的元素</h3>
+<blockquote>
+<p>path.parse(path)</p>
+</blockquote>
+<pre><code>const path = require('path');
+const filepath = '/node/base/path/index.js';
+console.log(path.parse(filepath)); 
+// 输出如下：
+/*
+  { 
+    root: '/',
+    dir: '/node/base/path',
+    base: 'index.js',
+    ext: '.js',
+    name: 'index' 
+  }
+*/
+</code></pre>
+<h2 id="file-读写文件操作">file  读写文件操作</h2>
+<h3 id="1读-fsreadfile">1.读 fs.readFile()</h3>
+<pre><code>fs.readFile('',function(err,data){
+	if(err){
+	
+	}else{
+		
+	}
+})
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="/api/public/image/files.0-1671689613432.png" alt="" loading="lazy"></figure>
+<h3 id="2写-fswrite">2.写 fs.write()</h3>
+<pre><code>fs.write('文件路径',&quot;内容&quot;,funtion(err){
+	console.log('ok');
+})
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="/api/public/image/files.0-1671689649822.png" alt="" loading="lazy"></figure>
+<h2 id="http">http</h2>
+<blockquote>
+<p>创建serve服务器</p>
+</blockquote>
+<pre><code>var http=require('http')
+// 创建serve
+var server=http.createServer()
+// 添加请求
+server.on('request',(req,res)=&gt;{
+ console.log(&quot;请求路径是:&quot;,req.url)
+ //res.end(&quot;内容&quot;)方法表示写入并关闭，是res.write和res.end()的缩写; res.end()中的内容只能是字符串或者二进制数据
+  res.end(&quot;server is ok!&quot;)
+})
+// 启动监听端口
+server.listen(80,()=&gt;{
+ console.log(&quot;当前端口号：localhost:80&quot;)
+})
+</code></pre>
+<h2 id="url">url</h2>
+<h3 id="解析url地址">解析URL地址</h3>
+<blockquote>
+<p><code>url.parse()</code></p>
+</blockquote>
+<pre><code>var http = require(&quot;http&quot;);
+
+var url = require(&quot;url&quot;);
+
+var server = http.createServer(function(req,res){
+
+    var pathname = url.parse(req.url).pathname;
+
+    var query = url.parse(req.url).query;
+
+    console.log(&quot;patname:&quot;+ pathname);
+
+    console.log(query);
+
+    res.end();
+
+});
+
+server.listen(3000,&quot;127.0.0.1&quot;);
+
+</code></pre>
+<h1 id="4请求与响应的一些方法">4.请求与响应的一些方法</h1>
+<h2 id="1-request">1. request</h2>
+<h3 id="1-1-requestmethod">1-1. <code>request.method</code></h3>
+<blockquote>
+<p>获取视图请求方法</p>
+</blockquote>
+<pre><code>if(req.method==&quot;get&quot;){...}
+</code></pre>
+<h3 id="1-2-requesturl">1-2. <code>request.url</code></h3>
+<blockquote>
+<p>获取当前url地址</p>
+</blockquote>
+<h3 id="1-3-requestbody">1-3. <code>request.body</code></h3>
+<blockquote>
+<p>获取post请求数据（依赖模板引擎）</p>
+</blockquote>
+<h3 id="1-4-requestquery">1-4. <code>request.query</code></h3>
+<blockquote>
+<p>获取get请求数据（依赖模板引擎）</p>
+</blockquote>
+<h2 id="2-response">2. response</h2>
+<h3 id="2-1-responseendtext">2-1. <code>response.end(&quot;text&quot;);</code></h3>
+<blockquote>
+<p>响应内容为text，响应并终止;<br>
+注意，request.end只能响应二进制数据或者字符串;<br>
+request.end()与request.write()的缩写;</p>
+</blockquote>
+<h3 id="2-2-responsewrite内容">2-2. <code>response.write(&quot;内容&quot;)</code></h3>
+<blockquote>
+<p>写响应内容</p>
+</blockquote>
+<h3 id="2-3-responsewritehead200">2-3. <code>response.writeHead（&quot;200&quot;）</code></h3>
+<blockquote>
+<p>写响应头</p>
+</blockquote>
+<pre><code> res.writeHead(200, {
+                    &quot;Content-Type&quot;: &quot;text/html&quot;
+                }); 
+</code></pre>
+<h3 id="2-4responsesetheaderlocation">2-4.<code>response.setHeader('Location','/')</code></h3>
+<blockquote>
+<p>设置响应头跳转</p>
+</blockquote>
+<h3 id="2-5-resstatuscode320">2-5. <code>res.statusCode=320</code></h3>
+<blockquote>
+<p>设置响应码</p>
+</blockquote>
+<h3 id="2-6三种响应字符串方法">2-6.三种&quot;响应字符串&quot;方法</h3>
+<pre><code>//意：响应并关闭
+res.end(&quot;响应成功&quot;)  //会乱码
+res.send(&quot;响应成功&quot;); //自动识别 直接响应
+res.render(&quot;响应成功&quot;) //自动识别，只能打开指定文件字符串并响应，必须配合模板引擎使用
+</code></pre>
+<h3 id="2-7重定向-resredirect">2-7.重定向 <code>res.redirect(&quot;/&quot;)</code></h3>
+<blockquote>
+<p>重定向到根路径</p>
+</blockquote>
+<h1 id="5-npm的基本使用">5. npm的基本使用</h1>
+<h2 id="1简介">1.简介</h2>
+<blockquote>
+<p>npm，全名 node package manger。</p>
+</blockquote>
+<ul>
+<li>
+<p>npm 是Node的开放式模块登记和管理系统，是Node.js包的标准发布平台，用于Node.js包的发布、传播、依赖控制，网址：https://www.npmjs.com/</p>
+</li>
+<li>
+<p>npm 提供了命令行工具，可以方便地下载、安装、升级、删除包，也可以让你作为开发者发布并维护包</p>
+</li>
+<li>
+<p>下载node所需的第三方模块</p>
+</li>
+</ul>
+<h2 id="2安装">2.安装</h2>
+<ul>
+<li>
+<p>安装好nodejs后就安装好了npm，这时系统自带npm命令<br>
+检测是否安装成功 <code>npm -v</code></p>
+</li>
+<li>
+<p>npm 在按照 Node.js 时会连带被安装。但有可能不是最新版本，需要 <code>npm install npm@latest -g</code> 升级到最新版本</p>
+</li>
+</ul>
+<h2 id="3使用">3.使用</h2>
+<h3 id="初始化">初始化</h3>
+<blockquote>
+<p>新建一个文件夹然后运行</p>
+</blockquote>
+<pre><code>npm init
+//或者
+npm init -y  
+//不填写相关信息，默认初始化
+</code></pre>
+<blockquote>
+<p>初始化后会生成package.json文件（package.json就是记录所有安装的包的信息的文件。）</p>
+</blockquote>
+<h3 id="安装模块">安装模块</h3>
+<pre><code>npm insatll 模块 [安装可选参数] 
+//或者
+npm install 模块@版本号 [安装可选参数]
+</code></pre>
+<h4 id="安装参数">安装参数</h4>
+<ul>
+<li>--save 记录生产环境所需模块（默认）</li>
+<li>--save-dev 记录开发环境所需模块</li>
+<li>--g 该模块可在命令行运行(global)</li>
+</ul>
+<blockquote>
+<p>都安装: <code>npm install</code><br>
+只安装生产环境：<code>npm install -production</code></p>
+</blockquote>
+<blockquote>
+<p>安装模块后会出现一个node_modules文件夹，node_modules文件夹就是所有包安装的位置。</p>
+</blockquote>
+<h3 id="卸载模块">卸载模块</h3>
+<pre><code>npm uninstall 模块
+</code></pre>
+<h3 id="查看模块">查看模块</h3>
+<pre><code>npm list
+</code></pre>
+<h2 id="4常用第三方模块安装命令">4.常用第三方模块安装命令</h2>
+<h3 id="1-nodemon">1.  nodemon</h3>
+<blockquote>
+<p>可以随时监听文件的变更，自动重启服务</p>
+</blockquote>
+<pre><code>npm install -g nodemon
+</code></pre>
+<h3 id="2momentjs">2.<a href="http://momentjs.cn/">momentJs</a></h3>
+<blockquote>
+<p>日期时间类</p>
+</blockquote>
+<pre><code>npm install moment
+</code></pre>
+<h1 id="6-express">6. Express</h1>
+<h2 id="express简介">Express简介</h2>
+<blockquote>
+<p>是什么：基于nodeJs开发的一个框架<br>
+好  处：加快项目开发，便于团队协作</p>
+</blockquote>
+<h2 id="使用">使用</h2>
+<h3 id="创建项目文件夹">创建项目文件夹</h3>
+<h3 id="安装express框架">安装express框架</h3>
+<ul>
+<li>安装命令</li>
+</ul>
+<p><code>npm install express</code></p>
+<h3 id="创建server服务">创建server服务</h3>
+<blockquote>
+<p>创建app.js入口文件</p>
+</blockquote>
+<ul>
+<li>引入模块</li>
+<li>创建web服务器</li>
+<li>创建路由（http创建时：是创建监听并请求事件，这里框架引出路由概念）</li>
+<li>启动服务</li>
+</ul>
+<pre><code>// 1.引入模块
+const express=require('express')
+// 2.创建web服务器
+const app=express()
+//3.创建路由（http创建时：创建监听并请求事件）
+app.get('/',function(req,res){
+    //响应字符串
+    res.send(&quot;响应成功&quot;); //自动识别 直接响应,意：响应并关闭
+})
+// 4.启动服务
+app.listen('2002',function(){
+    console.log(&quot;ok: http://localhost:2002 &quot;);
+})
+
+</code></pre>
+<h2 id="express路由">Express路由</h2>
+<blockquote>
+<p>路由用于确定应用程序如何响应对特定端点的客户机请求，包含一个 URI（或路径）和一个特定的 HTTP 请求方法（GET、POST 等）</p>
+</blockquote>
+<h3 id="基本语法">基本语法</h3>
+<ul>
+<li>发送get请求<code>app.get()</code></li>
+<li>发送post请求<code>app.post()</code></li>
+<li>发送任意请求<code>app.all()</code></li>
+<li>非完全匹配url路径发送任意请求<code>app.use()</code></li>
+</ul>
+<pre><code>//app.HTTP请求类型(请求路径,回调函数)
+
+//1.发送get请求
+app.get('/',function(req,res){})
+//2.发送post请求
+app.post('/',function(req,res){})
+//3.发送任意请求
+app.all('/',function(req,res){})
+//4.非完全匹配url路径发送任意请求
+app.use('/',function(req,res){})
+</code></pre>
+<ul>
+<li>Express 定义了如下HTTP 请求类型方法： get, post, put, head, delete, options, trace, copy, lock, mkcol, move, purge, propfind, proppatch, unlock, report, mkactivity, checkout, merge, m-search, notify, subscribe, unsubscribe, patch, search, 和 connect。</li>
+</ul>
+<h1 id="7模板引擎">7.模板引擎</h1>
+<h2 id="1简介-2">1.简介</h2>
+<blockquote>
+<p>模版引擎是第三方模块。可以让开发着以更友好的方式拼接字符串，使项目代码更加清晰，更加易于维护。常见的模板引擎有ejs jade，这里使用art-template</p>
+</blockquote>
+<h2 id="2安装-2">2.安装</h2>
+<pre><code>npm install art-template 
+//简写：
+npm i art-template 
+</code></pre>
+<p>在express中使用：</p>
+<pre><code>npm install express-art-template 
+</code></pre>
+<h2 id="3使用-2">3.使用</h2>
+<ul>
+<li>在node中使用的标准语法</li>
+</ul>
+<pre><code>const template = require('art-template');//引入模块
+const html = template(__dirname + '/tpl-user.art', {
+　　user: {
+　　　　name: 'aui'
+　　}
+});
+//const html = template('模版路径'， '数据')
+//参数一： 模版引擎的路径（绝对路径，需要path.join 拼接）
+//参数二：要传递给模版引擎的数据
+</code></pre>
+<ul>
+<li>在express中使用的标准语法</li>
+</ul>
+<p>（1）声明所使用的模板引擎</p>
+<pre><code> app.engine('html', require('express-art-template'));  //第一个参数告诉模板引擎要渲染文件的后缀是什么，这里是‘html’
+</code></pre>
+<p>（2）设置模板引擎渲染指定文件夹（可选）</p>
+<pre><code> app.set('views','./views') ;
+ // app.set('文件名','文件所在路径') ;
+</code></pre>
+<p>(3)使用res.render语法得到数据</p>
+<pre><code>	res.render(模板文件,模板数据)
+</code></pre>
+<h2 id="4常用的语法">4.常用的语法</h2>
+<h3 id="1将信息存放到模板-locals">1.将信息存放到模板 locals</h3>
+<pre><code>let n={a:12,b:23}
+//在app.js中
+app.locals.numInfo=n
+//在其他文件中
+req.app.locals.numInfo=n
+</code></pre>
+<blockquote>
+<p>视图中声明</p>
+</blockquote>
+<pre><code>{{numInfo.a}}
+</code></pre>
+<blockquote>
+<p>渲染结果</p>
+</blockquote>
+<pre><code>12
+</code></pre>
+<h1 id="8发送基本请求postget">8.发送基本请求（POST，GET）</h1>
+<h2 id="1创建服务器">1.创建服务器</h2>
+<h2 id="2渲染html页面">2.渲染html页面</h2>
+<blockquote>
+<p>向服务器发送请求获取到要渲染的网页（html文件）</p>
+</blockquote>
+<h3 id="渲染html文件的几种方法">渲染html文件的几种方法</h3>
+<ol>
+<li>fs读取文件发送</li>
+</ol>
+<pre><code>        fs.readFile(&quot;./view/add.html&quot;, {
+            encoding: 'utf-8'
+        }, function (err, data) {
+            if (err) {
+                res.writeHead(404, {
+                    &quot;Content-Type&quot;: &quot;text/html&quot;
+                });
+                res.end(&quot;404&quot;);
+            } else {
+                res.writeHead(200, {
+                    &quot;Content-Type&quot;: &quot;text/html&quot;
+                });
+                res.end(data)
+            }
+        })
+</code></pre>
+<ol start="2">
+<li><code>res.sendFile()</code> 响应发送文件的方式</li>
+</ol>
+<pre><code>res.sendFile(__dirname+'/index.html')
+</code></pre>
+<ol start="3">
+<li><code>res.render('index.html') </code>模板引擎响应方法</li>
+</ol>
+<blockquote>
+<p>需要先配置模板引擎</p>
+</blockquote>
+<pre><code>res.render('index.html')
+</code></pre>
+<h2 id="3将视图数据提交到后端">3.将视图数据提交到后端</h2>
+<blockquote>
+<p>输入数据，点击提交，将html数据提交到后端</p>
+</blockquote>
+<ul>
+<li>使用form时,将action设置为后端要处理的路由,input设置name属性接收输入的数据</li>
+</ul>
+<pre><code>//提交路径为&quot;/myLogin&quot;,方法为post
+        &lt;form action=&quot;/myLogin&quot; method=&quot;post&quot;&gt;
+            &lt;input type=&quot;text&quot; id=&quot;user&quot; name=&quot;user&quot;&gt;
+            &lt;input type=&quot;password&quot; id=&quot;pwd&quot; name=&quot;pwd&quot;&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt;
+        &lt;/form&gt;
+
+
+</code></pre>
+<ul>
+<li>post请求数据在响应头，get请求数据会拼接在url路径之后</li>
+</ul>
+<h2 id="4创建路由处理视图提交的数据">4.创建路由处理视图提交的数据</h2>
+<blockquote>
+<p>路由文件与视图提交的路径相同</p>
+</blockquote>
+<h3 id="创建路由">创建路由</h3>
+<pre><code>//post请求使用app.post()
+app.post('/mylogin',function(req,res){
+
+})
+//get请求用app.get()
+
+</code></pre>
+<h3 id="获取视图提交的数据">获取视图提交的数据</h3>
+<blockquote>
+<p>由于post请求数据在响应头，get请求数据会拼接在url路径之后</p>
+</blockquote>
+<h4 id="如果是get请求">如果是get请求</h4>
+<blockquote>
+<p>通过url内置模块获取到get发送的请求，并通过url.parse方法将数据转化为对象</p>
+</blockquote>
+<pre><code>//引入模块
+const url=require('url')
+//url.parse方法将数据转化为对象
+var paramobj = url.parse(req.url, true).query;
+</code></pre>
+<h4 id="如果是post请求">如果是post请求</h4>
+<ul>
+<li>方法1.Node原生的http模块中</li>
+</ul>
+<pre><code>通过一个事件：监听是否有数据
+ req.on(&quot;data&quot;,(chunk)=&gt;{
+        console.log(chunk.toString());//chunk就是传过来的数据,格式为Buffer,通过toString()转化为字符串
+        let obj=querystring.parse(chunk.toString())//将数据转化为对象
+		}
+
+</code></pre>
+<ul>
+<li>方法2.Express中间件body-parserlosspm</li>
+</ul>
+<p>引入bodyParser模块<br>
+解析 application/json<br>
+解析 application/x-www-form-urlencoded</p>
+<ul>
+<li>打印结果</li>
+</ul>
+<pre><code>//引入bodyParser模块
+const bodyParser=require('body-parser');
+//解析 application/json
+app.use(bodyParser.json());
+//解析 application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended:false}))
+//在路由中打印结果
+console.log(req.body);
+</code></pre>
+<h1 id="9响应静态文件">9.响应静态文件</h1>
+<blockquote>
+<p>由于发送请求时，文件中的css,img,js文件也会发送请求,故需要以下方法响应资源。</p>
+</blockquote>
+<h2 id="方法1使用express">方法1.使用express</h2>
+<blockquote>
+<p>当以/public/开头的时候,去./public/目录中找到对应的资源，这种方式更容易辨识，使用app.use()方法，express.static()方法解析</p>
+</blockquote>
+<h3 id="1-直接响应public下的目录">1. 直接响应public下的目录</h3>
+<pre><code>app.use('/public/',express.static('./public/'))
+</code></pre>
+<h3 id="2-必须是参数1为名的目录的资源具体路径">2. 必须是参数1为名的目录的资源具体路径</h3>
+<pre><code>app.use('/a/',express.static('./public/'))
+
+//此时访问public下的静态资源,必须使用/a/public访问
+
+</code></pre>
+<h3 id="3-当省略第一个参数的时候则可以通过public的方式来访问">3. 当省略第一个参数的时候,则可以通过/public的方式来访问</h3>
+<pre><code>app.use(express.static('./public/'))
+</code></pre>
+<h2 id="方法2使用内置模块path">方法2.使用内置模块path</h2>
+<pre><code>const path=require('path')
+app.use(express.static(path.join(_dirname,'public')))
+</code></pre>
+<h1 id="10创建router路由路由优化">10.创建Router路由（路由优化）</h1>
+<h2 id="1路由器中处理">1.路由器中处理</h2>
+<h3 id="1-1创建routes文件夹">1-1.创建routes文件夹</h3>
+<blockquote>
+<p>express中的Router（创建route文件夹）作用就是为了方便我们更好的根据路由去分模块。避免将所有路由都写在入口文件中。</p>
+</blockquote>
+<h3 id="1-2在routes文件夹里创建路由器">1-2.在routes文件夹里创建路由器</h3>
+<blockquote>
+<p>假设创建一个user.js路由器</p>
+</blockquote>
+<h3 id="1-3路由器中的基本步骤">1-3.路由器中的基本步骤</h3>
+<ul>
+<li>引入express模块</li>
+</ul>
+<pre><code>const express=require('express');
+</code></pre>
+<ul>
+<li>创建路由器对象</li>
+</ul>
+<pre><code>let router=express.Router();
+</code></pre>
+<ul>
+<li>往路由器中挂载路由</li>
+</ul>
+<blockquote>
+<p>app.get() , app.post() , app.use() , app.all()<br>
+在此处写登录，注册等路由方法</p>
+</blockquote>
+<pre><code>router.get('/login',(res,req)=&gt;{
+	res.send('登录')
+})
+</code></pre>
+<ul>
+<li>导出路由器对象</li>
+</ul>
+<pre><code>module.exports=router;
+</code></pre>
+<h2 id="2服务器中处理appjs入口文件">2.服务器中处理(app.js入口文件)</h2>
+<h3 id="2-1引入user路由器">2-1.引入user路由器</h3>
+<pre><code>const userRouter=require('./routes/user.js')
+console.log(userRouter)//打印路由验证是否正确
+</code></pre>
+<h3 id="2-2使用路由器">2-2.使用路由器</h3>
+<blockquote>
+<p>app.use()方法<br>
+给每个路由器下的路由添加了前缀</p>
+</blockquote>
+<pre><code>app.use('/user',userRouter);
+&gt;参数一给每个路由器下的路由添加了前缀,访问时由/login变成/user/login
+&gt;userRouter是引入的路由器变量名称
+</code></pre>
+<p><strong>注意，创建index首页路由器时，使用路由器不需要添加前缀名称</strong></p>
+<pre><code>app.use('/',indexRouter);
+</code></pre>
+<h3 id="方法2引入user路由器">方法2：引入user路由器</h3>
+<pre><code>const router=require('./routes')
+</code></pre>
+<ul>
+<li>使用路由器</li>
+</ul>
+<pre><code>app.use(router)
+</code></pre>
+<h1 id="11中间件">11.中间件</h1>
+<h2 id="一概念">一.概念</h2>
+<blockquote>
+<p>http请求中的过滤层（http请求交给方法处理前，先交给另一个方法过滤）。</p>
+</blockquote>
+<ul>
+<li>中间件是在获取请求和发送响应之间在服务器上运行的代码</li>
+<li>应用场景：判断登录状态,检测RBSAC权限，错误捕获等</li>
+<li>中间件代码从上往下执行</li>
+</ul>
+<h2 id="二next方法">二.next方法</h2>
+<blockquote>
+<p>可以针对同一个请求设置多个中间件，对同一个请求进行多次处理。默认情况下，请求从上到下依次匹配中间件，一旦匹配成功，终止匹配。调用next方法&quot; next（）&quot;将请求的控制权交给下一个中间件，直到遇到结束请求的中间件。</p>
+</blockquote>
+<pre><code>//app.use('/')中的'/'表示请求时请求的初始中间件，写在最上面
+app.use('/',(req,res,next)=&gt;{
+    next() //会进入下一个中间件app.get()
+})
+
+app.get('/', (req, res) =&gt; {
+    fs.readFile('./views/index.html', 'utf8', (err, data) =&gt; {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send(data)  //遇到结束请求的中间件停止
+        }
+    })
+})
+</code></pre>
+<blockquote>
+<p>可以在next()方法中传入一个参数err,即next(err)。next传递err则匹配第一个含有err的中间件.（可以在fs渲染html页面时使用）</p>
+</blockquote>
+<pre><code>app.use('/',(req,res,next)=&gt;{
+	    fs.readFile('./views/index.html', 'utf8', (err, data) =&gt; {
+        if (err) {
+           next(err) //会进入含有err的中间件
+        } else {
+            res.send(data)  //遇到结束请求的中间件停止
+        }
+    })
+})
+
+
+app.use((err,req, res, next) =&gt; {
+    res.status(404).send(&quot;404页面&quot;)
+	// //html页面
+    // fs.readFile(&quot;./views/404.html&quot;,'utf8', (err, data) =&gt; {
+    //     if (err) {
+    //         res.send(err)
+    //     }else{
+    //         res.status(404).send(data)
+    //     }
+ 
+    // })
+})
+</code></pre>
+<h2 id="三主要作用">三.主要作用</h2>
+<blockquote>
+<p>中间件就是一堆方法，主要由中间件方法以及请求处理函数组成。可以接收客户端发来的请求、可以对请求做出响应，也可以将请求继续交给下一个中间件继续处理。</p>
+</blockquote>
+<figure data-type="image" tabindex="3"><img src="/api/public/image/files.0-1671695418551.png" alt="" loading="lazy"></figure>
+<h3 id="1-错误处理中间件">1.  错误处理中间件</h3>
+<h4 id="1自定义404页面由于中间件从上往下执行故在代码中要放到最后写">1）自定义404页面（由于中间件从上往下执行,故在代码中要放到最后写）</h4>
+<blockquote>
+<p>当找不到地址栏的地址时使用该中间件</p>
+</blockquote>
+<pre><code>app.use((req, res, next) =&gt; {
+    res.status(404).send(&quot;404页面&quot;)
+	// //html页面
+    // fs.readFile(&quot;./views/404.html&quot;,'utf8', (err, data) =&gt; {
+    //     if (err) {
+    //         res.send(err)
+    //     }else{
+    //         res.status(404).send(data)
+    //     }
+ 
+    // })
+})
+</code></pre>
+<h4 id="2错误统一处理在fs读文件时在出现err时使用nexterr传入另外一个中间件统一处理">2).错误统一处理(在fs读文件时，在出现err时使用next(err)传入另外一个中间件统一处理)</h4>
+<blockquote>
+<p>错误处理中间件有 4 个参数，定义错误处理中间件时必须使用这 4 个参数。即使不需要 next 对象，也必须在签名中声明它，否则中间件会被识别为一个常规中间件，不能处理错误。</p>
+</blockquote>
+<blockquote>
+<p>错误处理中间件和其他中间件定义类似，只是要使用 4 个参数，而不是 3 个，其签名如下： (err, req, res, next)。</p>
+</blockquote>
+<pre><code>router.get('/', (req, res,next) =&gt; {
+    fs.readFile('./views/index.html', 'utf8', (err, data) =&gt; {
+        if (err) {
+            next(err)
+            // res.send(err)
+        } else {
+            res.send(data)
+        }
+    })
+})
+// 错误统一处理
+    router.use((err,req,res,next)=&gt;{
+        res.send('网络错误/文件错误')
+		console.log(err);
+    })
+</code></pre>
+<blockquote>
+<p>总结：错误处理的中间件,一个是设置404页面,一个是错误统一处理。<br>
+<code>next()</code> next不传参数时：匹配下一个url<br>
+<code>next(err)</code> next传递err则匹配含有第一个含有err的中间件</p>
+</blockquote>
+<h3 id="2内置中间件配置响应静态文件">2.内置中间件（配置响应静态文件）</h3>
+<h4 id="语法">语法：</h4>
+<pre><code>express.static(root, [options])
+//例，简单响应public静态资源方法
+app.use(express.static('./public/'))
+</code></pre>
+<h4 id="精心设计的响应静态资源方法推荐">精心设计的响应静态资源方法(推荐)</h4>
+<pre><code>var options = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['htm', 'html'],
+  index: false,
+  maxAge: '1d',
+  redirect: false,
+  setHeaders: function (res, path, stat) {
+    res.set('x-timestamp', Date.now());
+  }
+}
+
+app.use(express.static('public', options));
+
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="/api/public/image/files.0-1671695449580.png" alt="" loading="lazy"></figure>
+<h3 id="3常用中间件body-parser的使用">3.常用中间件body-parser的使用</h3>
+<blockquote>
+<p><a href="https://www.cnblogs.com/mywifeisMsHu/p/15628432.html">可用于解析post请求体</a><br>
+body-parser是一个HTTP请求体解析中间件，使用这个模块可以解析不同格式的请求体，Express框架中就是使用这个模块做为请求体解析中间件，提供方法如下：</p>
+</blockquote>
+<ol>
+<li>
+<p>bodyParser.json(options)  解析JSON格式数据</p>
+</li>
+<li>
+<p>bodyParser.raw(options)  解析二进制格式数据（Buffer流数据）</p>
+</li>
+<li>
+<p>bodyParser.text(options) 解析文本格式数据</p>
+</li>
+<li>
+<p>bodyParser.urlencoded(options)  解析UTF-8的编码数据</p>
+</li>
+</ol>
+<h3 id="4第三方中间件">4.第三方中间件</h3>
+<blockquote>
+<p>express内置了很多第三方中间件。</p>
+</blockquote>
+<h3 id="5应用级中间件">5.应用级中间件</h3>
+<blockquote>
+<p>应用级中间件绑定到 app 对象 使用 app.use() 和 app.METHOD()， 其中， METHOD 是需要处理的 HTTP 请求的方法，例如 GET, PUT, POST 等等，全部小写。</p>
+</blockquote>
+<h3 id="6路由级中间件">6.路由级中间件</h3>
+<blockquote>
+<p>路由级中间件和应用级中间件一样，只是它绑定的对象为 express.Router()。<br>
+路由级使用 router.use() 或 router.VERB() 加载</p>
+</blockquote>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E8%AE%A4%E8%AF%86nodejs">1. 认识NodeJs</a>
+<ul>
+<li><a href="#%E8%AE%A4%E8%AF%86">认识</a></li>
+<li><a href="#%E5%88%9D%E4%BD%93%E9%AA%8Crepl">初体验(REPL)</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">常用命令</a></li>
+<li><a href="#%E7%BB%83%E4%B9%A0">练习</a></li>
+<li><a href="#2-node%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F">2. node模块系统</a>
+<ul>
+<li><a href="#2-1%E7%AE%80%E4%BB%8B">2-1.简介</a>
+<ul>
+<li><a href="#2-1-1-ecmascript%E8%AF%AD%E6%B3%95%E5%8F%98%E9%87%8F%E5%88%A4%E6%96%AD%E5%BE%AA%E7%8E%AF%E7%AD%89">2-1-1. ECMAscript语法：变量,判断,循环等。</a></li>
+<li><a href="#2-1-2-%E5%86%85%E7%BD%AE%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97http%E6%A8%A1%E5%9D%97fs%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9Curl%E8%B7%AF%E5%BE%84path%E8%B7%AF%E5%BE%84%E6%A8%A1%E5%9D%97os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">2-1-2. 内置核心模块：HTTP模块,fs文件操作,url路径,path路径模块,os操作系统</a></li>
+<li><a href="#2-1-3-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E8%87%AA%E5%B7%B1%E5%88%9B%E5%BB%BA%E7%9A%84js">2-1-3. 自定义模块（自己创建的js）</a>
+<ul>
+<li><a href="#1-3-1%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E6%AD%A5%E9%AA%A4">1-3-1.自定义模块步骤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-1-4-%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97">2-1-4. 第三方模块</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97">3.常用内置模块</a>
+<ul>
+<li><a href="#os">OS</a></li>
+<li><a href="#path">path</a>
+<ul>
+<li><a href="#%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D">输出文件名</a></li>
+<li><a href="#%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AApath%E7%9A%84%E7%9B%AE%E5%BD%95%E5%90%8D">返回一个path的目录名</a></li>
+<li><a href="#%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E8%A1%A8%E7%A4%BApath%E7%9A%84%E5%85%83%E7%B4%A0">返回一个对象，对象的属性表示path的元素</a></li>
+</ul>
+</li>
+<li><a href="#file-%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C">file  读写文件操作</a>
+<ul>
+<li><a href="#1%E8%AF%BB-fsreadfile">1.读 fs.readFile()</a></li>
+<li><a href="#2%E5%86%99-fswrite">2.写 fs.write()</a></li>
+</ul>
+</li>
+<li><a href="#http">http</a></li>
+<li><a href="#url">url</a>
+<ul>
+<li><a href="#%E8%A7%A3%E6%9E%90url%E5%9C%B0%E5%9D%80">解析URL地址</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95">4.请求与响应的一些方法</a>
+<ul>
+<li><a href="#1-request">1. request</a>
+<ul>
+<li><a href="#1-1-requestmethod">1-1. <code>request.method</code></a></li>
+<li><a href="#1-2-requesturl">1-2. <code>request.url</code></a></li>
+<li><a href="#1-3-requestbody">1-3. <code>request.body</code></a></li>
+<li><a href="#1-4-requestquery">1-4. <code>request.query</code></a></li>
+</ul>
+</li>
+<li><a href="#2-response">2. response</a>
+<ul>
+<li><a href="#2-1-responseendtext">2-1. <code>response.end(&quot;text&quot;);</code></a></li>
+<li><a href="#2-2-responsewrite%E5%86%85%E5%AE%B9">2-2. <code>response.write(&quot;内容&quot;)</code></a></li>
+<li><a href="#2-3-responsewritehead200">2-3. <code>response.writeHead（&quot;200&quot;）</code></a></li>
+<li><a href="#2-4responsesetheaderlocation">2-4.<code>response.setHeader('Location','/')</code></a></li>
+<li><a href="#2-5-resstatuscode320">2-5. <code>res.statusCode=320</code></a></li>
+<li><a href="#2-6%E4%B8%89%E7%A7%8D%E5%93%8D%E5%BA%94%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95">2-6.三种&quot;响应字符串&quot;方法</a></li>
+<li><a href="#2-7%E9%87%8D%E5%AE%9A%E5%90%91-resredirect">2-7.重定向 <code>res.redirect(&quot;/&quot;)</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#5-npm%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">5. npm的基本使用</a>
+<ul>
+<li><a href="#1%E7%AE%80%E4%BB%8B">1.简介</a></li>
+<li><a href="#2%E5%AE%89%E8%A3%85">2.安装</a></li>
+<li><a href="#3%E4%BD%BF%E7%94%A8">3.使用</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96">初始化</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E6%A8%A1%E5%9D%97">安装模块</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85%E5%8F%82%E6%95%B0">安装参数</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97">卸载模块</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9D%97">查看模块</a></li>
+</ul>
+</li>
+<li><a href="#4%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E5%91%BD%E4%BB%A4">4.常用第三方模块安装命令</a>
+<ul>
+<li><a href="#1-nodemon">1.  nodemon</a></li>
+<li><a href="#2momentjs">2.momentJs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#6-express">6. Express</a>
+<ul>
+<li><a href="#express%E7%AE%80%E4%BB%8B">Express简介</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%A4%B9">创建项目文件夹</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85express%E6%A1%86%E6%9E%B6">安装express框架</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BAserver%E6%9C%8D%E5%8A%A1">创建server服务</a></li>
+</ul>
+</li>
+<li><a href="#express%E8%B7%AF%E7%94%B1">Express路由</a>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">基本语法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#7%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E">7.模板引擎</a>
+<ul>
+<li><a href="#1%E7%AE%80%E4%BB%8B-2">1.简介</a></li>
+<li><a href="#2%E5%AE%89%E8%A3%85-2">2.安装</a></li>
+<li><a href="#3%E4%BD%BF%E7%94%A8-2">3.使用</a></li>
+<li><a href="#4%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AF%AD%E6%B3%95">4.常用的语法</a>
+<ul>
+<li><a href="#1%E5%B0%86%E4%BF%A1%E6%81%AF%E5%AD%98%E6%94%BE%E5%88%B0%E6%A8%A1%E6%9D%BF-locals">1.将信息存放到模板 locals</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#8%E5%8F%91%E9%80%81%E5%9F%BA%E6%9C%AC%E8%AF%B7%E6%B1%82postget">8.发送基本请求（POST，GET）</a>
+<ul>
+<li><a href="#1%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8">1.创建服务器</a></li>
+<li><a href="#2%E6%B8%B2%E6%9F%93html%E9%A1%B5%E9%9D%A2">2.渲染html页面</a>
+<ul>
+<li><a href="#%E6%B8%B2%E6%9F%93html%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95">渲染html文件的几种方法</a></li>
+</ul>
+</li>
+<li><a href="#3%E5%B0%86%E8%A7%86%E5%9B%BE%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BA%A4%E5%88%B0%E5%90%8E%E7%AB%AF">3.将视图数据提交到后端</a></li>
+<li><a href="#4%E5%88%9B%E5%BB%BA%E8%B7%AF%E7%94%B1%E5%A4%84%E7%90%86%E8%A7%86%E5%9B%BE%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AE">4.创建路由处理视图提交的数据</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%B7%AF%E7%94%B1">创建路由</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E8%A7%86%E5%9B%BE%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AE">获取视图提交的数据</a>
+<ul>
+<li><a href="#%E5%A6%82%E6%9E%9C%E6%98%AFget%E8%AF%B7%E6%B1%82">如果是get请求</a></li>
+<li><a href="#%E5%A6%82%E6%9E%9C%E6%98%AFpost%E8%AF%B7%E6%B1%82">如果是post请求</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#9%E5%93%8D%E5%BA%94%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6">9.响应静态文件</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%951%E4%BD%BF%E7%94%A8express">方法1.使用express</a>
+<ul>
+<li><a href="#1-%E7%9B%B4%E6%8E%A5%E5%93%8D%E5%BA%94public%E4%B8%8B%E7%9A%84%E7%9B%AE%E5%BD%95">1. 直接响应public下的目录</a></li>
+<li><a href="#2-%E5%BF%85%E9%A1%BB%E6%98%AF%E5%8F%82%E6%95%B01%E4%B8%BA%E5%90%8D%E7%9A%84%E7%9B%AE%E5%BD%95%E7%9A%84%E8%B5%84%E6%BA%90%E5%85%B7%E4%BD%93%E8%B7%AF%E5%BE%84">2. 必须是参数1为名的目录的资源具体路径</a></li>
+<li><a href="#3-%E5%BD%93%E7%9C%81%E7%95%A5%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E7%9A%84%E6%97%B6%E5%80%99%E5%88%99%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87public%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9D%A5%E8%AE%BF%E9%97%AE">3. 当省略第一个参数的时候,则可以通过/public的方式来访问</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%B9%E6%B3%952%E4%BD%BF%E7%94%A8%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97path">方法2.使用内置模块path</a></li>
+</ul>
+</li>
+<li><a href="#10%E5%88%9B%E5%BB%BArouter%E8%B7%AF%E7%94%B1%E8%B7%AF%E7%94%B1%E4%BC%98%E5%8C%96">10.创建Router路由（路由优化）</a>
+<ul>
+<li><a href="#1%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%AD%E5%A4%84%E7%90%86">1.路由器中处理</a>
+<ul>
+<li><a href="#1-1%E5%88%9B%E5%BB%BAroutes%E6%96%87%E4%BB%B6%E5%A4%B9">1-1.创建routes文件夹</a></li>
+<li><a href="#1-2%E5%9C%A8routes%E6%96%87%E4%BB%B6%E5%A4%B9%E9%87%8C%E5%88%9B%E5%BB%BA%E8%B7%AF%E7%94%B1%E5%99%A8">1-2.在routes文件夹里创建路由器</a></li>
+<li><a href="#1-3%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4">1-3.路由器中的基本步骤</a></li>
+</ul>
+</li>
+<li><a href="#2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%AD%E5%A4%84%E7%90%86appjs%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6">2.服务器中处理(app.js入口文件)</a>
+<ul>
+<li><a href="#2-1%E5%BC%95%E5%85%A5user%E8%B7%AF%E7%94%B1%E5%99%A8">2-1.引入user路由器</a></li>
+<li><a href="#2-2%E4%BD%BF%E7%94%A8%E8%B7%AF%E7%94%B1%E5%99%A8">2-2.使用路由器</a></li>
+<li><a href="#%E6%96%B9%E6%B3%952%E5%BC%95%E5%85%A5user%E8%B7%AF%E7%94%B1%E5%99%A8">方法2：引入user路由器</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#11%E4%B8%AD%E9%97%B4%E4%BB%B6">11.中间件</a>
+<ul>
+<li><a href="#%E4%B8%80%E6%A6%82%E5%BF%B5">一.概念</a></li>
+<li><a href="#%E4%BA%8Cnext%E6%96%B9%E6%B3%95">二.next方法</a></li>
+<li><a href="#%E4%B8%89%E4%B8%BB%E8%A6%81%E4%BD%9C%E7%94%A8">三.主要作用</a>
+<ul>
+<li><a href="#1-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%AD%E9%97%B4%E4%BB%B6">1.  错误处理中间件</a>
+<ul>
+<li><a href="#1%E8%87%AA%E5%AE%9A%E4%B9%89404%E9%A1%B5%E9%9D%A2%E7%94%B1%E4%BA%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BB%8E%E4%B8%8A%E5%BE%80%E4%B8%8B%E6%89%A7%E8%A1%8C%E6%95%85%E5%9C%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%A6%81%E6%94%BE%E5%88%B0%E6%9C%80%E5%90%8E%E5%86%99">1）自定义404页面（由于中间件从上往下执行,故在代码中要放到最后写）</a></li>
+<li><a href="#2%E9%94%99%E8%AF%AF%E7%BB%9F%E4%B8%80%E5%A4%84%E7%90%86%E5%9C%A8fs%E8%AF%BB%E6%96%87%E4%BB%B6%E6%97%B6%E5%9C%A8%E5%87%BA%E7%8E%B0err%E6%97%B6%E4%BD%BF%E7%94%A8nexterr%E4%BC%A0%E5%85%A5%E5%8F%A6%E5%A4%96%E4%B8%80%E4%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%BB%9F%E4%B8%80%E5%A4%84%E7%90%86">2).错误统一处理(在fs读文件时，在出现err时使用next(err)传入另外一个中间件统一处理)</a></li>
+</ul>
+</li>
+<li><a href="#2%E5%86%85%E7%BD%AE%E4%B8%AD%E9%97%B4%E4%BB%B6%E9%85%8D%E7%BD%AE%E5%93%8D%E5%BA%94%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6">2.内置中间件（配置响应静态文件）</a>
+<ul>
+<li><a href="#%E8%AF%AD%E6%B3%95">语法：</a></li>
+<li><a href="#%E7%B2%BE%E5%BF%83%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%93%8D%E5%BA%94%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%96%B9%E6%B3%95%E6%8E%A8%E8%8D%90">精心设计的响应静态资源方法(推荐)</a></li>
+</ul>
+</li>
+<li><a href="#3%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6body-parser%E7%9A%84%E4%BD%BF%E7%94%A8">3.常用中间件body-parser的使用</a></li>
+<li><a href="#4%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%AD%E9%97%B4%E4%BB%B6">4.第三方中间件</a></li>
+<li><a href="#5%E5%BA%94%E7%94%A8%E7%BA%A7%E4%B8%AD%E9%97%B4%E4%BB%B6">5.应用级中间件</a></li>
+<li><a href="#6%E8%B7%AF%E7%94%B1%E7%BA%A7%E4%B8%AD%E9%97%B4%E4%BB%B6">6.路由级中间件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/chuang-ye/">
+          <h3 class="post-title">
+            随笔
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

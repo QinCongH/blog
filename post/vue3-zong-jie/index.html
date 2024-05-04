@@ -1,0 +1,1250 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue3总结 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Vue3总结 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="
+新增组合式API，Vue 的组件可以按两种不同的风格书写：选项式 API 和组合式 API。
+
+1. 动态绑定属性
+&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive } ..." />
+  <meta name="keywords" content="vue" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            Vue3总结
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-25
+            </span>
+            <span>
+              24 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/hKztIRrYz/" class="post-tag">
+              # vue
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <blockquote>
+<p>新增组合式API，Vue 的组件可以按两种不同的风格书写：选项式 API 和组合式 API。</p>
+</blockquote>
+<h1 id="1-动态绑定属性">1. 动态绑定属性</h1>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive } from 'vue';
+const boxStyle = reactive({
+  class: ['box1', 'box2'],
+  style: {
+    fontSize: '20px',
+    color: 'red',
+  },
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div v-bind=&quot;boxStyle&quot;&gt;动态属性&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h1 id="2-动态参数">2. 动态参数</h1>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, computed } from 'vue';
+// 1. 动态事件
+const isChange = ref('click');
+const handlerFun = () =&gt; {
+  console.log(111, isChange.value);
+};
+// 2. 复杂参数使用计算属性
+const num = ref(2);
+let arr = ['class', 'style', 'off'];
+let setClassName = computed(() =&gt; {
+  return arr[num.value];
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- 1. 动态事件 --&gt;
+  &lt;!-- &lt;button v-on:[isChange]=&quot;handlerFun&quot;&gt;动态事件&lt;/button&gt; 
+  下面是简写
+  --&gt;
+  &lt;!-- 2. 复杂参数使用计算属性 
+  &lt;div off=&quot;2&quot;&gt;复杂参数使用计算属性&lt;/div&gt;
+   --&gt;
+  &lt;div :[setClassName]=&quot;num&quot;&gt;复杂参数使用计算属性&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h1 id="3-reactive和ref">3. reactive和ref</h1>
+<blockquote>
+<ol>
+<li>reactive响应式对象其实是 JavaScript Proxy代理，其行为表现与一般对象相似。不同之处在于 Vue 能够跟踪对响应式对象属性的访问与更改操作。创建引用类型(集合类型)的响应式对象，对基本类型无效。</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>ref创建基本数据类型的响应式值 在setup中使用.value访问，在模板中被自动“解包”（不需要加.value）</li>
+</ol>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive, ref } from 'vue';
+// 1. ref
+const num = ref(1);
+console.log(num.value);
+// 1.1 也可以直接使用ref创建基本类型响应式
+const obj = ref({
+  a: 1,
+});
+// 1.2 赋值
+obj.value = {
+  a: 2,
+};
+obj.value.a = 3;
+console.log(obj);
+// 1.3 解包
+//  - 对象解包
+const count = ref(1);
+const obj1 = reactive({
+  count, //深层式赋值可行
+});
+console.log('赋值前:', obj1.count, count.value); //1,1
+//此时赋值reactive和ref中的值都会改变
+obj1.count = 2;
+console.log('赋值:', obj1.count, count.value); //2,2
+// -数组解包
+const arr = reactive([ref('nihao')]);
+//获取值需要加上value
+console.log(arr[0].value); //nihao
+// 2. reactive
+const data = reactive({
+  age: 18,
+  name: 'XiaoMing',
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- 1 --&gt;
+  &lt;div&gt;{{ num }}&lt;/div&gt;
+  &lt;div&gt;{{ obj }}&lt;/div&gt;
+  &lt;!-- { &quot;age&quot;: 18, &quot;name&quot;: &quot;XiaoMing&quot; } --&gt;
+  &lt;div&gt;{{ data }}&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<h1 id="4-使用setup函数">4. 使用setup()函数</h1>
+<pre><code>&lt;!-- 1. 使用setup(props?,context?)函数
+手动暴露大量的状态和方法,props参数，接收组件传进来的属性值。context接收上下文传透，插槽，事件和暴露。
+注意点：
+1. setup函数中的this是undefined
+2. setup是要是一个同步函数
+3. setup函数中的props直接结构赋值会失去响应式,应该使用 toRefs 和 toRef 这两个工具函数（toRefs将多个props转换为ref，toRef转换单个属性为ref）
+4. setup函数中的context参数提供上下文,context中提供attrs, slots, emit, expose这四个方法
+ --&gt;
+&lt;script&gt;
+import { ref, reactive, toRefs, toRef, expose } from 'vue';
+export default {
+  props: {
+    title: {
+      default: 'biaoti',
+      type: String,
+    },
+  },
+  setup(props, context) {
+    const num = ref(0);
+    const add = () =&gt; {
+      num.value++;
+    };
+    // 1. props
+    // 将 `props` 转为一个其中全是 ref 的对象，然后解构
+    const { title } = toRefs(props);
+    // `title` 是一个追踪着 `props.title` 的 ref
+    console.log(title.value); //biaoti
+    // 或者，将 `props` 的单个属性转为一个 ref
+    // const title = toRef(props, 'title')
+    // 2. context
+    /*
+    // 透传 Attributes（非响应式的对象，等价于 $attrs）
+    console.log(context.attrs)
+    // 插槽（非响应式的对象，等价于 $slots）
+    console.log(context.slots)
+    // 触发事件（函数，等价于 $emit）
+    console.log(context.emit)
+    // 暴露公共属性（函数）
+    console.log(context.expose)
+    */
+    //3. 使用expose暴露公共属性，当父组件通过模板引用访问该组件的实例时，将仅能访问 expose 函数暴露出的内容
+    //- 让组件实例处于 “关闭状态” 即不向父组件暴露任何东西
+    expose();
+    // - 有选择暴露，父组件可以通过模板访问到这个属性
+    expose({
+      count: num,
+    });
+
+    return {
+      //需要
+      num,
+      add,
+    };
+  },
+};
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div&gt;{{ num }}&lt;/div&gt;
+  &lt;button @click=&quot;add&quot;&gt;add&lt;/button&gt;
+&lt;/template&gt;
+
+</code></pre>
+<h1 id="5-使用单文件组件中的script-setup">5. 使用单文件组件中的<code>&lt;script setup&gt;</code></h1>
+<p><code>Demo.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+/*
+理解：
+1. 支持ts，提高运行性能。(能够使用纯 TypeScript 声明 props 和自定义事件。更好的运行时性能。)
+2. &lt;script setup&gt; 中的代码会在每次组件实例被创建的时候执行。
+3. 模板中直接使用。（任何在 &lt;script setup&gt; 声明的顶层的绑定 (包括变量，函数声明，以及 import 导入的内容) 都能在模板中直接使用）
+*/
+import {
+  ref,
+  reactive,
+  defineProps,
+  withDefaults,
+  useSlots,
+  useAttrs,
+} from 'vue';
+// 1. 响应式
+const num = ref(1);
+const obj = reactive({
+  age: 12,
+});
+// 2. 自定义指令。必须遵循 vNameOfDirective 这样的命名规范
+const vColorRed = {
+  beforeMount(el) {
+    el.style.color = 'red';
+  },
+};
+// 3. 使用 defineProps 和 defineEmits API。
+// 在声明 props 和 emits 选项时获得完整的类型推导支持
+// defineProps 接收与 props 选项相同的值，defineEmits 接收与 emits 选项相同的值。
+
+// 3.1 props
+// const props = defineProps({
+//   testName: String,
+// });
+// 在创建props时使用withDefaults声明默认值。使用接口创建类型，withDefaults设置默认值
+interface Props {
+  testName: String;
+}
+const props = withDefaults(defineProps&lt;Props&gt;(), {
+  testName: 'nihao',
+});
+console.log(props); //{testName: 'demo'}
+
+// 3.2 emit，模板中使用emit('change')传事件，父组件使用@change接收事件
+const emit = defineEmits(['change']);
+
+//4. useSlots() 和 useAttrs()
+// 得到vue实例上的$slots 和 $attrs
+const slots = useSlots();
+const attrs = useAttrs();
+console.log('slots', slots);
+console.log('attrs', attrs); //attrs {once: 'sfdfsd'}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    {{ num }}
+    {{ obj }}
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;p v-color-red&gt;自定义指令——字体变红&lt;/p&gt;
+    &lt;!--创建自定义事件  --&gt;
+    &lt;button @click=&quot;emit('change')&quot;&gt;自定义事件&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<p><code>App.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import Demo from './Demo.vue';
+const change = () =&gt; {
+  console.log('子组件事件');
+};
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;Demo testName=&quot;demo&quot; @change=&quot;change&quot; once=&quot;sfdfsd&quot; /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+
+</code></pre>
+<h1 id="6-计算属性">6. 计算属性</h1>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+/*
+计算属性与方法的最大区别：
+计算属性值会基于其响应式依赖被缓存。一个计算属性仅会在其响应式依赖更新时才重新计算。
+*/
+import { computed, ref } from 'vue';
+const num = ref(1);
+const numScale = computed(() =&gt; {
+  return num.value * 2;
+});
+const addNum = () =&gt; {
+  num.value++;
+  return null;
+};
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    num: {{ num }} numScale: {{ numScale }}
+    &lt;button @click=&quot;addNum&quot;&gt;点击&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h1 id="7-class和style">7. class和style</h1>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive, ref, computed } from 'vue';
+//当class或者style的判断比较复杂时与计算属性结合
+const isShow = ref(true);
+const myClass = computed(() =&gt; ({
+  active: isShow.value,
+}));
+const myStyle = computed(() =&gt; ({
+  color: isShow.value ? 'red' : '#000',
+}));
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div :class=&quot;myClass&quot; :style=&quot;myStyle&quot;&gt;动态属性&lt;/div&gt;
+  &lt;button @click=&quot;isShow = !isShow&quot;&gt;
+    {{ isShow ? '红色' : '黑色' }}
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<p>#　8. 侦听器</p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive, watch, ref, computed, watchEffect } from 'vue';
+// 1. wath(侦听对象，侦听回调方法,options)。 侦听指定的依赖对象
+
+// 1-1. 监听响应属性值
+const num = ref(0);
+watch(
+  num,
+  (newV, oldV) =&gt; {
+    console.log('newV', newV);
+    console.log('oldV', oldV);
+  },
+  {
+    // deep: true,
+    immediate: true,
+  }
+);
+const changeNum = () =&gt; {
+  num.value++;
+};
+
+// 1-2. 监听对象中的属性时需要使用computed
+const obj = reactive({
+  a: 1,
+  b: 2,
+});
+watch(
+  computed(() =&gt; obj.a),
+  (newV, oldV) =&gt; {
+    console.log('newV', newV);
+    console.log('oldV', oldV);
+  },
+  {
+    // deep: true,//深度监听
+    immediate: true, //立即更新
+    // flush: 'post',//访问被 Vue 更新之后的 DOM
+  }
+);
+const changeAttr = () =&gt; {
+  obj.a++;
+};
+
+// 2. watchEffect(侦听回调方法,options) 会在副作用发生期间(方法里的响应值发生变化时)追踪依赖。自动跟踪回调的响应式依赖
+watchEffect(
+  () =&gt; {
+    console.log(obj.a);
+    console.log(num.value);
+  },
+  {
+    //  flush: 'post'
+  }
+);
+// 3.停止监听器
+const unwatch = watchEffect(() =&gt; {});
+
+// ...当该侦听器不再需要时
+unwatch();
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;button @click=&quot;changeNum&quot;&gt;changeNum&lt;/button&gt;
+  &lt;button @click=&quot;changeAttr&quot;&gt;changeAttr&lt;/button&gt;
+  &lt;button @click=&quot;unwatch&quot;&gt;unwatch&lt;/button&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h1 id="9-模板引用">9. 模板引用</h1>
+<blockquote>
+<p>模板上的ref允许在DOM元素创建和加载之后获取到Dom</p>
+</blockquote>
+<p><code>Demo.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+// ref: 模板上的ref允许在DOM元素创建和加载之后获取到Dom
+import { reactive, ref, onMounted, watchEffect } from 'vue';
+// 1. 获取单个ref
+const testRef = ref(null);
+// 2. 获取一组ref,将ref绑定在v-for上面时
+const testRefs = ref([]);
+// 3. 动态ref ref可以是一个方法
+const testRef3 = ref(null);
+//在onMounted(组件挂载成功)获取到模板ref
+onMounted(() =&gt; {
+  console.log(testRef.value); //  &lt;div&gt;动态属性&lt;/div&gt;
+  console.log(testRefs.value);
+  console.log(testRef3.value); //&lt;div&gt;testRef3&lt;/div&gt;
+});
+//在watchEffect中获取到ref 需要考虑到ref为null的情况
+watchEffect(() =&gt; {
+  if (testRef.value) {
+    console.log(testRef.value);
+  } else {
+    // 此时还未挂载，或此元素已经被卸载（例如通过 v-if 控制）
+  }
+});
+
+// 4. 一个父组件无法访问到一个使用了 &lt;script setup&gt; 的子组件中的任何东西，除非子组件在其中通过 defineExpose 宏显式暴露
+defineExpose({
+  testRef,
+  testRefs,
+  testRef3,
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div ref=&quot;testRef&quot;&gt;动态属性&lt;/div&gt;
+  &lt;div v-for=&quot;item in 2&quot; :key=&quot;item&quot; ref=&quot;testRefs&quot;&gt;
+    &lt;p&gt;{{ item }}&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div :ref=&quot;(el) =&gt; (testRef3 = el)&quot;&gt;testRef3&lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p><code>App.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from 'vue';
+const demo = ref(null);
+onMounted(() =&gt; {
+  console.log(demo.value);
+  // 打印value中存在testRef，testRefs,testRef3
+});
+import Demo from './Demo.vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;Demo ref=&quot;demo&quot; /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+
+</code></pre>
+<p>#　10. 动态组价</p>
+<blockquote>
+<p><component> 元素和特殊的 is attribute 实现,is属性接收组件注册的name属性或者引入的模块名称.is 的值必须加上前缀:<br>
+当切换多个组件时 想要组件保持存活状态，可以使用KeepAlive来缓存组件</p>
+</blockquote>
+<p><code>TestOne.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive } from 'vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;test-one&quot;&gt;TestOne&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+.test-one {
+  width: 200px;
+  height: 50px;
+  background: skyblue;
+}
+&lt;/style&gt;
+
+</code></pre>
+<p><code>TestTwo.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive } from 'vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;test-two&quot;&gt;TestTwo&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+.test-two {
+  width: 200px;
+  height: 50px;
+  background: pink;
+}
+&lt;/style&gt;
+
+</code></pre>
+<p><code>Demo.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+//&lt;component&gt; 元素和特殊的 is attribute 实现,is属性接收组件注册的name属性或者引入的模块名称.is 的值必须加上前缀:
+//当切换多个组件时 想要组件保持存活状态，可以使用KeepAlive来缓存组件
+import { ref } from 'vue';
+import TestOne from '../components/TestOne/index.vue';
+import TestTwo from '../components/TestTwo/index.vue';
+const show = ref(1);
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;div class=&quot;box&quot;&gt;
+      &lt;div class=&quot;top&quot;&gt;
+        &lt;p @click=&quot;show = 1&quot;&gt;组件1&lt;/p&gt;
+        &lt;p @click=&quot;show = 2&quot;&gt;组件2&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;bottom&quot;&gt;
+        &lt;component :is=&quot;show === 1 ? TestOne : TestTwo&quot;&gt;&lt;/component&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+.box {
+}
+.top {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+&lt;/style&gt;
+
+</code></pre>
+<h1 id="11-组件自定义v-model">11. 组件自定义v-model</h1>
+<p>移步到这篇文章： https://www.heerblog.top/viewArticle?aid=96035f11-2209-9d4c-9d96-05339c924a11</p>
+<p><code>Demo.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+/*
+vue3之前在组件中自定义v-model时props是使用value接收值，现在使用modalValue接收
+*/
+import {
+  reactive,
+  withDefaults,
+  defineProps,
+  defineEmits,
+  computed,
+} from 'vue';
+interface Props {
+  modelValue: String; //父组件使用v-model=&quot;modelValue&quot;
+  twoValue: String; //父组件使用v-model:twoValue=&quot;modelValue&quot;
+}
+const props = withDefaults(defineProps&lt;Props&gt;(), {
+  modelValue: '', //默认值
+  twoValue: '',
+});
+const emit = defineEmits(['update:modelValue', 'update:twoValue']);
+
+//此时使用withDefaults设置了props默认值，
+//props是流式的，无法更改
+//,所以需要使用计算属性计算出新值
+const value = computed(() =&gt; {
+  //通过计算属性绑定新值
+  return props.modelValue;
+});
+const twoValue = computed(() =&gt; {
+  return props.twoValue;
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;box&quot;&gt;
+    &lt;input
+      type=&quot;text&quot;
+      v-model=&quot;value&quot;
+      @input=&quot;emit('update:modelValue', $event.target.value)&quot;
+    /&gt;
+    &lt;input
+      type=&quot;text&quot;
+      v-model=&quot;TwoValue&quot;
+      @input=&quot;emit('update:twoValue', $event.target.value)&quot;
+    /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><code>App.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from 'vue';
+const keyword = ref('');
+const twoValue = ref('');
+import Demo from './Demo.vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;Demo v-model=&quot;keyword&quot; v-model:twoValue=&quot;twoValue&quot; /&gt;
+    modelValue: {{ keyword }}
+
+    twoValue:{{ twoValue }}
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<h1 id="12-禁用attributes继承">12. 禁用Attributes继承</h1>
+<pre><code>&lt;script lang=&quot;ts&quot;&gt;
+// 使用普通的 &lt;script&gt; 来声明选项
+export default {
+  inheritAttrs: false,
+};
+&lt;/script&gt;
+&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive, useAttrs } from 'vue';
+const attrs = useAttrs(); //或者直接在模板中使用$attrs
+console.log(attrs); //{demo: 'test', __vInternal: 1}
+/*
+如果你不想要一个组件自动地继承 attribute，你可以在组件选项中设置 inheritAttrs: false
+*/
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;{{ attrs }}&lt;/div&gt;
+  &lt;div&gt;{{ $attrs }}&lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h1 id="13-依赖和注入provide和-inject">13. 依赖和注入(<code>provide</code>和 <code>inject</code>)</h1>
+<h2 id="总结">总结</h2>
+<p>父传子方案：<br>
+provide 和 inject解决&quot;prop 逐级透传&quot;问题。一个父组件相对于其所有的后代组件，会作为依赖提供者。任何后代的组件树，无论层级有多深，都可以注入由父组件提供给整条链路的依赖。</p>
+<ol>
+<li>传值与注入值</li>
+</ol>
+<ul>
+<li>provide传值<br>
+<code>provide(/* 注入名 */ 'message', /* 值 */ 'hello!')</code></li>
+<li>inject注入值<br>
+<code>const value = inject('message', '这是默认值')</code></li>
+</ul>
+<ol start="2">
+<li>传响应式的值,修改响应式的值使用方法</li>
+</ol>
+<ul>
+<li>provide传值</li>
+</ul>
+<pre><code>const name = ref('');
+const updateName = (e) =&gt; {
+  name.value = e.target.value;
+};
+provide('name', {
+  name,
+  updateName//更新值的方法
+});
+</code></pre>
+<ul>
+<li>inject注入值</li>
+</ul>
+<pre><code>const { name, updateName } = inject('name');
+//使用updateName更新
+</code></pre>
+<ol start="3">
+<li>可以使用readonly()禁止修改</li>
+<li>官方建议使用 Symbol 作注入名,避免键名冲突</li>
+</ol>
+<h2 id="案例">案例</h2>
+<blockquote>
+<p>创建Demo父组件，Demo父组件下有一个DemoZindexTwo子组件，DemoZindexTwo组件下有一个DemoZindexOne组件。使用provide将Demo组件数据传递到子组件DemoZindexOne中，实现祖孙数据传递。</p>
+</blockquote>
+<p>第一层子组件 <code>DemoZindexTwo/index.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import DemoZindexOne from '../DemoZindexOne/index.vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div style=&quot;width: 200px; height: 200px; background: pink&quot;&gt;
+    DemoZindexTwo
+    &lt;DemoZindexOne /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<p>第二层子组件：<code>DemoZindexOne/index.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { inject } from 'vue';
+import { myInjectionKey } from '../../utils/key.ts';//Symbol键名
+const age = inject('age', 1); //inject('key',defaultValue)
+console.log('DemoZindexOne', age);
+const { name, updateName } = inject('name');
+console.log('DemoZindexOne name', name);
+const myInjectValue = inject(myInjectionKey);
+console.log(myInjectValue); //nihao
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div style=&quot;width: 100px; height: 100px; background: green; font-size: 12px&quot;&gt;
+    DemoZindexOne
+    {{ name }}
+    &lt;input type=&quot;text&quot; @input=&quot;updateName&quot; :value=&quot;name&quot; /&gt;
+    {{ myInjectValue }}
+  &lt;/div&gt;
+&lt;/template&gt;
+
+</code></pre>
+<p>父组件：<code>Demo.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+/*
+父传子方案：
+ provide 和 inject解决&quot;prop 逐级透传&quot;问题。一个父组件相对于其所有的后代组件，会作为依赖提供者。任何后代的组件树，无论层级有多深，都可以注入由父组件提供给整条链路的依赖。
+*/
+import DemoZindexTwo from '../components/DemoZindexTwo/index.vue';
+import { myInjectionKey } from '../utils/key.ts';
+import { provide, ref, readonly } from 'vue';
+//1. 父组件传值
+provide('age', 18); //子组件接收：inject('age',defalutValue)
+//2. 传响应式的值,修改响应式的值使用方法
+const name = ref('');
+const updateName = (e) =&gt; {
+  console.log(e.target.value);
+  name.value = e.target.value;
+};
+provide('name', {
+  //传一个对象
+  name,
+  updateName,
+});
+//3. 可以使用readonly()禁止修改
+const count = ref(0);
+provide('count', readonly(count));
+//4. 使用 Symbol 作注入名,避免键名冲突
+const myInjectValue = provide(myInjectionKey, 'nihao');
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;DemoZindexTwo/&gt;
+    &lt;input type=&quot;text&quot; @input=&quot;updateName&quot; :value=&quot;name&quot; /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p><code>App.vue</code></p>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref, onMounted } from 'vue';
+import Demo from './Demo.vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;Demo /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p>#　14. 异步组件</p>
+<blockquote>
+<p>defineAsyncComponent 方法接收一个返回 Promise 的加载函数。这个 Promise 的 resolve 回调方法应该在从服务器获得组件定义时调用。你也可以调用 reject(reason) 表明加载失败。</p>
+</blockquote>
+<p>官方文档说明: https://cn.vuejs.org/guide/components/async.html</p>
+<h1 id="15-组合式函数">15. 组合式函数</h1>
+<blockquote>
+<p>“组合式函数”(Composables) 是一个利用 Vue 的组合式 API 来封装和复用有状态逻辑的函数。将状态值暴露出去。将逻辑放在一起利于维护。</p>
+</blockquote>
+<p><code>Demo.vue</code></p>
+<pre><code>&lt;!--
+   “组合式函数”(Composables) 是一个利用 Vue 的组合式 API 来封装和复用有状态逻辑的函数。将状态值暴露出去。
+ --&gt;
+&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive } from 'vue';
+import { useRandomColor } from '../composables/useRandomColor/index.ts';
+import { useBoxRadius } from '../composables/useBoxRadius/index.ts';
+const { color, setColor } = useRandomColor(); //组合式函数。设置随机颜色
+const { setRadius } = useBoxRadius('box'); //传值的组合式函数。设置radius
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;div
+      id=&quot;box&quot;
+      :style=&quot;{ backgroundColor: color, width: '200px', height: '150px' }&quot;
+    &gt;&lt;/div&gt;
+    &lt;button @click=&quot;setColor&quot;&gt;设置随机颜色&lt;/button&gt;
+    &lt;button @click=&quot;setRadius(50)&quot;&gt;设置圆角值&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<p><code>composables/useRandomColor/index.ts</code></p>
+<pre><code>import { ref } from 'vue';
+export function useRandomColor() {
+  //获取随机颜色
+  const getRandomColor = () =&gt; {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i &lt; 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+  const color = ref('');
+  color.value = getRandomColor();
+  //设置颜色
+  const setColor = () =&gt; {
+    color.value = getRandomColor();
+  };
+  return {
+    //将组合式中的方法，状态暴露出去
+    color,
+    setColor,
+  };
+}
+
+</code></pre>
+<p><code>composables/useBoxRadius/index.ts</code></p>
+<pre><code>//设置圆角值
+export function useBoxRadius(boxDomId: string) {
+  const setRadius = (num: number) =&gt; {
+    console.log(boxDomId);
+    let boxDom = document.querySelector(`#${boxDomId}`) as HTMLElement;
+    console.log(boxDom);
+    if (boxDom &amp;&amp; boxDom.style) {
+      boxDom.style.borderRadius = `${num}px`;
+    }
+  };
+  return {
+    setRadius,
+  };
+}
+</code></pre>
+<p>#　16. <code>&lt;Teleport&gt; </code></p>
+<pre><code>&lt;!-- 
+  &lt;Teleport&gt; 是一个内置组件，它可以将一个组件内部的一部分模板“传送”到该组件的 DOM 结构外层的位置去。
+  props：（1）to 指向选择器  （2）disabled 是否禁用
+  &lt;Teleport to=&quot;选择器&quot; :disabled=&quot;false&quot;&gt;  
+ --&gt;
+&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive, ref } from 'vue';
+const show = ref(false);
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;button @click=&quot;show = true&quot;&gt;open modal&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;Teleport to=&quot;body&quot;&gt;
+    &lt;div class=&quot;modal&quot; v-show=&quot;show&quot;&gt;
+      &lt;button @click=&quot;show = false&quot;&gt;close modal&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/Teleport&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #ffffff20;
+  width: 100%;
+  height: 100%;
+}
+button {
+  margin-top: 50%;
+}
+&lt;/style&gt;
+
+</code></pre>
+<h1 id="17-css功能">17. css功能</h1>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { reactive, ref } from 'vue';
+const color = ref('red');
+const styles = reactive({
+  fontSize: '22px',
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;p :class=&quot;$style.test&quot;&gt;css Modules&lt;/p&gt;
+    &lt;p :class=&quot;modules.test&quot;&gt;css Modules 自定义名称&lt;/p&gt;
+    &lt;p class=&quot;ref&quot;&gt;v-bind语法&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+/*
+  1. scoped。 带有 scoped attribute 的时候，它的 CSS 只会影响当前组件的元素
+ */
+/* 
+  2. :deep() 这个伪类访问根节点,子组件内深度内容
+ */
+:deep(.text) {
+  color: red;
+}
+/* 
+ 3. :slotted() 伪类以明确地将插槽内容作为选择器的目标
+*/
+:slotted(div) {
+  color: red;
+}
+
+/* 
+ 4.  :global() 伪类让其中一个样式规则应用到全局
+*/
+:global(.red) {
+  color: red;
+}
+
+/*
+ 5. v-bind语法 将响应式属性应用到css上
+  */
+.ref {
+  color: v-bind('color');
+  font-size: v-bind('styles.fontSize');
+}
+&lt;/style&gt;
+
+&lt;!-- 6. 混合使用局部与全局样式
+&lt;style&gt;
+/* 全局样式 */
+&lt;/style&gt;
+&lt;style scoped&gt;
+/* 局部样式 */
+&lt;/style&gt;
+ --&gt;
+
+&lt;!-- /* 
+ 7. CSS Modules  使用$style.className访问。
+&lt;p :class=&quot;$style.test&quot;&gt;css Modules&lt;/p&gt;
+*/ --&gt;
+&lt;style module&gt;
+.test {
+  color: skyblue;
+}
+&lt;/style&gt;
+&lt;!-- /* 
+ 8. css Modules可以也可自定义名称
+ &lt;p :class=&quot;modules.test&quot;&gt;css Modules 自定义名称&lt;/p&gt;
+*/ --&gt;
+&lt;style module=&quot;modules&quot;&gt;
+.test {
+  color: red;
+}
+&lt;/style&gt;
+
+</code></pre>
+<h1 id="vue-api">vue API</h1>
+<p>https://cn.vuejs.org/api/</p>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A%E5%B1%9E%E6%80%A7">1. 动态绑定属性</a></li>
+<li><a href="#2-%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0">2. 动态参数</a></li>
+<li><a href="#3-reactive%E5%92%8Cref">3. reactive和ref</a></li>
+<li><a href="#4-%E4%BD%BF%E7%94%A8setup%E5%87%BD%E6%95%B0">4. 使用setup()函数</a></li>
+<li><a href="#5-%E4%BD%BF%E7%94%A8%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84script-setup">5. 使用单文件组件中的<code>&lt;script setup&gt;</code></a></li>
+<li><a href="#6-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">6. 计算属性</a></li>
+<li><a href="#7-class%E5%92%8Cstyle">7. class和style</a></li>
+<li><a href="#9-%E6%A8%A1%E6%9D%BF%E5%BC%95%E7%94%A8">9. 模板引用</a></li>
+<li><a href="#11-%E7%BB%84%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89v-model">11. 组件自定义v-model</a></li>
+<li><a href="#12-%E7%A6%81%E7%94%A8attributes%E7%BB%A7%E6%89%BF">12. 禁用Attributes继承</a></li>
+<li><a href="#13-%E4%BE%9D%E8%B5%96%E5%92%8C%E6%B3%A8%E5%85%A5provide%E5%92%8C-inject">13. 依赖和注入(<code>provide</code>和 <code>inject</code>)</a>
+<ul>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E6%A1%88%E4%BE%8B">案例</a></li>
+</ul>
+</li>
+<li><a href="#15-%E7%BB%84%E5%90%88%E5%BC%8F%E5%87%BD%E6%95%B0">15. 组合式函数</a></li>
+<li><a href="#17-css%E5%8A%9F%E8%83%BD">17. css功能</a></li>
+<li><a href="#vue-api">vue API</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/vue-ji-chu-ru-men/">
+          <h3 class="post-title">
+            vue基础入门
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

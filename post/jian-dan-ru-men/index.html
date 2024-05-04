@@ -1,0 +1,1818 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>项目开发工具与ArkTs入门 | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="项目开发工具与ArkTs入门 | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="api文档属性和事件列表：
+https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V2/2_2_u7ec4_u4ef6_u901a_u7528_u4fe1_u60..." />
+  <meta name="keywords" content="HarmonyOS" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            项目开发工具与ArkTs入门
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-18
+            </span>
+            <span>
+              25 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/sjEwf3qeE/" class="post-tag">
+              # HarmonyOS
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <p>api文档属性和事件列表：<br>
+https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V2/2_2_u7ec4_u4ef6_u901a_u7528_u4fe1_u606f-0000001478341097-V2</p>
+<h1 id="一-开发工具">一. 开发工具</h1>
+<h2 id="1-ide环境配置">1. IDE环境配置</h2>
+<p>学习的鸿蒙第一步就是下载华为DevEco Studio开发工具，点击下面的链接进入华为的官网下载。<br>
+<a href="https://developer.huawei.com/consumer/cn/deveco-studio/">IDE下载地址</a></p>
+<p>下载好开发工具后打开，根据提示配置NodeJs和ohpm，安装Harmony Sdk。</p>
+<h2 id="2-创建并运行项目">2. 创建并运行项目</h2>
+<p>创建项目：打开开发者工具=&gt;创建一个项目<br>
+运行项目：previewer预览或者创建一个模拟器预览。</p>
+<h2 id="3-工程目录">3. 工程目录</h2>
+<p>AppScope 存放应用全局所需要的资源文件。<br>
+entry 应用的主模块，存放HarmonyOS应用的代码、资源等。<br>
+oh_modules 工程的依赖包，存放工程依赖的源文件。<br>
+build-profile.json5 工程级配置信息，包括签名、产品配置等。<br>
+hvigorfile.ts 工程级编译构建任务脚本，hvigor是基于任务管理机制实现的一款全新的自动化构建工具，主要提供任务注册编排，工程模型管理、配置管理等核心能力。<br>
+oh-package.json5 工程级依赖配置文件，用于记录引入包的配置信息。</p>
+<h2 id="4-官方文档">4. 官方文档</h2>
+<p><a href="https://developer.huawei.com/consumer/cn/training/course/slightMooc/C101667303102887820?ha_linker=eyJ0cyI6MTcwMjkwNDYzNTQyNCwiaWQiOiIxM2E3Mjc4NjJmYjc2MjE1ZTVmYjc5MmMyYmE5ZDE3NiJ9">https://developer.huawei.com/consumer/cn/training/course/slightMooc/C101667303102887820?ha_linker=eyJ0cyI6MTcwMjkwNDYzNTQyNCwiaWQiOiIxM2E3Mjc4NjJmYjc2MjE1ZTVmYjc5MmMyYmE5ZDE3NiJ9</a></p>
+<h1 id="二-arkts入门">二. ArkTs入门</h1>
+<blockquote>
+<p>前置知识<br>
+ArkTS在TS的类型系统的基础上，做了进一步的扩展：定义了各种装饰器、自定义组件和UI描述机制。学习arkTs需要会js和ts。</p>
+</blockquote>
+<p>查看typescript文档<br>
+<a href="https://developer.huawei.com/consumer/cn/training/course/slightMooc/C101667356568959645">https://developer.huawei.com/consumer/cn/training/course/slightMooc/C101667356568959645</a></p>
+<h2 id="1-声明式ui描述">1. 声明式UI描述</h2>
+<h3 id="1-1-组件表示">1-1. 组件表示</h3>
+<ol>
+<li>有参数组件</li>
+</ol>
+<pre><code>Text('这是文本内容')
+</code></pre>
+<ol start="2">
+<li>无参数组件</li>
+</ol>
+<pre><code>Text()
+</code></pre>
+<h3 id="1-2-配置组件的属性">1-2. 配置组件的属性</h3>
+<ol>
+<li>配置单个属性</li>
+</ol>
+<pre><code>Text('这是文本内容').fontSize(20)
+</code></pre>
+<ol start="2">
+<li>配置多个属性</li>
+</ol>
+<pre><code>Image('test.jpg')
+  .alt('error.jpg')    
+  .width(100)    
+  .height(100)
+</code></pre>
+<ol start="3">
+<li>属性传递变量或者表达式</li>
+</ol>
+<pre><code>Text('hello')
+  .fontSize(this.size)
+Image('test.jpg')
+  .width(this.count % 2 === 0 ? 100 : 200)    
+  .height(this.offset + 100)
+</code></pre>
+<ol start="4">
+<li>使用ArkUI提供的枚举</li>
+</ol>
+<pre><code>Text('hello')
+  .fontSize(this.size)
+Image('test.jpg')
+  .width(this.count % 2 === 0 ? 100 : 200)    
+  .height(this.offset + 100)
+
+</code></pre>
+<h3 id="1-3-给组件添加事件">1-3. 给组件添加事件</h3>
+<ol>
+<li>使用箭头函数配置组件的事件方法。</li>
+</ol>
+<pre><code>Button('这是一个按钮')
+.onClick(()=&gt;{
+    console.log('点击了')
+})
+</code></pre>
+<p>或者使用组件声明的箭头函数</p>
+<pre><code>clickHandle=()=&gt;{
+     console.log('点击了')
+}
+Button('这是一个按钮')
+.onClick(this.clickHandle)
+</code></pre>
+<ol start="2">
+<li>使用匿名函数表达式配置组件的事件方法，要求使用bind，以确保函数体中的this指向当前组件。</li>
+</ol>
+<pre><code>Button('这是一个按钮')
+.onClick(function(){
+    console.log(this.message)
+}.bind(this))
+</code></pre>
+<p>或者使用组件声明的函数</p>
+<pre><code>clickHandle(){
+    console.log(this.message)
+}
+
+Button('这是一个按钮')
+.onClick(this.clickHandle.bind(this))
+</code></pre>
+<h3 id="1-4-组件嵌套配置子组件">1-4. 组件嵌套，配置子组件</h3>
+<p>Column、Row、Stack、Grid、List等组件都是容器组件,均支持子组件配置</p>
+<pre><code>Column() {
+  Row() {
+    Image('test1.jpg')
+      .width(100)
+      .height(100)
+    Button('click +1')
+      .onClick(() =&gt; {
+        console.info('+1 clicked!');
+      })
+  }
+}
+</code></pre>
+<ol start="2">
+<li>
+<h2 id="常用装饰器">常用装饰器</h2>
+</li>
+</ol>
+<h3 id="entry">@Entry</h3>
+<p>@Entry装饰的自定义组件将作为UI页面的入口。在单个UI页面中，最多可以使用@Entry装饰一个自定义组件。@Entry可以接受一个可选的LocalStorage的参数。</p>
+<pre><code>@Entry
+@Component
+struct MyComponent {
+}
+</code></pre>
+<h3 id="component">@Component</h3>
+<p>@Component装饰器仅能装饰struct关键字声明的数据结构。struct被@Component装饰后具备组件化的能力，需要实现build方法描述UI，一个struct只能被一个@Component装饰。</p>
+<pre><code>@Component
+struct MyComponent{
+
+}
+</code></pre>
+<h3 id="builder">@Builder</h3>
+<p>通过自定义构建函数构建自定义组件。被@Builder装饰的函数是组件内私有成员函数，只能在组件的build方法中使用，不能在组件外部使用。在组件内通过this访问。</p>
+<ul>
+<li>组件中使用</li>
+</ul>
+<pre><code>@Component
+struct MyComponent{
+// 定义
+@Builder MyBuilderFunction(){ 
+    Text('你好')
+}
+// 使用
+this.MyBuilderFunction()
+}
+</code></pre>
+<ul>
+<li>全局中使用</li>
+</ul>
+<pre><code>// 全局创建自定义构建函数
+@Builder function builderComponent(){
+  Button('这是一个全局按钮')
+}
+@Entry()
+@Component
+struct Index {
+  build() {
+    Row() {
+      Column() {
+          // 组件引用
+        builderComponent()
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+
+</code></pre>
+<ul>
+<li>按引用地址传递</li>
+</ul>
+<p>按引用传递参数时，传递的参数可为状态变量，且状态变量的改变会引起@Builder方法内的UI刷新。</p>
+<p>ArkUI提供$$作为按引用传递参数的范式。</p>
+<pre><code>@Builder function builderComponent($$:{text:string}){
+  Button($$.text)
+}
+
+// 组件中传参
+builderComponent({text:'这是自定义的构建函数组件'})
+</code></pre>
+<ul>
+<li>按值传递参数</li>
+</ul>
+<p>调用@Builder装饰的函数默认按值传递。当传递的参数为状态变量时，状态变量的改变不会引起@Builder方法内的UI刷新。</p>
+<pre><code>@Builder function builderComponent(text:string='自定义文本'){
+  Button(text)
+}
+
+// 组件中传参
+builderComponent('这是自定义的构建函数组件')
+</code></pre>
+<h3 id="builderparam">@BuilderParam</h3>
+<p>@BuilderParam用来装饰指向@Builder方法的变量，开发者可在初始化自定义组件时对此属性进行赋值，为自定义组件增加特定的功能。该装饰器用于声明任意UI描述的一个元素，类似slot占位符。</p>
+<p>现在我以创建一个自定义的Layou布局组件为示例，实现布局头部和底部通过组件传递，并且支持设置默认值</p>
+<h4 id="1-builderparam-设置默认值">1. @BuilderParam 设置默认值</h4>
+<pre><code>
+@Entry()
+@Component
+struct Index {
+  build() {
+    Column(){
+      MyComponent()
+    }
+  }
+}
+@Component
+struct  MyComponent {
+  build(){
+      Column(){
+        LayoutComponent()
+      }.width('100%')
+      .height('100%')
+      .backgroundColor(Color.Blue)
+  }
+}
+@Component
+struct  LayoutComponent {
+  // @BuilderParam 设置默认值
+  @Builder HeaderComponent(){
+    Text('header')
+  }
+  @Builder FooterComponent(){
+    Text('footer')
+  }
+  // 定义并设置默认值
+  @BuilderParam LayoutHeader:()=&gt;void=this.HeaderComponent;
+  @BuilderParam LayoutFooter:()=&gt;void=this.FooterComponent;
+  build(){
+      Column(){
+        this.LayoutHeader()// 定义占位
+        Text('主要内容')
+        this.LayoutFooter()// 定义占位
+      }.width('100%')
+      .height('100%')
+      .backgroundColor(Color.White)
+  }
+}
+</code></pre>
+<p>在上面代码中，我首先使用自定义构建函数@Builder装饰器创建了默认的元素，然后通过  @BuilderParam装饰器定义占位方法名称，并且设置了默认值；最后在自定义的组件中使用@BuilderParam装饰器创建的占位组件。</p>
+<h4 id="2-builderparam-不设置默认值">2. @BuilderParam 不设置默认值</h4>
+<p>不设置默认值的时候给组件默认赋值一个空，即void</p>
+<pre><code>
+@Entry()
+@Component
+struct Index {
+  build() {
+    Column(){
+      MyComponent()
+    }
+  }
+}
+@Component
+struct  MyComponent {
+  build(){
+      Column(){
+        LayoutComponent()
+      }.width('100%')
+      .height('100%')
+      .backgroundColor(Color.Blue)
+  }
+}
+@Component
+struct  LayoutComponent {
+  // 定义
+  @BuilderParam LayoutHeader:()=&gt;void;;
+  @BuilderParam LayoutFooter:()=&gt;void;
+  build(){
+      Column(){
+          // 此时直接使用将会报错，我们必须保证有组件将构造组件传进来。
+        this.LayoutHeader()
+        Text('主要内容')
+        this.LayoutFooter()
+      }.width('100%')
+      .height('100%')
+      .backgroundColor(Color.White)
+  }
+}
+</code></pre>
+<p>注意，此时直接在组件中使用将会报错，我们必须保证有组件将构造组件传进来。</p>
+<h4 id="3-在父组件引入组件的地方中传值">3. 在父组件（引入组件的地方）中传值</h4>
+<pre><code>@Entry()
+@Component
+struct Index {
+  build() {
+    Column(){
+      MyComponent()
+    }
+  }
+}
+@Component
+struct  MyComponent {
+    //自定义的构造器组件函数
+  @Builder HeaderComponent(){
+    Text('header')
+  }
+  @Builder FooterComponent(){
+    Text('footer')
+  }
+  build(){
+      Column(){
+          // 引入组件时传构造器组件函数
+        LayoutComponent({
+          LayoutHeader:this.HeaderComponent,
+          LayoutFooter:this.FooterComponent
+        })
+      }.width('100%')
+      .height('100%')
+      .backgroundColor(Color.Blue)
+  }
+}
+</code></pre>
+<p><a href="https://developer.harmonyos.com/cn/docs/documentation/doc-guides-V3/arkts-builderparam-0000001524416541-V3#section1857851331310">@BuilderParam官方文档</a></p>
+<h3 id="styles">@Styles</h3>
+<p>定义组件重用样式。</p>
+<p>注意点：1. @Styles不支持参数。 2. 可以在全局定义，需加上function关键字。局部定义则不需要加关键字。3. 在组件内定义的@Styles可以通过this访问组件的常量和状态常量。4. 组件内@Styles的优先级高于全局@Styles。</p>
+<h4 id="1-组件内使用styles">1. 组件内使用@Styles</h4>
+<pre><code>@Entry()
+@Component
+struct Index {
+  build() {
+    Column(){
+      MyComponent()
+    }
+  }
+}
+@Component
+struct  MyComponent {
+  //组件内 - 自定义组件样式
+  @Styles MyStyle(){
+    .width('100%')
+    .height('100%')
+    .backgroundColor(Color.Pink)
+  }
+  build(){
+      // 使用局部组件
+       Column(){
+       }.MyStyle()
+  }
+}
+</code></pre>
+<h4 id="2-全局使用styles">2. 全局使用@Styles</h4>
+<pre><code>  @Entry()
+  @Component
+  struct Index {
+    build() {
+      Column(){
+        MyComponent()
+      }
+    }
+  }
+  // 全局定义样式
+  @Styles function CommonStyle(){
+    .width('100%')
+    .height('100%')
+    .backgroundColor(Color.Pink)
+  }
+  @Component
+  struct  MyComponent {
+    build(){
+    // 使用全局定义的样式
+      Column(){
+      }.CommonStyle()
+    }
+  }
+
+</code></pre>
+<h4 id="3-在组件内使用状态变量">3. 在组件内使用状态变量</h4>
+<pre><code>  @Entry()
+  @Component
+  struct Index {
+    build() {
+      Column(){
+        MyComponent()
+      }
+    }
+  }
+  @Component
+  struct  MyComponent {
+    @State setWidth:string='100%';
+    @State setHeight:string='100%';
+    //组件内 - 自定义组件样式
+    @Styles MyStyle(){
+        // 使用自定义的状态变量
+      .width(this.setWidth)
+      .height(this.setHeight)
+      .backgroundColor(Color.Pink)
+    }
+    build(){
+        // 局部
+        Column(){
+        }.MyStyle()
+    }
+  }
+</code></pre>
+<h3 id="extend">@Extend</h3>
+<p>扩展组件样式<br>
+注意点：1. @Extend仅支持定义在全局。2. @Extend支持封装指定的组件的私有属性和私有事件和预定义相同组件的@Extend的方法。3.@Extend装饰的方法支持参数。参数可以为状态变量。</p>
+<h4 id="extend仅支持定义在全局并且传参">@Extend仅支持定义在全局并且传参</h4>
+<pre><code>
+  @Entry()
+  @Component
+  struct Index {
+    build() {
+      Column(){
+        MyComponent()
+      }
+    }
+  }
+  // 全局定义继承内置组件的样式
+  @Extend(Text) function TextCustom(color:string){
+    .fontSize('33vp')
+    .fontColor(color)
+  }
+  @Component
+  struct  MyComponent {
+    build(){
+      Column(){
+        Text('自定义文字')
+          .TextCustom('red') // 使用自定义的样式
+      }
+    }
+  }
+</code></pre>
+<h4 id="extend传递事件">@Extend传递事件</h4>
+<pre><code>  @Entry()
+  @Component
+  struct Index {
+    build() {
+      Column(){
+        MyComponent()
+      }
+    }
+  }
+  // 全局定义继承内置组件的样式
+  @Extend(Text) function TextCustom(color:string,onClick:()=&gt;void){
+    .fontSize('33vp')
+    .fontColor(color)
+    .onClick(onClick)
+  }
+    // 事件
+    myClickHandle=()=&gt;{
+      console.log('点击了')
+    }
+    build(){
+      Column(){
+          // 传递一个事件
+        Text('自定义文字')
+          .TextCustom('red',this.myClickHandle)
+      }
+    }
+  }
+</code></pre>
+<h3 id="多态样式-statestyles">多态样式 stateStyles</h3>
+<p>stateStyles是属性方法，可以根据UI内部状态来设置样式，类似于css伪类，但语法不同。ArkUI提供以下四种状态：<br>
+focused：获焦态。<br>
+normal：正常态。<br>
+pressed：按压态。<br>
+disabled：不可用态。</p>
+<pre><code>  @Entry()
+  @Component
+  struct Index {
+    build() {
+      Column(){
+        MyComponent()
+      }
+    }
+  }
+  @Component
+  struct  MyComponent {
+    build(){
+      Column(){
+        Button(&quot;这是一个按钮&quot;)
+          .stateStyles({
+            // 默认样式
+            normal:{
+              .backgroundColor('#222')
+            },
+            // 按压样式
+            pressed:{
+              .backgroundColor('#528d3a')
+            },
+           // 禁用样式
+            disabled:{
+              .opacity(.5)
+            }
+          })
+        TextInput()
+          .stateStyles({
+            normal:{
+              .backgroundColor('#ffffff')
+            },
+            // 聚焦样式
+            focused:{
+              .backgroundColor('#90c2f3')
+            }
+          })
+      }
+    }
+  }
+
+</code></pre>
+<h2 id="3-组件">3. 组件</h2>
+<h3 id="3-1-了解组件">3-1. 了解组件</h3>
+<p>组件的特性：可组合，可重用，数据驱动UI更新。</p>
+<p>组件的组成：基于struct实现。struct被@Component装饰后具备组件化的能力。build函数对组件声明式UI描述。@Entry装饰的自定义组件将作为UI页面的入口。</p>
+<p>注意点：</p>
+<ol>
+<li>自定义组件不支持静态成员变量，所有成员变量都是私有的。</li>
+<li>build函数中ForEach禁止作为根节点。</li>
+<li>build函数中不允许声明本地变量。<code>例子：let a:number=1 X</code></li>
+<li>build函数中中不能直接使用<code>console.info</code></li>
+<li>build函数中不允许创建本地作用域。<code>{ }  X</code></li>
+<li>build函数中不能调用没有用@Builder装饰的方法。允许系统组件的参数是TS方法的返回值。<br>
+例子：</li>
+</ol>
+<pre><code>@Component
+struct ParentComponent {
+  doSomeCalculations() {
+  }
+
+  calcTextValue(): string {
+    return 'Hello World';
+  }
+
+  @Builder doSomeRender() {
+    Text(`Hello World`)
+  }
+
+  build() {
+    Column() {
+      // 反例：不能调用没有用@Builder装饰的方法
+      this.doSomeCalculations();
+      // 正例：可以调用
+      this.doSomeRender();
+      // 正例：参数可以为调用TS方法的返回值
+      Text(this.calcTextValue())
+    }
+  }
+}
+</code></pre>
+<ol start="7">
+<li>build函数中不允许switch语法</li>
+<li>build函数中不允许使用表达式</li>
+</ol>
+<p>例子：</p>
+<pre><code>build() {
+  Column() {
+    // 反例：不允许使用表达式
+    (this.aVar &gt; 10) ? Text('...') : Image('...')
+  }
+}
+</code></pre>
+<ol start="9">
+<li>自定义组件通过“.”链式调用的形式设置通用样式。</li>
+</ol>
+<h3 id="3-2-创建一个组件">3-2.  创建一个组件</h3>
+<p>使用@Entry()装饰的组件是入口组件。使用@Component装饰的是自定义组件。</p>
+<pre><code>
+// 入口组件
+@Entry()
+  @Component
+  struct Index {
+    build() {
+      Column(){
+        MyComponentOne()
+        MyComponentTwo()
+      }
+    }
+  }
+// 自定义组件
+  @Component
+  struct  MyComponentOne {
+    build(){
+      Text('这是自定义组件1')
+    }
+  }
+  @Component
+  struct MyComponentTwo {
+    build(){
+      Text(&quot;这是自定义组件2&quot;)
+    }
+  }
+</code></pre>
+<p>或者使用  @Builder创建UI描述类型的组件</p>
+<pre><code>
+// 入口组件
+@Entry()
+  @Component
+  struct Index {
+    build() {
+      Column(){
+        MyComponentThree()
+      }
+    }
+  }
+// 自定义描述组件
+  @Builder function  MyComponentThree (){
+      Text('这是自定义组件3')
+  }
+
+</code></pre>
+<h3 id="3-3-组件传参">3-3.  组件传参</h3>
+<ol>
+<li>父传子</li>
+</ol>
+<p>使用@Prop</p>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State count:number=1;
+  build() {
+   Column(){
+     Button('点击+1')
+       .onClick(()=&gt;{
+         this.count=this.count+1
+       })
+     MyComponentTest({count:this.count})
+   }
+  }
+}
+
+@Component
+struct MyComponentTest {
+  @Prop count:number;
+  build(){
+    Text(`${this.count}`)
+  }
+}
+</code></pre>
+<ol start="2">
+<li>子传父</li>
+</ol>
+<pre><code>@Entry
+@Component
+struct Par {
+  // 接收子组件值
+  checkFun(data){
+    console.info(JSON.stringify(data))
+  }
+  build() {
+    Column() {
+        // 传回调方法
+   Child({checkFun:(data)=&gt;this.checkFun(data)}
+  }
+}
+@Component
+struct  Child {
+  checkFun:(res)=&gt;void;
+  build(){
+    Row(){
+      Button(&quot;传值设置&quot;)
+        .onClick(()=&gt;{
+            // 给父组件传递值
+          this.checkFun({ uuid:1, isOn:false})
+        })
+  }
+}
+
+</code></pre>
+<ol start="3">
+<li>兄弟传递</li>
+<li>祖孙传递</li>
+</ol>
+<h3 id="3-4-生命周期">3-4.  生命周期</h3>
+<p>页面生命周期。被@Enter装饰的组件。</p>
+<ul>
+<li>onPageShow：页面每次显示时触发。</li>
+<li>onPageHide：页面每次隐藏时触发一次。</li>
+<li>onBackPress：当用户点击返回按钮时触发。</li>
+</ul>
+<p>组件生命周期。@Component装饰的自定义组件</p>
+<ul>
+<li>aboutToAppear：组件即将出现时回调该接口，具体时机为在创建自定义组件的新实例后，在执行其build()函数之前执行。</li>
+<li>aboutToDisappear：在自定义组件即将析构销毁时执行。<br>
+<img src="https://alliance-communityfile-drcn.dbankcdn.com/FileServer/getFile/cmtyPub/011/111/111/0000000000011111111.20231016160223.99199945095842886884636368090803:50001231000000:2800:019E4D38024DDC3B25A19EE8BEF753B3FB089891518C310555FB21C5117F6BF7.png?needInitFileName=true?needInitFileName=true" alt="" loading="lazy"></li>
+</ul>
+<p>由上图可知，页面组件首先执行aboutToAppear方法，再执行build方法，然后才执行onPageShow方法。所以父组件执行完aboutToAppear方法后，将会直接执行子组件的aboutToAppear方法生命周期函数。</p>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State count:number=1;
+  onPageShow(){
+    console.info('页面显示')
+  }
+  onPageHide(){
+    console.info('页面隐藏')
+  }
+  onBackPress(){
+    console.info('页面返回')
+  }
+  aboutToAppear(){
+    console.info('组件初始化')
+  }
+  aboutToDisappear(){
+    console.info('组件销毁')
+  }
+  build() {
+   Column(){
+     Child()
+   }
+  }
+}
+
+@Component
+struct Child {
+  aboutToAppear(){
+    console.info('子组件初始化')
+  }
+  aboutToDisappear(){
+    console.info('子组件销毁')
+  }
+  build(){
+  }
+}
+</code></pre>
+<h2 id="4-状态管理">4. 状态管理</h2>
+<p>状态变量的改变会引起UI的渲染刷新。<br>
+<img src="https://alliance-communityfile-drcn.dbankcdn.com/FileServer/getFile/cmtyPub/011/111/111/0000000000011111111.20231013151100.79218093104997734052221357323483:50001231000000:2800:84539CCC9C66D4F5A0F176FEEB7F5A98B3BDC47C6B27D4FB43591EC2233C78E4.png?needInitFileName=true?needInitFileName=true" alt="" loading="lazy"></p>
+<h3 id="1-管理组件中的状态">1. 管理组件中的状态</h3>
+<h4 id="state装饰器创建组件内的状态"><strong>@State装饰器：创建组件内的状态</strong></h4>
+<ul>
+<li>自定义创建基本类型状态</li>
+</ul>
+<p>boolean,string,number</p>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State count:number=1;
+  build() {
+   Column(){
+     Text(`数量：${this.count}`)
+   }
+  }
+}
+</code></pre>
+<ul>
+<li>自定义创建复杂数据类型变量<br>
+class ， object</li>
+</ul>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State data:{
+    name:string,
+    age:number,
+    count:number
+  }={
+    name:&quot;小明&quot;,
+    age:12,
+    count:1
+  }
+  build() {
+   Column(){
+     Text(`姓名：${this.data.name}`)
+     Text(`年龄：${this.data.age}`)
+     Text(`数量：他有${this.data.count}个苹果`)
+     Button(&quot;再多给他1个苹果&quot;)
+       .onClick(()=&gt;{
+         this.data.count=this.data.count+1
+       })
+
+   }
+  }
+}
+</code></pre>
+<p>当装饰的对象是array时，可以观察到数组本身的赋值和添加、删除、更新数组的变化。</p>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State list:Array&lt;number&gt;=[1,2]
+  build() {
+   Column(){
+      Text(`${this.list}`)
+     Button(&quot;新增&quot;)
+       .onClick(()=&gt;{
+         this.list.push(Math.random())
+       })
+     Button(&quot;删除&quot;)
+       .onClick(()=&gt;{
+         this.list.pop()
+       })
+   }
+  }
+}
+
+</code></pre>
+<h4 id="prop装饰器父子单向同步"><strong>@Prop装饰器：父子单向同步</strong></h4>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State count:number=1;
+  build() {
+   Column(){
+     Button('点击+1')
+       .onClick(()=&gt;{
+         this.count=this.count+1
+       })
+     MyComponentTest({count:this.count})
+   }
+  }
+}
+
+@Component
+struct MyComponentTest {
+  @Prop count:number;
+  build(){
+    Text(`${this.count}`)
+  }
+}
+</code></pre>
+<h4 id="link父子双向同步"><strong>@Link：父子双向同步</strong></h4>
+<p>在子组件使用@Link装饰器声明属性。父组件使用$传递state状态变量。</p>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State keyword:string=''
+  build() {
+   Column(){
+     Text(&quot;这是父组件：&quot;)
+     Text(`${this.keyword}`)
+     Button('父组件修改输入框的值')
+       .onClick(()=&gt;{
+         this.keyword=Math.random().toString()
+       })
+     Text(&quot;这是子组件：&quot;)
+     Child({keyword:$keyword})
+   }
+  }
+}
+
+@Component
+struct Child {
+  @Link keyword:string;
+  build(){
+    Column(){
+      TextInput({ text:this.keyword })
+        .onChange((value)=&gt;{
+          this.keyword=value
+        })
+      Text(`${this.keyword}`)
+    }
+  }
+}
+</code></pre>
+<h4 id="provide装饰器和consume装饰器与后代组件双向同步"><strong>@Provide装饰器和@Consume装饰器：与后代组件双向同步</strong></h4>
+<p>@Provide装饰的变量是在祖先节点中，可以理解为被“提供”给后代的状态变量。@Consume装饰的变量是在后代组件中，去“消费（绑定）”祖先节点提供的变量。</p>
+<p>例子：父组件，子组件，祖孙组件状态同步。</p>
+<pre><code>@Entry
+@Component
+struct Index {
+  @Provide keyword:string=''
+  build() {
+   Column(){
+     Text(&quot;这是顶级组件：&quot;)
+     Text(`${this.keyword}`)
+     Button('顶级组件修改祖孙输入框的值')
+       .onClick(()=&gt;{
+         this.keyword=Math.random().toString()
+       })
+
+     ChildOne()
+   }
+  }
+}
+
+@Component
+struct ChildOne {
+  @Consume keyword:string;
+  build(){
+    Column(){
+      Text(`这是子组件:`)
+      Text(`${this.keyword}`)
+      Button('子组件修改祖孙输入框的值')
+        .onClick(()=&gt;{
+          this.keyword=Math.random().toString()
+        })
+      ChildTwo()
+    }
+  }
+}
+
+
+@Component
+struct ChildTwo {
+  @Consume keyword:string;
+  build(){
+    Column(){
+      Text(&quot;这是祖孙组件：&quot;)
+      TextInput({ text:this.keyword })
+        .onChange((value)=&gt;{
+          this.keyword=value
+        })
+      Text(`${this.keyword}`)
+    }
+  }
+}
+</code></pre>
+<h4 id="observed装饰器和objectlink装饰器嵌套类对象属性变化"><strong>@Observed装饰器和@ObjectLink装饰器：嵌套类对象属性变化</strong></h4>
+<p>@Observed装饰的类，如果其属性为非简单类型，比如class、Object或者数组，也需要被@Observed装饰，否则将观察不到其属性的变化。<br>
+<img src="https://alliance-communityfile-drcn.dbankcdn.com/FileServer/getFile/cmtyPub/011/111/111/0000000000011111111.20231013151102.18037414200991638642282186309257:50001231000000:2800:4A23AE3B39E6997A086CF8A57CA712AE87745AA3910A46915FECC80DEC613C19.png?needInitFileName=true?needInitFileName=true" alt="" loading="lazy"></p>
+<p>框架行为<br>
+初始渲染：<br>
+@Observed装饰的class的实例会被不透明的代理对象包装，代理了class上的属性的setter和getter方法<br>
+子组件中@ObjectLink装饰的从父组件初始化，接收被@Observed装饰的class的实例，@ObjectLink的包装类会将自己注册给@Observed class。<br>
+属性更新：当@Observed装饰的class属性改变时，会走到代理的setter和getter，然后遍历依赖它的@ObjectLink包装类，通知数据更新。</p>
+<pre><code>
+
+
+
+@Entry
+@Component
+struct Index {
+  private initData= {
+    name:'',
+    age:undefined,
+    count:undefined
+  }
+  build() {
+   Column(){
+     Text(&quot;这是顶级组件：&quot;)
+     // 初始化状态变量
+     Child({
+       customState:new CustomState(this.initData)
+     })
+   }
+  }
+}
+// 定义状态变量
+@Observed
+class CustomState {
+  public name:string='';
+  public age:string='';
+  public count:string='';
+  constructor(data:{
+    name:string,
+    age:string,
+    count:string
+  }) {
+    this.name=data.name
+    this.age=data.age
+    this.count=data.count
+  }
+}
+
+@Component
+struct Child {
+  // 声明关联状态
+  @ObjectLink customState:CustomState;
+  build(){
+    Column(){
+      TextInput({
+        text:this.customState.name,
+        placeholder:&quot;请输入姓名&quot;
+      })
+      TextInput({
+        text:this.customState.age,
+        placeholder:&quot;请输入年龄&quot;
+      })
+      TextInput({
+        text:this.customState.count,
+        placeholder:&quot;请输入数量&quot;
+      })
+    }
+  }
+}
+
+
+</code></pre>
+<h3 id="2-管理应用的状态">2. 管理应用的状态</h3>
+<h4 id="localstorage页面级ui状态存储">LocalStorage：页面级UI状态存储</h4>
+<h5 id="应用逻辑使用localstorage"><strong>应用逻辑使用LocalStorage</strong></h5>
+<pre><code>@Entry()
+@Component
+struct Index{
+  createLocalStorage(){
+    // 创建一个新的应用状态管理
+    let store=new LocalStorage({
+      user:'admin',
+      account:123456
+    })
+    // 获取数据
+    console.log(store.get('user'))
+    console.log(store.get('account'))
+    // 修改值 只能设置定义的属性
+    store.set('user','admin1')
+    console.log(store.get('user')) //admin1
+    // 获取key集合
+    store.keys()
+    // 获取集合长度
+    store.size()
+    console.log(store.size().toString()) //2
+    // 是否存在key
+    console.log(store.has('user').toString()) //true
+    console.log(store.has('userInfo').toString()) //false
+    // 将属性值定义为单向状态变量
+    let propState=store.prop('user')
+    // 将属性值定义为双向状态变量
+    let linkState=store.link('user')
+    // 其他：delete，clear。
+  }
+  onPageShow(){
+    this.createLocalStorage()
+  }
+  build(){
+    Column(){
+      Text(&quot;根组件&quot;)
+    }
+  }
+}
+
+</code></pre>
+<p>或者定义在全局</p>
+<pre><code>@Entry()
+@Component
+struct Index{
+
+  onPageShow(){
+    createLocalStorage()
+  }
+  build(){
+    Column(){
+      Text(&quot;根组件&quot;)
+    }
+  }
+}
+
+function createLocalStorage(){
+  // 创建一个新的应用状态管理
+  let store=new LocalStorage({
+    user:'admin',
+    account:123456
+  })
+  // 获取数据
+  console.log(store.get('user'))
+  console.log(store.get('account'))
+  // 修改值 只能设置定义的属性
+  store.set('user','admin1')
+  console.log(store.get('user')) //admin1
+  // 获取key集合
+  store.keys()
+  // 获取集合长度
+  store.size()
+  console.log(store.size().toString()) //2
+  // 是否存在key
+  console.log(store.has('user').toString()) //true
+  console.log(store.has('userInfo').toString()) //false
+  // 将属性值定义为单向状态变量
+  let propState=store.prop('user')
+  // 将属性值定义为双向状态变量
+  let linkState=store.link('user')
+    // 其他：delete，clear。
+}
+</code></pre>
+<h5 id="从ui内部使用localstorage"><strong>从UI内部使用LocalStorage</strong></h5>
+<ul>
+<li>@LocalStorageProp - 单向更新</li>
+</ul>
+<p>@LocalStorageProp定义的变量不会同步更新到storage（仅在组件内更新）。<br>
+通过下面的例子可见，点击按钮组件中的状态更新并不会修改 LocalStorage变量更新。</p>
+<pre><code>// 自定义的storage
+let storage = new LocalStorage({
+  account:1,
+  username:'admin'
+})
+// 入口组件中使用@LocalStorageProp需要传递storage
+@Entry(storage)
+@Component
+struct Index{
+  @LocalStorageProp('account') account:number=0; // 赋值则设置默认值
+  @LocalStorageProp('username') username:string='';
+  build(){
+    Column(){
+   Button(`点我+1 = ${this.account}`)
+     .onClick(()=&gt;{
+       this.account= this.account+1
+     })
+      MyComponent()
+    }
+
+  }
+}
+// 自定义组件中使用  @LocalStorageProp
+@Component
+struct MyComponent {
+  @LocalStorageProp('account') account:number=undefined;
+  build(){
+    Column(){
+      Text(`${this.account}`)
+    }
+  }
+}
+</code></pre>
+<ul>
+<li>@LocalStorageLink - 双向更新</li>
+</ul>
+<p>@LocalStorageProp定义的变量会同步更新到storage。<br>
+通过下面的例子可见，点击按钮组件中的状态更新会使 LocalStorage变量更新。</p>
+<pre><code>let storage = new LocalStorage({
+  account:1,
+  username:'admin'
+})
+@Entry(storage)
+@Component
+struct Index{
+  @LocalStorageLink('account') account:number=0; // 赋值则设置默认值
+  @LocalStorageLink('username') username:string='';
+  build(){
+    Column(){
+   Button(`点我+1 = ${this.account}`)
+     .onClick(()=&gt;{
+       this.account= this.account+1
+     })
+      MyComponent()
+    }
+
+  }
+}
+@Component
+struct MyComponent {
+  @LocalStorageProp('account') account:number=undefined;
+  build(){
+    Column(){
+      Text(`${this.account}`)
+    }
+  }
+}
+</code></pre>
+<p>使用场景：@LocalStorageLink用来<strong>兄弟组件状态变量共享</strong>再好不过了。</p>
+<h4 id="appstorage应用全局ui状态存储">AppStorage：应用全局UI状态存储</h4>
+<p>AppStorage创建的状态变量在App全局都可以访问到</p>
+<h5 id="从应用逻辑使用appstorage"><strong>从应用逻辑使用AppStorage</strong></h5>
+<pre><code>
+@Entry()
+@Component
+struct Index{
+  onPageShow(){
+    createAppStorage()
+  }
+  build(){
+    Column(){
+
+    }
+
+  }
+}
+AppStorage.SetOrCreate('theme','dark')
+function createAppStorage(){
+  // 使用Get获取全局key
+  let theme:string=AppStorage.Get('theme')
+  console.info(theme) // dark
+  // 设置全局key
+  // 1. 使用set
+  AppStorage.Set('theme','light')
+  theme=AppStorage.Get('theme')
+  console.info(theme) // light
+  // 2. 使用SetOrCreate
+  AppStorage.SetOrCreate('theme','red')
+  theme=AppStorage.Get('theme')
+  console.info(theme) // red
+  // 3. 设置带状态的应用变量
+  // 单向的状态变量
+  AppStorage.SetAndProp('theme','dark')
+  // 双向的状态变量
+  AppStorage.SetAndLink('theme','light')
+}
+
+
+</code></pre>
+<h5 id="从ui逻辑使用appstorage"><strong>从UI逻辑使用AppStorage</strong></h5>
+<ul>
+<li><strong>@StorageLink 应用内双向更新</strong></li>
+</ul>
+<p>@StorageLink中的变量变化会使整个应用中对应的状态变量变化。</p>
+<p>写一个例子：给整个应用设置一个主题变量，主题变量的改变会使整个应用的主题颜色修改。</p>
+<p><code>Index.ets</code></p>
+<pre><code>import router from '@ohos.router'
+// 定义应用全局状态变量
+AppStorage.SetAndLink('theme','black')
+@Entry()
+@Component
+struct Index{
+    // 引入应用全局变量
+  @StorageLink('theme') theme:string =undefined
+  onPageShow(){
+    console.info(&quot;2222,&quot;,this.theme)
+  }
+  build(){
+    Column(){
+        // 定义一个按钮修改他的主题色
+        Button(`修改主题:${this.theme=='white'?'黑夜':'白天'}`)
+          .onClick(()=&gt;{
+            this.theme=this.theme=='white'?'black':'white'
+          })
+        Button(&quot;关于页面&quot;)
+          .onClick(()=&gt;{
+            router.pushUrl({
+              url:'pages/About'
+            })
+          })
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(this.theme)
+
+  }
+}
+</code></pre>
+<p><code>About.ets</code><br>
+由此可见，About的页面状态也更新了。</p>
+<pre><code>@Entry
+@Component
+struct About {
+  @StorageLink('theme') theme:string=''
+  onPageShow(){
+    console.info(this.theme)
+  }
+  build() {
+    Column(){
+      Text(&quot;关于页面&quot;)
+        .fontColor('red')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(this.theme)
+  }
+}
+</code></pre>
+<ul>
+<li><strong>@StorageProp 应用内单向更新</strong></li>
+</ul>
+<p>使用场景：只想某个页面存储状态，不想应用到全局。</p>
+<p><code>Index.ets</code></p>
+<pre><code>import router from '@ohos.router'
+AppStorage.SetAndProp('theme','black')
+@Entry()
+@Component
+struct Index{
+  @StorageProp('theme') theme:string =undefined
+  onPageShow(){
+    console.info(&quot;2222,&quot;,this.theme)
+  }
+  build(){
+    Column(){
+        Button(`修改主题:${this.theme=='white'?'黑夜':'白天'}`)
+          .onClick(()=&gt;{
+            this.theme=this.theme=='white'?'black':'white'
+          })
+        Button(&quot;关于页面&quot;)
+          .onClick(()=&gt;{
+            router.pushUrl({
+              url:'pages/About'
+            })
+          })
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(this.theme)
+  }
+}
+</code></pre>
+<p><code>about.ets</code></p>
+<pre><code>@Entry
+@Component
+struct About {
+  @StorageProp('theme') theme:string=''
+  onPageShow(){
+    // 此时theme的状态还是初始化的全局应用状态
+    console.info(this.theme) // dark
+
+  }
+  build() {
+    Column(){
+      Text(&quot;关于页面&quot;)
+        .fontColor('red')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(this.theme)
+  }
+}
+</code></pre>
+<h4 id="persistentstorage持久化存储ui状态">PersistentStorage：持久化存储UI状态</h4>
+<p>LocalStorage和AppStorage都是运行时的内存,应用退出后将失效。在应用退出再次启动后，依然能保存选定的结果，这就需要用到PersistentStorage。<br>
+PersistentStorage将选定的AppStorage属性保留在设备磁盘上。应用程序通过API，以决定哪些AppStorage属性应借助PersistentStorage持久化。</p>
+<p>持久数据变量会自动转义为string，注意在使用状态变量时转义变量类型。</p>
+<pre><code>// 初始化持久化存储状态变量
+PersistentStorage.PersistProp('count',1)
+@Entry()
+@Component
+struct Index{
+  // 使用持久化存储状态变量,向AppStorage用法一样使用
+  @StorageLink('count') count:number=undefined;
+  build(){
+    Column(){
+      Text(`${this.count}`);
+      Button('点击+1')
+        .onClick(()=&gt;{
+          this.count=Number(this.count)+1
+        })
+    }
+  }
+}
+</code></pre>
+<p>将应用打开后，修改count的值，这时退出应用重新打开应用，应用的count状态还是修改之前的状态。</p>
+<h4 id="environment设备环境查询">Environment：设备环境查询</h4>
+<p>设备环境到Component的更新链：Environment --&gt; AppStorage --&gt;Component。</p>
+<pre><code>// 定义设备环境变量
+Environment.EnvProp('langCode','cn')
+@Entry
+@Component
+struct Index {
+  // 使用设备环境变量
+  @StorageProp('langCode') langCode:string=undefined
+  onPageShow(){
+    console.info(this.langCode) // cn
+  }
+  build() {
+   Column(){
+     Text(this.langCode)
+   }
+  }
+}
+</code></pre>
+<h3 id="3-其他状态管理">3. 其他状态管理</h3>
+<h4 id="watch">@watch</h4>
+<p>@Watch绑定一个方法来监听定义的状态变量。</p>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State count:number = 0
+  build() {
+   Column(){
+     Button('点我+1')
+       .onClick(()=&gt;{
+         this.count=Number(this.count)+1
+       })
+     MyComponent({count:this.count})
+   }
+  }
+}
+@Component
+struct MyComponent {
+  @Prop @Watch('onUpdateCount') count:number;
+  // 监听属性变化
+  onUpdateCount(propName:string){
+      console.info(propName)
+      console.info(`${this.count}`)
+  }
+  build(){
+    Column(){
+      Text(`${this.count}`)
+    }
+  }
+}
+</code></pre>
+<h4 id="">$$</h4>
+<ul>
+<li>
+<p>当前<code>$$</code>支持基础类型变量，以及@State、@Link和@Prop装饰的变量。</p>
+</li>
+<li>
+<p>当前<code>$$</code>仅支持bindPopup属性方法的show参数，Radio组件的checked属性，Refresh组件的refreshing参数。</p>
+</li>
+<li>
+<p><code>$$</code>绑定的变量变化时，会触发UI的同步刷新。</p>
+</li>
+</ul>
+<h2 id="渲染控制">渲染控制</h2>
+<h3 id="ifelse-条件渲染">if/else 条件渲染</h3>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State count:number = 0
+  build() {
+   Column(){
+     Button('点我+1')
+       .onClick(()=&gt;{
+         this.count=Number(this.count)+1
+       })
+     if(this.count % 2 === 1){
+        Text(&quot;奇数&quot;+this.count)
+     }else{
+       Text(&quot;偶数&quot;+this.count)
+     }
+   }
+  }
+}
+
+</code></pre>
+<h3 id="foreach循环渲染">ForEach：循环渲染</h3>
+<ol>
+<li>ForEach必须在容器组件内使用。</li>
+<li>生成的子组件应当是允许包含在ForEach父容器组件中的子组件。</li>
+<li>允许子组件生成器函数中包含if/else条件渲染，同时也允许ForEach包含在if/else条件渲染语句中。</li>
+<li>itemGenerator函数的调用顺序不一定和数组中的数据项相同，在开发过程中不要假设</li>
+<li>itemGenerator和keyGenerator函数是否执行及其执行顺序。</li>
+</ol>
+<pre><code>@Entry
+@Component
+struct Index {
+  @State count:number = 0
+  @State ArrayCount:number[]=[1,2,3,4,5]
+  build() {
+   Column(){
+    ForEach(this.ArrayCount,(item,index)=&gt;{
+      Text(`${item},${index}`)
+    })
+   }
+  }
+}
+
+</code></pre>
+<h3 id="lazyforeach数据懒加载">LazyForEach：数据懒加载</h3>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#%E4%B8%80-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7">一. 开发工具</a>
+<ul>
+<li><a href="#1-ide%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">1. IDE环境配置</a></li>
+<li><a href="#2-%E5%88%9B%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE">2. 创建并运行项目</a></li>
+<li><a href="#3-%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95">3. 工程目录</a></li>
+<li><a href="#4-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">4. 官方文档</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-arkts%E5%85%A5%E9%97%A8">二. ArkTs入门</a>
+<ul>
+<li><a href="#1-%E5%A3%B0%E6%98%8E%E5%BC%8Fui%E6%8F%8F%E8%BF%B0">1. 声明式UI描述</a>
+<ul>
+<li><a href="#1-1-%E7%BB%84%E4%BB%B6%E8%A1%A8%E7%A4%BA">1-1. 组件表示</a></li>
+<li><a href="#1-2-%E9%85%8D%E7%BD%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7">1-2. 配置组件的属性</a></li>
+<li><a href="#1-3-%E7%BB%99%E7%BB%84%E4%BB%B6%E6%B7%BB%E5%8A%A0%E4%BA%8B%E4%BB%B6">1-3. 给组件添加事件</a></li>
+<li><a href="#1-4-%E7%BB%84%E4%BB%B6%E5%B5%8C%E5%A5%97%E9%85%8D%E7%BD%AE%E5%AD%90%E7%BB%84%E4%BB%B6">1-4. 组件嵌套，配置子组件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8">常用装饰器</a>
+<ul>
+<li><a href="#entry">@Entry</a></li>
+<li><a href="#component">@Component</a></li>
+<li><a href="#builder">@Builder</a></li>
+<li><a href="#builderparam">@BuilderParam</a>
+<ul>
+<li><a href="#1-builderparam-%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC">1. @BuilderParam 设置默认值</a></li>
+<li><a href="#2-builderparam-%E4%B8%8D%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC">2. @BuilderParam 不设置默认值</a></li>
+<li><a href="#3-%E5%9C%A8%E7%88%B6%E7%BB%84%E4%BB%B6%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E5%9C%B0%E6%96%B9%E4%B8%AD%E4%BC%A0%E5%80%BC">3. 在父组件（引入组件的地方）中传值</a></li>
+</ul>
+</li>
+<li><a href="#styles">@Styles</a>
+<ul>
+<li><a href="#1-%E7%BB%84%E4%BB%B6%E5%86%85%E4%BD%BF%E7%94%A8styles">1. 组件内使用@Styles</a></li>
+<li><a href="#2-%E5%85%A8%E5%B1%80%E4%BD%BF%E7%94%A8styles">2. 全局使用@Styles</a></li>
+<li><a href="#3-%E5%9C%A8%E7%BB%84%E4%BB%B6%E5%86%85%E4%BD%BF%E7%94%A8%E7%8A%B6%E6%80%81%E5%8F%98%E9%87%8F">3. 在组件内使用状态变量</a></li>
+</ul>
+</li>
+<li><a href="#extend">@Extend</a>
+<ul>
+<li><a href="#extend%E4%BB%85%E6%94%AF%E6%8C%81%E5%AE%9A%E4%B9%89%E5%9C%A8%E5%85%A8%E5%B1%80%E5%B9%B6%E4%B8%94%E4%BC%A0%E5%8F%82">@Extend仅支持定义在全局并且传参</a></li>
+<li><a href="#extend%E4%BC%A0%E9%80%92%E4%BA%8B%E4%BB%B6">@Extend传递事件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E6%80%81%E6%A0%B7%E5%BC%8F-statestyles">多态样式 stateStyles</a></li>
+</ul>
+</li>
+<li><a href="#3-%E7%BB%84%E4%BB%B6">3. 组件</a>
+<ul>
+<li><a href="#3-1-%E4%BA%86%E8%A7%A3%E7%BB%84%E4%BB%B6">3-1. 了解组件</a></li>
+<li><a href="#3-2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6">3-2.  创建一个组件</a></li>
+<li><a href="#3-3-%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%8F%82">3-3.  组件传参</a></li>
+<li><a href="#3-4-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">3-4.  生命周期</a></li>
+</ul>
+</li>
+<li><a href="#4-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86">4. 状态管理</a>
+<ul>
+<li><a href="#1-%E7%AE%A1%E7%90%86%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%8A%B6%E6%80%81">1. 管理组件中的状态</a>
+<ul>
+<li><a href="#state%E8%A3%85%E9%A5%B0%E5%99%A8%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%86%85%E7%9A%84%E7%8A%B6%E6%80%81"><strong>@State装饰器：创建组件内的状态</strong></a></li>
+<li><a href="#prop%E8%A3%85%E9%A5%B0%E5%99%A8%E7%88%B6%E5%AD%90%E5%8D%95%E5%90%91%E5%90%8C%E6%AD%A5"><strong>@Prop装饰器：父子单向同步</strong></a></li>
+<li><a href="#link%E7%88%B6%E5%AD%90%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5"><strong>@Link：父子双向同步</strong></a></li>
+<li><a href="#provide%E8%A3%85%E9%A5%B0%E5%99%A8%E5%92%8Cconsume%E8%A3%85%E9%A5%B0%E5%99%A8%E4%B8%8E%E5%90%8E%E4%BB%A3%E7%BB%84%E4%BB%B6%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5"><strong>@Provide装饰器和@Consume装饰器：与后代组件双向同步</strong></a></li>
+<li><a href="#observed%E8%A3%85%E9%A5%B0%E5%99%A8%E5%92%8Cobjectlink%E8%A3%85%E9%A5%B0%E5%99%A8%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8C%96"><strong>@Observed装饰器和@ObjectLink装饰器：嵌套类对象属性变化</strong></a></li>
+</ul>
+</li>
+<li><a href="#2-%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E7%9A%84%E7%8A%B6%E6%80%81">2. 管理应用的状态</a>
+<ul>
+<li><a href="#localstorage%E9%A1%B5%E9%9D%A2%E7%BA%A7ui%E7%8A%B6%E6%80%81%E5%AD%98%E5%82%A8">LocalStorage：页面级UI状态存储</a>
+<ul>
+<li><a href="#%E5%BA%94%E7%94%A8%E9%80%BB%E8%BE%91%E4%BD%BF%E7%94%A8localstorage"><strong>应用逻辑使用LocalStorage</strong></a></li>
+<li><a href="#%E4%BB%8Eui%E5%86%85%E9%83%A8%E4%BD%BF%E7%94%A8localstorage"><strong>从UI内部使用LocalStorage</strong></a></li>
+</ul>
+</li>
+<li><a href="#appstorage%E5%BA%94%E7%94%A8%E5%85%A8%E5%B1%80ui%E7%8A%B6%E6%80%81%E5%AD%98%E5%82%A8">AppStorage：应用全局UI状态存储</a>
+<ul>
+<li><a href="#%E4%BB%8E%E5%BA%94%E7%94%A8%E9%80%BB%E8%BE%91%E4%BD%BF%E7%94%A8appstorage"><strong>从应用逻辑使用AppStorage</strong></a></li>
+<li><a href="#%E4%BB%8Eui%E9%80%BB%E8%BE%91%E4%BD%BF%E7%94%A8appstorage"><strong>从UI逻辑使用AppStorage</strong></a></li>
+</ul>
+</li>
+<li><a href="#persistentstorage%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8ui%E7%8A%B6%E6%80%81">PersistentStorage：持久化存储UI状态</a></li>
+<li><a href="#environment%E8%AE%BE%E5%A4%87%E7%8E%AF%E5%A2%83%E6%9F%A5%E8%AF%A2">Environment：设备环境查询</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%85%B6%E4%BB%96%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86">3. 其他状态管理</a>
+<ul>
+<li><a href="#watch">@watch</a></li>
+<li><a href="#">$$</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%B8%B2%E6%9F%93%E6%8E%A7%E5%88%B6">渲染控制</a>
+<ul>
+<li><a href="#ifelse-%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93">if/else 条件渲染</a></li>
+<li><a href="#foreach%E5%BE%AA%E7%8E%AF%E6%B8%B2%E6%9F%93">ForEach：循环渲染</a></li>
+<li><a href="#lazyforeach%E6%95%B0%E6%8D%AE%E6%87%92%E5%8A%A0%E8%BD%BD">LazyForEach：数据懒加载</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/less-he-scss/">
+          <h3 class="post-title">
+            css预处理器-less和scss
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

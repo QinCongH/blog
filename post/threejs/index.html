@@ -1,0 +1,771 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>three.js | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="three.js | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="1. 安装Three.js与环境搭建
+html文件中直接引入
+像js库一样引入：
+&lt;!-- cdn链接 --&gt;
+&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/thr..." />
+  <meta name="keywords" content="WEBGl&Webgis" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            three.js
+          </h2>
+          <div class="post-info">
+            <span>
+              2024-01-26
+            </span>
+            <span>
+              11 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/G1LyZwTWb/" class="post-tag">
+              # WEBGl&amp;Webgis
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="1-安装threejs与环境搭建">1. 安装Three.js与环境搭建</h1>
+<h2 id="html文件中直接引入">html文件中直接引入</h2>
+<p>像js库一样引入：</p>
+<pre><code>&lt;!-- cdn链接 --&gt;
+&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/three.js/0.156.1/three.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    window.onload = () =&gt; {
+        // 运行一下three.js的Api
+        console.info(window.THREE.UnsignedByteType)
+    }
+&lt;/script&gt;
+</code></pre>
+<p>或者通过es6的import模块引入</p>
+<pre><code>&lt;script type=&quot;module&quot;&gt;
+import &quot;https://cdn.bootcdn.net/ajax/libs/three.js/0.156.1/three.js&quot;
+ // 运行一下three.js的Api
+console.info(window.THREE.UnsignedByteType)
+&lt;/script&gt;
+</code></pre>
+<h2 id="npm环境引入">npm环境引入</h2>
+<p>安装</p>
+<pre><code>npm i three
+</code></pre>
+<p><code>app.js</code></p>
+<pre><code>import * as THREE from 'three';
+console.info(THREE.UnsignedByteType)
+</code></pre>
+<p>注意<code>package.json</code>文件中要设置<code> &quot;type&quot;: &quot;module&quot;</code></p>
+<h1 id="2-创建3d案例">2. 创建3D案例</h1>
+<blockquote>
+<p>思路：<br>
+初始设置<br>
+创建场景<br>
+创建相机<br>
+创建可见对象<br>
+创建渲染器<br>
+渲染场景</p>
+</blockquote>
+<p>构成每个 three.js 应用程序的基本组件。首先是场景、相机和渲染器，它们构成了应用程序的基本脚手架。接下来是 HTML <code>&lt;canvas&gt;</code>元素，我们可以在其中看到结果。<br>
+<img src="http://www.webgl3d.cn/imgthreejs/%E5%9C%BA%E6%99%AF%E7%9B%B8%E6%9C%BA%E6%B8%B2%E6%9F%93%E5%99%A8.png" alt="" loading="lazy"></p>
+<figure data-type="image" tabindex="1"><img src="https://discoverthreejs.com/images/first-steps/coordinate_system.svg" alt="" loading="lazy"></figure>
+<h2 id="创建3d小宇宙-场景-scene">创建3d小宇宙 (场景) - Scene</h2>
+<pre><code>import {Scene} from 'three';
+const scene = new Scene();
+</code></pre>
+<p>创建一个场景Scene将生成一个世界空间坐标系，世界空间是一个 3D 笛卡尔坐标系。场景的中心是点(0,0,0)，也称为坐标系的原点。每当我们创建一个新对象并将其添加到我们的场景中时，它将被放置在原点。</p>
+<p><a href="https://discoverthreejs.com/images/first-steps/coordinate_system_simple.svg"></a></p>
+<h2 id="相机指向小宇宙的望远镜-perspectivecamera-orthographiccamera">相机(指向小宇宙的望远镜) - PerspectiveCamera  / OrthographicCamera</h2>
+<p>有两种相机，透视投影和正交投影。透视视图 ( Perspective View ) : 近大远小 , 符合正常人眼观察 3D 世界的规律 ;正交视图 ( Orthographic View ) : 又称为 &quot; 等距视图 &quot; , 在视图中 显示的 游戏物体 的大小 与 当前的视点距离无关 ;<br>
+摄像机的作用就是不断的拍摄我们创建好的场景，然后通过渲染器渲染到屏幕中。</p>
+<pre><code>import { PerspectiveCamera } from 'three';
+
+const fov = 35; // 视场高度
+const aspect = container.clientWidth / container.clientHeight; //宽高比
+const near = 0.1; // the near clipping plane  // 近裁面
+const far = 100; // the far clipping plane // 远裁面
+
+const camera = new PerspectiveCamera(fov, aspect, near, far);
+
+</code></pre>
+<h2 id="创建可见的对象-网格">创建可见的对象 - 网格</h2>
+<p>网格是 3D 计算机图形学中最常见的可见对象，用于显示各种 3D 对象<br>
+<img src="https://discoverthreejs.com/images/first-steps/mesh_details.svg" alt="" loading="lazy"><br>
+Mesh构造函数有两个参数：几何和材料。</p>
+<pre><code>import { Mesh } from 'three';
+
+const mesh = new Mesh(geometry, material);
+</code></pre>
+<ul>
+<li>几何体定义了网格的形状</li>
+</ul>
+<pre><code>import { BoxBufferGeometry } from 'three';
+
+const length = 2; //长度
+const width = 2; //宽度
+const depth = 2; //深度
+
+const geometry = new BoxBufferGeometry(length, width, depth);
+</code></pre>
+<ul>
+<li>材料定义了网格表面的外观。</li>
+</ul>
+<pre><code>import { MeshBasicMaterial } from 'three';
+
+const material = new MeshBasicMaterial();
+</code></pre>
+<h2 id="渲染器">渲染器</h2>
+<p>渲染器就是一个艺术家，他通过望远镜观察并将他们看到的东西 非常快 的绘制到一个<code>&lt;canvas&gt;</code>中去。 我们把这个过程叫做渲染</p>
+<pre><code>import { WebGLRenderer } from 'three';
+const renderer = new WebGLRenderer();
+</code></pre>
+<h2 id="正方体案例">正方体案例</h2>
+<p>正方体案例：<code>demo.js</code></p>
+<pre><code>
+import {
+    Scene,
+    Color,
+    PerspectiveCamera,
+    BoxGeometry,
+    MeshBasicMaterial,
+    Mesh,
+    WebGLRenderer
+} from 'three'
+function createDemo() {
+    const container = document.querySelector('.container')
+    const clientWidth=container?container.clientWidth:0
+    const clientHeight=container?container.clientHeight:0
+    // 创建场景
+    const scene = new Scene();
+    scene.background = new Color(&quot;skyblue&quot;);// 设置场景背景颜色为黑色
+    // 创建网格
+    const geometry = new BoxGeometry(100, 100, 100);
+    const material = new MeshBasicMaterial({// 给物体添加材质
+        color: 0x3cf438,
+    });
+    const mesh = new Mesh(geometry, material);//网格模型对象Mesh
+    mesh.position.set(0, 10, 0); // 设置位置
+    scene.add(mesh);// 将网格添加到场景中
+    // 创建相机
+    const camera = new PerspectiveCamera(30, clientWidth / clientHeight, 1, 3000);// 根据需要设置相机位置具体值
+    camera.position.set(200, 200, 200);
+    camera.lookAt(mesh.position); //坐标原点
+    // 创建渲染器
+    const renderer = new WebGLRenderer();
+    renderer.setPixelRatio(window.devicePixelRatio); //设置像素比率，以适应高分辨率屏幕。
+    renderer.setSize(clientWidth, clientHeight); // 设置渲染器的大小为容器的大小
+    renderer.render(scene, camera); // 渲染
+    if(container){
+        container.appendChild(renderer.domElement); // 将渲染器的domElement添加到容器中
+    }
+}
+</code></pre>
+<h1 id="3-模块化设计">3. 模块化设计</h1>
+<p>将应用程序拆分为多个小模块，每个模块处理复杂整体中的一小部分。保证在其他前端应用框架中直接使用。</p>
+<p>思路：创建<code>World</code>类创建场景，网格和摄像机。定义两个模块，组件（components）和系统（systems）。组件是可以放置到场景中的任何东西，例如立方体、相机和场景本身；系统是在组件或其他系统上运行的东西，渲染器（renderer）和大小调整函数(Resizer )。<br>
+<img src="https://qin_hu.gitee.io/blog//post-images/1706664947294.png" alt="" loading="lazy"></p>
+<ul>
+<li><code>components/camera.js</code></li>
+</ul>
+<pre><code>import { PerspectiveCamera } from 'three';
+function createCamera() {
+  const camera = new PerspectiveCamera(
+    30, // fov = Field Of View
+    1, // aspect ratio (dummy value)
+    1, // near clipping plane
+    3000, // far clipping plane
+  );
+  // move the camera back so we can view the scene
+  camera.position.set(200, 200, 200);
+  return camera;
+}
+
+export { createCamera };
+</code></pre>
+<ul>
+<li><code>components/cube.js</code></li>
+</ul>
+<pre><code>import {
+    BoxGeometry,
+    Mesh,
+    MeshBasicMaterial
+} from 'three';
+
+function createCube() {
+    // create a geometry
+    const geometry = new BoxGeometry(100, 100, 100);
+
+    // create a default (white) Basic material
+    const material = new MeshBasicMaterial({ // 给物体添加材质
+        color: 0x3cf438,
+    });
+
+    // create a Mesh containing the geometry and material
+    const cube = new Mesh(geometry, material);
+    cube.position.set(0, 10, 0); // 设置位置
+    return cube;
+}
+
+export {
+    createCube
+};
+</code></pre>
+<ul>
+<li><code>components/scene.js</code></li>
+</ul>
+<pre><code>import { Color, Scene } from 'three';
+function createScene() {
+  const scene = new Scene();
+
+  scene.background = new Color('skyblue');
+
+  return scene;
+}
+export { createScene };
+
+</code></pre>
+<ul>
+<li><code>systems/renderer.js</code></li>
+</ul>
+<pre><code>import { WebGLRenderer } from 'three';
+
+function createRenderer() {
+  const renderer = new WebGLRenderer();
+
+  return renderer;
+}
+
+export { createRenderer };
+
+</code></pre>
+<ul>
+<li><code>systems/Resizer.js</code></li>
+</ul>
+<pre><code>class Resizer {
+    constructor(container, camera, renderer) {
+      // Set the camera's aspect ratio
+      camera.aspect = container.clientWidth / container.clientHeight;
+  
+      // update the camera's frustum
+      camera.updateProjectionMatrix();
+  
+      // update the size of the renderer AND the canvas
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      // set the pixel ratio (for mobile devices)
+      renderer.setPixelRatio(window.devicePixelRatio);
+    }
+  }
+  
+  export { Resizer };
+  
+</code></pre>
+<ul>
+<li><code>World.js</code></li>
+</ul>
+<pre><code>import {
+    createCamera
+} from './components/camera.js';
+import {
+    createCube
+} from './components/cube.js';
+import {
+    createScene
+} from './components/scene.js';
+
+import {
+    createRenderer
+} from './systems/renderer.js';
+import {
+    Resizer
+} from './systems/Resizer.js';
+
+// These variables are module-scoped: we cannot access them
+// from outside the module
+let camera;
+let renderer;
+let scene;
+class World {
+    constructor(container) {
+        scene = createScene();
+        camera = createCamera();
+        renderer = createRenderer();
+        const cube = createCube();
+        new Resizer(container, camera, renderer);
+        camera.lookAt(cube.position)
+        scene.add(cube);
+        container.append(renderer.domElement);
+    }
+
+    render() {
+        // draw a single frame
+        renderer.render(scene, camera);
+    }
+}
+
+export {
+    World
+};
+</code></pre>
+<h1 id="4-基于物理的渲染和照明">4. 基于物理的渲染和照明</h1>
+<p>three.js中的光照分为两种类型：直接光照和环境光<br>
+直接光照：直接来自灯泡并撞击物体的光线。<br>
+环境光：光线在击中物体之前已经从墙壁和房间内的其他物体反弹，每次反弹都会改变颜色并失去强度。</p>
+<p>需要使用<code>MeshStandardMaterial</code>材料代替基本材料<code>MeshBasicMaterial</code>。这是一种高质量、通用、物理精确的材料，可以使用真实世界的物理方程对光做出反应。</p>
+<h2 id="基本示例">基本示例：</h2>
+<ol>
+<li>在<code>World/components</code>的文件夹下面新增<code>lights.js</code>文件</li>
+</ol>
+<pre><code>import { DirectionalLight } from 'three';
+function createLights() {
+  // Create a directional light
+  const light = new DirectionalLight('white', 10);
+
+  // move the light right, up, and towards us
+  light.position.set(10, 10, 10);
+
+  return light;
+}
+
+export { createLights };
+</code></pre>
+<ol start="2">
+<li><code>components/cube.js</code>文件中将基本材料设置为<code>MeshStandardMaterial</code>材质</li>
+</ol>
+<pre><code>import {
+    BoxGeometry,
+    Mesh,
+    MeshStandardMaterial
+} from 'three';
+
+function createCube() {
+    // create a geometry
+    const geometry = new BoxGeometry(100, 100, 100);
+    const material = new MeshStandardMaterial({ // 给物体添加材质
+        color: 0x213547,
+    });
+    const cube = new Mesh(geometry, material);
+    cube.position.set(0, 10, 0); // 设置位置
+    cube.rotation.set(100, -100, -10);
+    return cube;
+}
+
+export {
+    createCube
+};
+</code></pre>
+<ol start="3">
+<li>将光照添加到场景中</li>
+</ol>
+<pre><code> scene.add(light);
+</code></pre>
+<p>以上案例使用的是平行光：</p>
+<ul>
+<li>平行光（DirectionalLight）<br>
+平行光是沿着特定方向发射的光。这种光的表现像是无限远，从它发出的光线都是平行的。常常用平行光来模拟太阳光的效果。</li>
+</ul>
+<pre><code>// 从上方照射的白色平行光，强度为 0.5。
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+scene.add( directionalLight );
+
+
+</code></pre>
+<p><a href="https://threejs.org/docs/index.html#api/zh/lights/AmbientLight">光照详细文档</a></p>
+<h1 id="5-变换-坐标系和场景图">5. 变换、坐标系和场景图</h1>
+<h2 id="场景图">场景图：</h2>
+<p>场景图中的每个对象（顶级场景除外）只有一个父对象，并且可以有任意数量的子对象。<br>
+<img src="https://discoverthreejs.com/images/first-steps/scene_graph.svg" alt="" loading="lazy"></p>
+<h2 id="object3d">Object3D</h2>
+<p>这是Three.js中大部分对象的基类，提供了一系列的属性和方法来对三维空间中的物体进行操纵。</p>
+<ol>
+<li>
+<p>将网格添加到场景中<br>
+<code>scene.add(mesh);</code><br>
+调用<code>.add</code>方法添加到场景的对象都属于全局场景的子级</p>
+</li>
+<li>
+<p>给对象添加name名称</p>
+</li>
+</ol>
+<pre><code>    const geometry = new BoxGeometry(100, 100, 100);
+    // 基础线条材质（LineBasicMaterial）
+    const material = new LineBasicMaterial( {
+        color: 0xffffff,
+        linewidth: 1,
+        linecap: 'round', //ignored by WebGLRenderer
+        linejoin:  'round' //ignored by WebGLRenderer
+    } );
+    const mesh = new Mesh(geometry, material);
+    mesh.name=&quot;长方体&quot;
+</code></pre>
+<ol start="3">
+<li>获取场景中的所有对象</li>
+</ol>
+<pre><code>// 获取所有子对象
+scene.children
+// 获取所有场景对象的名称
+ scene.children.map(item=&gt;item.name)
+</code></pre>
+<h2 id="坐标系全局坐标系和局部坐标系对象空间局部空间">坐标系：全局坐标系和局部坐标系(对象空间，局部空间)</h2>
+<p>添加到场景中的每个对象也都有一个局部坐标系，这个局部坐标系有X、Y和Z轴，就像世界空间一样。<br>
+<img src="https://discoverthreejs.com/images/first-steps/coordinate_system.svg" alt="" loading="lazy"></p>
+<h2 id="变换">变换</h2>
+<p>当我们直接将一个对象添加到场景中，然后平移、旋转或缩放它时，该对象将相对于世界空间移动——即相对于场景的中心。</p>
+<p>X轴是向左或向右移动，在Y轴是向上或向下移动，在Z轴是向内或向外移动。这些方向是相对于您的屏幕的，并假设您没有旋转相机。</p>
+<h3 id="平移">平移</h3>
+<p><code>.position</code></p>
+<ul>
+<li>
+<p>设置相机的位置<br>
+<code>camera.position.set(0, 0, 10);</code></p>
+</li>
+<li>
+<p>设置光的位置<br>
+<code>light.position.set(10, 10, 10);</code></p>
+</li>
+<li>
+<p>设置物体的位置<br>
+<code>cube.position.set(-0.5, -0.1, 0.8);</code></p>
+</li>
+</ul>
+<h3 id="缩放">缩放</h3>
+<ul>
+<li>
+<p>设置相机<br>
+<code>camera.scale.set(1, 1, 1);</code></p>
+</li>
+<li>
+<p>设置光<br>
+<code>light.scale.set(1, 1, 1);</code></p>
+</li>
+<li>
+<p>设置物体<br>
+<code>cube.scale.set(1, 1, 1);</code></p>
+</li>
+</ul>
+<h3 id="旋转">旋转</h3>
+<ul>
+<li>
+<p>设置相机<br>
+<code>camera.rotation.set(0, 0, 10);</code></p>
+</li>
+<li>
+<p>设置光<br>
+<code>light.rotation.set(10, 10, 10);</code></p>
+</li>
+<li>
+<p>设置物体<br>
+<code>cube.rotation.set(-0.5, -0.1, 0.8);</code></p>
+</li>
+</ul>
+<h1 id="学习链接">学习链接</h1>
+<p><a href="http://www.webgl3d.cn/pages/2de1b9/">three.js中文学习网</a><br>
+<a href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene">官网</a><br>
+<a href="https://discoverthreejs.com/zh/book/first-steps/first-scene/">《探索three.js》</a></p>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#1-%E5%AE%89%E8%A3%85threejs%E4%B8%8E%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">1. 安装Three.js与环境搭建</a>
+<ul>
+<li><a href="#html%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9B%B4%E6%8E%A5%E5%BC%95%E5%85%A5">html文件中直接引入</a></li>
+<li><a href="#npm%E7%8E%AF%E5%A2%83%E5%BC%95%E5%85%A5">npm环境引入</a></li>
+</ul>
+</li>
+<li><a href="#2-%E5%88%9B%E5%BB%BA3d%E6%A1%88%E4%BE%8B">2. 创建3D案例</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA3d%E5%B0%8F%E5%AE%87%E5%AE%99-%E5%9C%BA%E6%99%AF-scene">创建3d小宇宙 (场景) - Scene</a></li>
+<li><a href="#%E7%9B%B8%E6%9C%BA%E6%8C%87%E5%90%91%E5%B0%8F%E5%AE%87%E5%AE%99%E7%9A%84%E6%9C%9B%E8%BF%9C%E9%95%9C-perspectivecamera-orthographiccamera">相机(指向小宇宙的望远镜) - PerspectiveCamera  / OrthographicCamera</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%81%E7%9A%84%E5%AF%B9%E8%B1%A1-%E7%BD%91%E6%A0%BC">创建可见的对象 - 网格</a></li>
+<li><a href="#%E6%B8%B2%E6%9F%93%E5%99%A8">渲染器</a></li>
+<li><a href="#%E6%AD%A3%E6%96%B9%E4%BD%93%E6%A1%88%E4%BE%8B">正方体案例</a></li>
+</ul>
+</li>
+<li><a href="#3-%E6%A8%A1%E5%9D%97%E5%8C%96%E8%AE%BE%E8%AE%A1">3. 模块化设计</a></li>
+<li><a href="#4-%E5%9F%BA%E4%BA%8E%E7%89%A9%E7%90%86%E7%9A%84%E6%B8%B2%E6%9F%93%E5%92%8C%E7%85%A7%E6%98%8E">4. 基于物理的渲染和照明</a>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E7%A4%BA%E4%BE%8B">基本示例：</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%8F%98%E6%8D%A2-%E5%9D%90%E6%A0%87%E7%B3%BB%E5%92%8C%E5%9C%BA%E6%99%AF%E5%9B%BE">5. 变换、坐标系和场景图</a>
+<ul>
+<li><a href="#%E5%9C%BA%E6%99%AF%E5%9B%BE">场景图：</a></li>
+<li><a href="#object3d">Object3D</a></li>
+<li><a href="#%E5%9D%90%E6%A0%87%E7%B3%BB%E5%85%A8%E5%B1%80%E5%9D%90%E6%A0%87%E7%B3%BB%E5%92%8C%E5%B1%80%E9%83%A8%E5%9D%90%E6%A0%87%E7%B3%BB%E5%AF%B9%E8%B1%A1%E7%A9%BA%E9%97%B4%E5%B1%80%E9%83%A8%E7%A9%BA%E9%97%B4">坐标系：全局坐标系和局部坐标系(对象空间，局部空间)</a></li>
+<li><a href="#%E5%8F%98%E6%8D%A2">变换</a>
+<ul>
+<li><a href="#%E5%B9%B3%E7%A7%BB">平移</a></li>
+<li><a href="#%E7%BC%A9%E6%94%BE">缩放</a></li>
+<li><a href="#%E6%97%8B%E8%BD%AC">旋转</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%AD%A6%E4%B9%A0%E9%93%BE%E6%8E%A5">学习链接</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/xue-xi-qing-dan/">
+          <h3 class="post-title">
+            学习清单
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

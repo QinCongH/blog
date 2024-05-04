@@ -1,0 +1,968 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>hook | 禾耳</title>
+<link rel="shortcut icon" href="https://qin_hu.gitee.io/blog//favicon.ico?v=1714022378479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://qin_hu.gitee.io/blog//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="hook | 禾耳 - Atom Feed" href="https://qin_hu.gitee.io/blog//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  <meta name="description" content="封装增删改查的hook
+vue3+element后台开发封装业务hook
+1. useData.ts
+
+存储数据
+
+import { reactive} from 'vue'
+export default function useData(..." />
+  <meta name="keywords" content="vue" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <a href="https://qin_hu.gitee.io/blog/">
+    <img class="avatar" src="https://qin_hu.gitee.io/blog//images/avatar.png?v=1714022378479" alt="">
+  </a>
+
+  <h1 class="site-title">
+    禾耳
+  </h1>
+  <p class="site-description">
+    逆风的方向，更适合飞翔。
+  </p>
+  <form style=" position: absolute;
+  top: 50px;
+  right: 150px;
+  border: unset;
+  outline: unset;display: flex;" id="gridea-search-form" action="https://qin_hu.gitee.io/blog//search/">
+    <input placeholder="请输入.." style="color: #222 !important;margin-right: 10px;
+   " name="q" />
+    <svg onclick="window.location.reload()" style="
+    cursor: pointer;    filter: invert(1);" title="刷新页面" class="shuaxin-icon" t="1705541456452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="4229" width="20" height="20">
+      <path
+        d="M55.935033 264.48948c0 0 85.897017-132.548409 221.81443-203.673173 135.916406-71.121743 303.368504-50.646859 413.187968 18.319527 109.819465 68.970415 146.791894 127.160016 146.791894 127.160016l94.59499-53.879895c0 0 19.576483-9.697092 19.576483 12.932142l0 338.379961c0 0 0 30.17399-22.837719 19.395191-19.210878-9.062571-226.959086-127.198289-292.424528-164.466828-35.950145-16.035251-4.365101-29.062068-4.365101-29.062068l91.284402-52.173738c0 0-52.068992-65.209619-128.278989-99.744682-81.576231-42.501826-157.948384-47.541735-251.497925-12.224097-61.002644 23.025054-132.823368 81.988166-184.553949 169.082716L55.935033 264.48948 55.935033 264.48948 55.935033 264.48948zM904.056909 711.697844c0 0-85.897017 132.550423-221.816444 203.671159-135.917413 71.12275-303.366489 50.651895-413.186961-18.315498-109.825508-68.972429-146.790886-127.165052-146.790886-127.165052L27.662591 823.768348c0 0-19.572454 9.703135-19.572454-12.932142L8.090137 472.459267c0 0 0-30.170968 22.831676-19.397205 19.211885 9.067607 226.965129 127.198289 292.430571 164.470856 35.950145 16.035251 4.366109 29.058039 4.366109 29.058039l-91.285409 52.175753c0 0 52.071006 65.206598 128.279996 99.744682 81.57321 42.498804 157.942341 47.540728 251.496918 12.222082 60.998616-23.026061 132.820346-81.983131 184.546898-169.082716L904.056909 711.697844 904.056909 711.697844 904.056909 711.697844zM904.056909 711.697844"
+        fill="#2c2c2c" p-id="4230"></path>
+    </svg>
+  </form>
+  <button style="    border: unset;
+  background: #f0f8ff00;cursor: pointer;" class="theme-button" onclick="changeTheme()">
+    🌙
+  </button>
+  <div class="menu-container">
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/" class="menu">
+      首页
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/archives" class="menu">
+      归档
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/tags" class="menu">
+      标签
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/friend" class="menu">
+      友链
+    </a>
+    
+    
+    
+    <a href="https://qin_hu.gitee.io/blog/about" class="menu">
+      关于
+    </a>
+    
+    
+  </div>
+  <div class="social-container">
+    
+    
+    <a href="https://github.com/QinCongH" target="_blank">
+      <i class="ri-github-line"></i>
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const themeType = localStorage.getItem('theme')
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    // console.log(1111111111111111, themeType)
+    if (themeType === 'light') {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  })
+
+  function changeTheme() {
+    const bodyDom = document.querySelector('body')
+    const themeButtonDom = document.querySelector('.theme-button')
+    const attr = bodyDom.hasAttribute('thmem-dark')
+    if (attr) {
+      bodyDom.removeAttribute('thmem-dark')
+      themeButtonDom.textContent = '🌙'
+      localStorage.setItem('theme', 'light')
+    } else {
+      bodyDom.setAttribute('thmem-dark', '')
+      themeButtonDom.textContent = '🌞'
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+</script>
+      <div class="post-detail">
+        <article class="post">
+          <h2 class="post-title">
+            hook
+          </h2>
+          <div class="post-info">
+            <span>
+              2023-12-26
+            </span>
+            <span>
+              9 min read
+            </span>
+            
+            <a href="https://qin_hu.gitee.io/blog/tag/hKztIRrYz/" class="post-tag">
+              # vue
+            </a>
+            
+          </div>
+          
+          <div class="post-content-wrapper">
+            <div class="post-content" v-pre>
+              <h1 id="封装增删改查的hook">封装增删改查的hook</h1>
+<p>vue3+element后台开发封装业务hook</p>
+<h2 id="1-usedatats">1. useData.ts</h2>
+<blockquote>
+<p>存储数据</p>
+</blockquote>
+<pre><code>import { reactive} from 'vue'
+export default function useData() {
+    const pageData = reactive({
+        columnData: [
+            {
+                label: '部门名称',
+                prop: 'traceId',
+            },
+            {
+                label: '负责人',
+                prop: 'startTime',
+            },
+            {
+                label: '联系方式',
+                prop: 'userName',
+            },
+            {
+                label: '职能',
+                prop: 'userId',
+            },
+            {
+                label: '区域',
+                prop: 'name',
+            },
+            {
+                label: '校区',
+                prop: 'content',
+            },
+            {
+                label: '授权',
+                prop: 'auth',
+            },
+        ]
+    })
+    return {
+        pageData
+    };
+}
+
+
+</code></pre>
+<blockquote>
+<p>基本使用</p>
+</blockquote>
+<pre><code>
+const {
+    pageData
+} = useData()
+</code></pre>
+<h2 id="2-usedeletets">2. useDelete.ts</h2>
+<blockquote>
+<p>删除</p>
+</blockquote>
+<pre><code>import { ref } from 'vue'
+import {
+    ElMessageBox,
+    ElMessage
+} from 'element-plus'
+//const idList = ref&lt;Array&lt;number | string&gt;&gt;([])  //批量
+export default function useDelete() {
+    async function deleteHandler(id: number | string) {
+        return new Promise((resolve, reject) =&gt; {
+            ElMessageBox.confirm(
+                '确认删除已选中的数据项?',
+                '警告',
+                {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                }
+            ).then(async () =&gt; {
+               //调接口
+                ElMessage({
+                    type: 'success',
+                    message: '删除成功'
+                })
+               //idList.value=[]
+               resolve(true)
+            }).catch((err:any) =&gt; {
+                reject(err)
+            })
+        })
+
+    }
+    //多选
+    function select(val: any) {
+        idList.value = val.idList
+        console.log(idList.value)
+    }
+    return {
+        deleteHandler,
+        //select,
+        //idList
+    };
+}
+</code></pre>
+<blockquote>
+<p>页面使用</p>
+</blockquote>
+<pre><code>//删除后加载数据
+const {
+    deleteHandler
+} = useDelete()
+async function deleteCb(id:number|string){
+    try {
+        await deleteHandler(id)
+        loadData()
+    } catch (error) {
+        throw error
+    }
+}
+</code></pre>
+<h2 id="3-usesearchts">3. useSearch.ts</h2>
+<blockquote>
+<p>查询</p>
+</blockquote>
+<pre><code>import { reactive, ref } from 'vue'
+import type { FormInstance } from 'element-plus'
+export default function useSearch() {
+    // 查询的数据
+    const formData = reactive&lt;{
+            [key:string]:any
+        }&gt;({
+        pageSize: 10,
+        pageNum: 1
+    })
+    // 表格数据
+    const tableData = reactive&lt;any&gt;({
+        list: [],
+        total: 0
+    })
+    const searchFormRef = ref&lt;FormInstance&gt;()
+    //数据重载
+    const reloadData = () =&gt; {
+        formData.pageNum = 1
+        formData.pageSize = 10
+    }
+    // 重置
+    const resetData = () =&gt; {
+        if (searchFormRef.value) {
+            searchFormRef.value.resetFields()
+            searchFormRef.value.clearValidate()
+        }
+        for (const key in formData) {
+            if (Object.prototype.hasOwnProperty.call(formData, key)) {
+                formData[key] = undefined
+            }
+        }
+        reloadData()
+        loadData()
+    }
+    // 查询
+    const loadData = async () =&gt; {
+        try {
+            //调接口
+           // tableData.list = res.data.dta
+        } catch (error) {
+            throw error
+        }
+    }
+    return {
+        formData,
+        loadData,
+        searchFormRef,
+        resetData,
+        tableData,
+        reloadData
+    };
+}
+</code></pre>
+<blockquote>
+<p>基本使用</p>
+</blockquote>
+<pre><code>const {
+    formData,
+    tableData,
+    loadData,
+    resetData,
+    reloadData
+} = useSearch()
+onMounted(() =&gt; {
+    loadData()
+})
+</code></pre>
+<h2 id="4-useupdatets">4. useUpdate.ts</h2>
+<blockquote>
+<p>更新</p>
+</blockquote>
+<pre><code>import { reactive, ref,computed } from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
+import {
+    ElMessage
+} from &quot;element-plus&quot;
+export default function useUpdate() {
+    // 添加表单
+    const updateFormData = reactive&lt;{
+        [key:string]:any
+    }&gt;({
+       
+    })
+    const updateFormRef = ref&lt;FormInstance&gt;()
+    const updateFormRules = reactive&lt;FormRules&gt;({
+    })
+    //提交
+   const submit = async () =&gt; {
+        return new Promise(async (resolve, reject) =&gt; {
+            if (!updateFormRef.value) {
+                reject(false)
+                return
+            }
+            try {
+                await updateFormRef.value.validate()
+                if (rowId.value) { //编辑
+                    //调接口
+              
+                } else {//添加
+              
+                    //调接口
+                }
+                closeHandle()
+                ElMessage({
+                    type: 'success',
+                    message: '更新成功'
+                })
+                resolve(true)
+            } catch (error) {
+                reject(error)
+                throw error
+            }
+        })
+    }
+
+    //打开弹窗
+    const rowId = ref()
+    const showHandle = ref(false)
+    const openHandle= (row: any, id?: number | string) =&gt; {
+        resetForm()
+        showHandle.value = true
+        rowId.value=id
+        if (Boolean(id)) {//编辑赋值
+            for (let key in row) {
+                if (Object.prototype.hasOwnProperty.call(row, key)) {
+                    updateFormData[key] = row[key]
+                }
+            }
+        }
+    }
+    //重置表单
+    const resetForm = () =&gt; {
+        if (updateFormRef.value) {
+            updateFormRef.value.resetFields()
+            updateFormRef.value.clearValidate()
+        }
+       for (let key in updateFormData) {
+            updateFormData[key] =undefined
+        }
+        
+    }
+    //关闭弹窗
+    const closeHandle= () =&gt; {
+        showHandle.value = false
+        rowId.value=undefined
+        resetForm()
+    }
+    return {
+        updateFormData,
+        updateFormRef,
+        updateFormRules,
+        rowId,
+        submit,
+        showHandle,
+        openHandle,
+        closeHandle,
+    };
+}
+</code></pre>
+<blockquote>
+<p>页面使用</p>
+</blockquote>
+<pre><code>const {
+    updateFormData,
+    updateFormRef,
+    updateFormRules,
+    rowId,
+    submit,
+    openHandle,
+    closeHandle,
+} = useUpdate()
+//提交回调
+//提交
+async function submitCb() {
+    try {
+        await submit()
+        formData.pageNum = 1
+        formData.pageSize = 10
+        setTimeout(() =&gt; {
+            loadData()
+        }, 50);
+    } catch (error) {
+        throw error
+    }
+
+}
+</code></pre>
+<h2 id="在页面中引入">在页面中引入</h2>
+<pre><code>import { onMounted } from 'vue'
+import { EditPen, Plus, Refresh, Search } from '@element-plus/icons-vue';
+import useSearch from './hook/useSearch';
+import useData from './hook/useData';
+import useUpdate from './hook/useUpdate';
+import useDelete from './hook/useDelete';
+import useSettingStore from '@/store/modules/useSettingStore'
+//数据
+const {
+    pageData
+} = useData()
+//==查询
+const {
+    formData,
+    tableData,
+    loadData,
+    resetData,
+    reloadData,
+    searchFormRef
+} = useSearch()
+onMounted(() =&gt; {
+    loadData()
+})
+//==更新
+const {
+    updateFormData,
+    updateFormRef,
+    updateFormRules,
+    rowId,
+    submit,
+    openHandle,
+    closeHandle,
+} = useUpdate()
+//提交回调
+//提交
+async function submitCb() {
+    try {
+        await submit()
+        formData.pageNum = 1
+        formData.pageSize = 10
+        setTimeout(() =&gt; {
+            loadData()
+        }, 50);
+    } catch (error) {
+        throw error
+    }
+
+}
+//==删除
+//删除后加载数据
+const {
+    deleteHandler
+} = useDelete()
+async function deleteCb(id:number|string){
+    try {
+        await deleteHandler(id)
+        loadData()
+    } catch (error) {
+        throw error
+    }
+}
+</code></pre>
+<h2 id="基本弹窗模板">基本弹窗模板</h2>
+<pre><code>&lt;script setup lang='ts'&gt;
+import type { FormInstance, FormRules } from 'element-plus';
+import {
+    ref, reactive, useAttrs, onMounted
+} from 'vue'
+import {
+    requiredCheck
+} from &quot;@/utils/verify&quot;
+import useSettingStore from &quot;@/store/modules/useSettingStore/index&quot;
+const settingStore = useSettingStore()
+const attrs = useAttrs()
+interface Props {
+    modelValue?: any,
+    title?: string,
+    cancelText?: string
+    confirmText?: string,
+    width?: string,
+    placeholderText?: string,
+    isMultiple?: boolean
+}
+const props = withDefaults(defineProps&lt;Props&gt;(), {
+    modelValue: false, //默认值
+    title: '新增记账',
+    cancelText: '取消',
+    confirmText: '确定',
+    width: &quot;598px&quot;,
+    isMultiple: true    //默认多选
+});
+const emit = defineEmits(['update:modelValue', 'selectHandler'])
+
+
+//更新
+onMounted(() =&gt; {
+
+})
+//取消
+function cancelCb(){
+    emit('update:modelValue',false)
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+    &lt;div&gt;
+        &lt;el-dialog @close=&quot;emit('update:modelValue',false)&quot; v-model=&quot;props.modelValue&quot; :title=&quot;title&quot; :width=&quot;width&quot; align-center draggable
+            :close-on-click-modal=&quot;false&quot;&gt;
+            &lt;div class=&quot;content pad-base&quot;&gt;
+              
+            &lt;/div&gt;
+            &lt;template #footer&gt;
+                &lt;div class=&quot;h-box justify-end&quot;&gt;
+                    &lt;span class=&quot;dialog-footer&quot;&gt;
+                        &lt;el-button @click=&quot;cancelCb&quot;&gt;{{ props.cancelText }}&lt;/el-button&gt;
+                        &lt;el-button type=&quot;primary&quot; @click=&quot;cancelCb&quot;&gt;
+                            {{ props.confirmText }}
+                        &lt;/el-button&gt;
+                    &lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/template&gt;
+        &lt;/el-dialog&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped lang=&quot;less&quot;&gt;
+:deep(.el-dialog header) {
+    background: #2878e8;
+    color: #fff;
+    padding: unset !important;
+    height: 42px;
+    line-height: 42px;
+    font-size: 15px;
+}
+
+:deep(.el-dialog__title),
+:deep(.el-dialog__close) {
+    color: #fff;
+}
+
+:deep(.el-dialog__header) {
+    margin: unset !important;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    span {
+        font-size: 15px;
+        margin-left: 10px;
+    }
+}
+
+:deep(.el-dialog__headerbtn) {
+    top: 0px !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.el-dialog__header {}
+
+:deep(.el-dialog__footer) {
+    height: 48px;
+    background: #e7eaec;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+:deep(.el-dialog) {
+    background-color: transparent;
+}
+
+:deep(.el-dialog__body) {
+    background: #fff;
+}
+
+.header{
+ .select{
+    &gt;div{
+        display: inline-block;
+        width: 60px;
+        border: 1px solid var(--split-line-color);
+        text-align: center;
+        cursor: pointer;
+        padding: 5px;
+        &amp;:nth-child(1){
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+        }
+        &amp;:nth-child(3){
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+    }
+    .active{
+        border: 1px solid var(--primary-bg);
+        color: var(--primary-bg);
+    }
+ }   
+}
+.depart{
+    .el-button{
+        // width: 200px;
+        justify-content: start;
+    }
+}
+.depart-content{
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    // max-height: 150px;
+    overflow-y: scroll;
+    &amp;::-webkit-scrollbar{
+        width: 0px;
+    }
+    &gt;span{
+        margin-bottom: 5px;
+    }
+}
+.el-tag {
+    cursor: pointer;
+}
+&lt;/style&gt;
+</code></pre>
+<h1 id="分页">分页</h1>
+<p><code>usePaging.ts</code></p>
+<pre><code>/**
+ * 分页hook
+ * @returns 
+ */
+import { ref, onMounted, onUnmounted } from 'vue'
+import {
+    getDynamiclist
+} from &quot;@renderer/api/dynamic/index&quot;
+/**
+ * @param selectQuery css选择器
+ * @param options 自定义参数 
+ * @returns 
+ */
+export default function usePaging(selectQuery,{
+    account
+}) {
+    // const {account}=options
+    // 页数
+    const pageNum = ref(0)
+    // 页总数
+    const total = ref(0)
+    // 每页数量
+    const pageSize = ref(5)
+    // 加载状态
+    const loadingStatus = ref('more')
+    // 集合
+    const list = ref([]);
+    // 获取dom
+    const dom = ref()
+    /**
+     * 初始化
+     */
+    onMounted(() =&gt; {
+        dom.value = document.querySelector(selectQuery)
+        reload()
+        listenerScroll()
+    })
+    /**
+     * 重新加载
+     * @returns 
+     */
+    async function reload() {
+        if (loadingStatus.value == &quot;loading&quot;) {
+            return;
+        }
+        loadingStatus.value = 'more'
+        pageNum.value = 0
+        list.value = []
+        await loadMore()
+    }
+    /**
+     * 加载更多
+     * @returns 
+     */
+    async function loadMore() {
+        if (loadingStatus.value == &quot;loading&quot; || loadingStatus.value == &quot;noMore&quot;) {
+            return;
+        }
+        loadingStatus.value = &quot;loading&quot;;
+        try {
+            // start 调接口，执行逻辑
+            console.log(pageNum.value)
+            let res = (await getDynamiclist({
+                pageNum: pageNum.value + 1,
+                pageSize: pageSize.value,
+                account: account
+            })).data
+            if (res.list) {
+                list.value = list.value.concat(res.list.map(item =&gt; {
+                    return {
+                        ...item,
+                        isSelf: item.account === account
+                    }
+                }));
+                pageNum.value += 1
+            }
+            // end
+            // 判断当前加载的数量是否等于总数
+            if (pageNum.value == 1) {
+                total.value = Number(res.total)
+            }
+            if (list.value.length &lt; total.value) {
+                loadingStatus.value = &quot;more&quot;;
+            } else {
+                loadingStatus.value = &quot;noMore&quot;;
+            }
+        } catch (e) {
+            loadingStatus.value = &quot;more&quot;;
+            pageNum.value--
+            console.error(e)
+        }
+    }
+    /**
+     * 监听是否滚动到底部
+     */
+    function scrollHandle() {
+        const clientHeight = dom.value.clientHeight;
+        const scrollTop = dom.value.scrollTop;
+        const scrollHeight = dom.value.scrollHeight;
+        if (clientHeight + scrollTop === scrollHeight) {
+            loadMore()
+        }
+    }
+    function listenerScroll() {
+        dom.value.addEventListener('scroll', scrollHandle)
+    }
+    /**
+     * 移除监听
+     */
+    onUnmounted(() =&gt; {
+        dom.value.removeEventListener('scroll', scrollHandle)
+    })
+    return {
+        list,
+        loadingStatus
+    };
+}
+</code></pre>
+
+            </div>
+            <div class="toc-container">
+              <ul class="markdownIt-TOC">
+<li><a href="#%E5%B0%81%E8%A3%85%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E7%9A%84hook">封装增删改查的hook</a>
+<ul>
+<li><a href="#1-usedatats">1. useData.ts</a></li>
+<li><a href="#2-usedeletets">2. useDelete.ts</a></li>
+<li><a href="#3-usesearchts">3. useSearch.ts</a></li>
+<li><a href="#4-useupdatets">4. useUpdate.ts</a></li>
+<li><a href="#%E5%9C%A8%E9%A1%B5%E9%9D%A2%E4%B8%AD%E5%BC%95%E5%85%A5">在页面中引入</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E5%BC%B9%E7%AA%97%E6%A8%A1%E6%9D%BF">基本弹窗模板</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E9%A1%B5">分页</a></li>
+</ul>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href="https://qin_hu.gitee.io/blog/post/pinia-ji-ben-shi-yong/">
+          <h3 class="post-title">
+            vue生态 - Pinia基本使用
+          </h3>
+        </a>
+      </div>
+      
+
+      
+
+      <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://qin_hu.gitee.io/blog//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+<div id="backtop">
+    <a href="#backtop" class="backTop" title="回到顶部">
+        <svg t="1702280870845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5528" width="50" height="50">
+            <path
+                d="M679.936 482.176l0.32-0.32-157.44-157.44c-6.912-6.912-18.112-6.912-25.024 0L342.4 479.872 342.592 480c-10.88 11.776-6.208 34.624 10.816 51.648s39.872 21.632 51.648 10.816L405.12 542.592l62.336-62.336 0 195.648c0 24 19.392 43.52 43.392 43.52s43.392-19.52 43.392-43.52L554.24 481.28l61.696 61.696c0.064 0.064 0.064 0.064 0.128 0.128l0.128 0.064 1.408 1.408 0.192-0.192c12.032 9.728 33.984 4.928 50.56-11.584C684.8 516.16 689.6 494.208 679.936 482.176z"
+                fill="#8F9EB230" p-id="5529"></path>
+            <path
+                d="M512 64C264.576 64 64 264.576 64 512s200.576 448 448 448c247.36 0 448-200.64 448-448S759.36 64 512 64zM512 864.256c-194.56 0-352.192-157.76-352.192-352.256C159.808 317.504 317.44 159.808 512 159.808c194.496 0 352.192 157.696 352.192 352.192C864.192 706.496 706.496 864.256 512 864.256z"
+                fill="#8F9EB230" p-id="5530"></path>
+        </svg>
+    </a>
+</div>
+<style>
+.backTop {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  text-align: center;
+  line-height: 50px;
+  transition: .5s ease-in-out;
+
+}
+
+.backTop:hover {
+  transform: translateY(15px);
+}
+
+#backtop {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  opacity: 0;
+}
+</style>
+<script>
+    const bodyDom = document.querySelector('body')
+    const backTopDom = document.querySelector('#backtop')
+    document.addEventListener('scroll', (e) => {
+        // console.log(bodyDom.scrollTop)
+        if (bodyDom.scrollTop > 3550) {
+            backTopDom.style.opacity = 1
+        } else {
+            backTopDom.style.opacity = 0
+        }
+    })
+</script>
+      <!-- <div class="theme">
+    <input class="switch-input" id="theme-switch" type="checkbox">
+    <label class="switch-control" for="theme-switch"></label>
+    <div class="container"></div>
+</div>
+ -->
+    </div>
+  </div>
+
+  <script>
+    // hljs.initHighlightingOnLoad()
+    // hljs.highlightAll();
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
